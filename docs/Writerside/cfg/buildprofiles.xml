@@ -11,5 +11,10 @@
             <custom-css>custom.css</custom-css>
         </variables>
     </build-profile>
+    <build-profile instance="t">
+        <variables>
+            <noindex-content>true</noindex-content>
+        </variables>
+    </build-profile>
 
 </buildprofiles>

@@ -3,16 +3,9 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="pdp"
-                 name="Propuesta de proyecto"
-                 start-page="starter-topic.md">
+                  name="Propuesta de proyecto"
+                  start-page="starter-topic.md">
 
     <toc-element topic="starter-topic.md">
-    </toc-element>
-    <toc-element topic="Propuesta-técnica.md">
-        <toc-element topic="Pagina-inicio.md"/>
-        <toc-element topic="Perfil.md"/>
-        <toc-element topic="Link.md"/>
-        <toc-element topic="Linktree.md"/>
-        <toc-element topic="login-registro.md"/>
     </toc-element>
 </instance-profile>

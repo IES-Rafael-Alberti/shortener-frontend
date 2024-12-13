@@ -1,0 +1,3 @@
+# About tech
+
+Start typing here...
