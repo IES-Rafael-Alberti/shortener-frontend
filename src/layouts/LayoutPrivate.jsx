@@ -1,11 +1,17 @@
-import { Outlet } from "react-router"
+import { Navigate, Outlet } from "react-router"
+import useUserStore from "../stores/useUserStore"
 
 const LayoutPrivate = () => {
+    const user = useUserStore((state) => state.user);
 
-  return (
-    <div>
-      <Outlet />        
-    </div>
+    if (!user.email) {
+        return <Navigate to="/login" replace />
+    }
+
+    return (
+        <div>
+          <Outlet />        
+        </div>
   )
 }
 

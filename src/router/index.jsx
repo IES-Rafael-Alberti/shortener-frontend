@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
                 element: <Suspense fallback={<div>Loading...</div>}><UserProfile /></Suspense>
             },
             {
-                path: "linkPage",  // Aquí se arregla el path
+                path: "linkPage/:id",  // Aquí se arregla el path
                 element: <Suspense fallback={<div>Loading...</div>}><LinkPage /></Suspense>
             }
         ]
