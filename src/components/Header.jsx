@@ -1,33 +1,55 @@
 import { NavLink, useNavigate } from 'react-router';
 import logo from '../assets/ShortenerLogo.png';
 import useUserStore from '../stores/useUserStore';
+import { useState } from 'react';
+
 const Header = () => {
     const user = useUserStore((state) => state.user);
     const logout = useUserStore((state) => state.logout);
     const navigate = useNavigate();
+    const [theme, setTheme] = useState("light");
+
+    const toggleMode = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+        localStorage.setItem("theme", newTheme);
+    };
 
     return (
         <header className="header">
             <figure className="header__branding">
                 <img src={logo} alt='Logo Shortener' className='branding__logo'></img>
                 <figcaption>
-                    <NavLink to="/" className="branding__name"></NavLink>
+                    <NavLink to="/" className="branding__name">Shortener</NavLink>
                 </figcaption>
             </figure>
 
-            <section className='header__auth'>
-                {!user.email ? (
-                    <>
-                        <button className='auth__login' onClick={() => navigate('/login')}>Login</button>
-                        <button className='auth__register' onClick={() => navigate('/register')}>Registro</button>
-                    </>
-                ):
-                (
-                    <>
-                        <NavLink to="/userProfile" className="auth__userName">{user?.email}</NavLink>
-                        <button className="auth__logOut" onClick={logout}>Logout</button>
-                    </>
-                )}
+            <section className='header__rightSide'>
+                <article className='rightSide__themeToggle'>
+                    <label className="themeToggle__switch">
+                        <input
+                            type="checkbox"
+                            checked={theme === "dark"}
+                            onChange={toggleMode}
+                        />
+                        <span className="themeToggle__slider"></span>
+                    </label>
+                </article>
+
+                <article className='rightSide__auth'>
+                    {!user.email ? (
+                        <>
+                            <button className='auth__login' onClick={() => navigate('/login')}>Login</button>
+                            <button className='auth__register' onClick={() => navigate('/register')}>Registro</button>
+                        </>
+                    ):
+                    (
+                        <>
+                            <NavLink to="/userProfile" className="auth__userName">{user?.email}</NavLink>
+                            <button className="auth__logOut" onClick={logout}>Logout</button>
+                        </>
+                    )}
+                </article>
             </section>
         </header>
     );
