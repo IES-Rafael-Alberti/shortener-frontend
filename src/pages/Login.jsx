@@ -73,7 +73,6 @@ const Login = () => {
             onBlur={handlerBlur} 
           />
           {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-        </div>
 
         <label>Contraseña</label>
         
@@ -91,6 +90,7 @@ const Login = () => {
         <button type="submit" disabled={errors.email || errors.password}>
           Acceso
         </button>
+        </div>
       </form>
     </div>
   );
