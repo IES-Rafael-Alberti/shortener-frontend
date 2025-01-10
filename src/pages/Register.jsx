@@ -9,6 +9,7 @@ const Register = () => {
   const login = useUserStore((state) => state.login);
 
   const [datos, setDatos] = useState({
+    name: "",
     email: "",
     password: ""
   });
@@ -41,6 +42,7 @@ const Register = () => {
   const handlerBlur = (e) => {
     const { name, value } = e.target;
 
+    if (name === "")
     if (name === "email" && !emailRegex.test(value)) {
       setErrors({
         ...errors,
@@ -76,6 +78,17 @@ const Register = () => {
       <h2>Registro de Usuario</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          <input
+            type='text'
+            placeholder='Nombre'
+            id="name"
+            name='name'
+            value={datos.name}
+            onChange={handlerChange}
+            onBlur={handlerBlur}
+          />
+          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+
           <input
             type="text"
             placeholder="Correo electrónico"
