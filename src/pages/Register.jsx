@@ -3,12 +3,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, loginFirebase } from "../config/firebase";
 import Swal from "sweetalert2";
 import useUserStore from "../stores/useUserStore";
+import { Link } from 'react-router';
 
 const Register = () => {
 
   const login = useUserStore((state) => state.login);
 
   const [datos, setDatos] = useState({
+    name: "",
     email: "",
     password: ""
   });
@@ -41,6 +43,7 @@ const Register = () => {
   const handlerBlur = (e) => {
     const { name, value } = e.target;
 
+    if (name === "")
     if (name === "email" && !emailRegex.test(value)) {
       setErrors({
         ...errors,
@@ -73,9 +76,23 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Registro de Usuario</h2>
+      <h2>Formulario de Registro</h2>
       <form onSubmit={handleSubmit}>
         <div>
+
+          <label>Nombre</label>
+          <input
+            type='text'
+            placeholder='Nombre'
+            id="name"
+            name='name'
+            value={datos.name}
+            onChange={handlerChange}
+            onBlur={handlerBlur}
+          />
+          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+
+          <label>Correo Electrónico</label>
           <input
             type="text"
             placeholder="Correo electrónico"
@@ -86,8 +103,6 @@ const Register = () => {
             onBlur={handlerBlur} 
           />
           {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-        </div>
-        <div>
           <input
             type="password"
             placeholder="Contraseña"
@@ -98,8 +113,13 @@ const Register = () => {
             onBlur={handlerBlur} 
           />
           {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+        
+          <p>¿Ya tienes una cuenta? <Link to="/login">Entra aquí</Link></p>
+
+          <button type="submit" disabled={errors.email || errors.password}>Registro</button>
+
         </div>
-        <button type="submit" disabled={errors.email || errors.password}>Registrarse</button>
+        
       </form>
     </div>
   );

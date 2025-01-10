@@ -1,5 +1,6 @@
 @use './components/header';
 @use './components/footer';
+@use './pages/home';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
@@ -44,7 +45,7 @@
     --color-txt: var(--color-palette-White);
     --color-contrast-txt: var(--color-palette-Black);
     
-    --color-light-txt: var(--color-palette-Gray);
+    --color-light-txt: var(--color-palette-White);
     --color-contrast-light-txt: var(--color-palette-White);
 
     --color-btn: var(--color-palette-Crimson);
@@ -71,9 +72,4 @@
 
 body {
     font-family: "Inter", serif;
-}
-
-main {
-    min-height: 80vh;
-    width: 100vw;
 }
