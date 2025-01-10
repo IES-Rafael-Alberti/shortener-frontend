@@ -3,10 +3,11 @@ import { useState } from 'react';
 import useUserStore from '../stores/useUserStore';
 import { loginFirebase } from '../config/firebase';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const Login = () => {
   const login = useUserStore((state) => state.login); // Acción para iniciar sesión
-  
+
   const [datos, setDatos] = useState({
     email: "",
     password: ""
@@ -59,9 +60,10 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Iniciar Sesión</h2>
+      <h2>Formulario de Inicio de Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          <label>Correo Electronico</label>
           <input
             type="text"
             placeholder="Correo electrónico"
@@ -72,7 +74,9 @@ const Login = () => {
           />
           {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
-        <div>
+
+        <label>Contraseña</label>
+        
           <input
             type="password"
             placeholder="Contraseña"
@@ -82,9 +86,10 @@ const Login = () => {
             onBlur={handlerBlur} 
           />
           {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-        </div>
+        
+          <p>¿No tienes una cuenta? <Link to="/register">Entra aquí</Link></p> 
         <button type="submit" disabled={errors.email || errors.password}>
-          Entrar
+          Acceso
         </button>
       </form>
     </div>
