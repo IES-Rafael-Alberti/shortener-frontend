@@ -1,0 +1,75 @@
+@use './components/header';
+@use './components/footer';
+@use './pages/home';
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --color-white: white;
+    --color-black: #242424;
+
+    --color-palette-Black: #171717;
+    --color-palette-White: #EDEDED;
+    --color-palette-Crimson: #DA0037;
+    --color-palette-Burgundy: #620019;
+    --color-palette-Gray: #444444;
+}
+[data-theme="light"] {
+    --color-bg: var(--color-white);
+    --color-contrast: var(--color-palette-Black);
+
+    --color-txt: var(--color-palette-Black);
+    --color-contrast-txt: var(--color-palette-White);
+    
+    --color-light-txt: var(--color-palette-Gray);
+    --color-contrast-light-txt: var(--color-palette-White);
+
+    --color-btn: var(--color-palette-Crimson);
+    --color-contrast-btn: var(--color-palette-White);
+    --color-contrast-big-btn: var(--color-palette-Burgundy);
+
+    //Header
+    --color-header: var(--color-palette-Black);
+    --color-tittle: var(--color-palette-White);
+
+    // Claro/Oscuro
+    --color-toggle-bg: var(--color-palette-White);
+    --color-toggle-slider: var(--color-palette-Gray);
+    --color-toggle-slider-checked: var(--color-palette-Crimson);
+    --color-toggle-border: var(--color-palette-Gray);
+}
+
+[data-theme="dark"] {
+    --color-bg: var(--color-black);
+    --color-contrast: var(--color-palette-White);
+
+    --color-txt: var(--color-palette-White);
+    --color-contrast-txt: var(--color-palette-Black);
+    
+    --color-light-txt: var(--color-palette-White);
+    --color-contrast-light-txt: var(--color-palette-White);
+
+    --color-btn: var(--color-palette-Crimson);
+    --color-contrast-btn: var(--color-palette-White);
+    --color-contrast-big-btn: var(--color-palette-Burgundy);
+
+    //Header
+    --color-header: var(--color-palette-Black);
+    --color-tittle: var(--color-palette-White);
+
+    // Claro/Oscuro
+    --color-toggle-bg: var(--color-palette-Black);
+    --color-toggle-slider: var(--color-palette-White);
+    --color-toggle-slider-checked: var(--color-palette-Crimson);
+    --color-toggle-border: var(--color-palette-White);
+}
+
+//General reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", serif;
+}
