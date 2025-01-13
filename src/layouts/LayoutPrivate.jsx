@@ -1,5 +1,7 @@
 import { Navigate, Outlet } from "react-router"
 import useUserStore from "../stores/useUserStore"
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 const LayoutPrivate = () => {
     const user = useUserStore((state) => state.user);
@@ -9,10 +11,12 @@ const LayoutPrivate = () => {
     }
 
     return (
-        <div>
-          <Outlet />        
-        </div>
-  )
+      <>
+          <Header />
+          <Outlet />
+          <Footer />
+      </>
+    )
 }
 
 export default LayoutPrivate
