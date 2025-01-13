@@ -1,15 +1,18 @@
 import { useParams } from "react-router";
 import { useState } from "react";
+// Se importa la librería QRCode para generar los códigos QR
+// Librería añadida para generar códigos QR
+import { QRCodeSVG } from "qrcode.react";
 
 const LinkPage = () => {
   const { id } = useParams();
 
+  // Si el ID no es igual a "1", mostramos un mensaje indicando que la API no está funcional.
   if (id !== "1") {
     return <div>La API no está todavía funcional</div>;
   }
 
-  // Datos iniciales del enlace
-  // Falta la peticion a la api por el id
+  // Estado para manejar los datos del enlace
   const [enlace, setEnlace] = useState({
     id: 1,
     nombre: "Google",
@@ -20,15 +23,16 @@ const LinkPage = () => {
       semana3: 380,
       semana4: 370
     },
-    enlaceAcortado: "https://bit.ly/google-link",
-    qr: null
+    enlaceAcortado: "https://es.wikipedia.org/wiki/Roma", // Enlace acortado
+    qr: null // Inicialmente el QR está en null (no generado)
   });
 
+  // Función para generar el código QR cuando el usuario hace clic en el botón
   const handlerGenerarEnlace = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
     setEnlace({
-      ...enlace,
-      qr: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png"
+      ...enlace, // Mantenemos los otros datos del enlace
+      qr: enlace.enlaceAcortado // Establecemos el enlace acortado como valor del QR
     });
   };
 
@@ -44,9 +48,12 @@ const LinkPage = () => {
         <li>Semana 3: {enlace.estadisticas.semana3}</li>
         <li>Semana 4: {enlace.estadisticas.semana4}</li>
       </ul>
+      {/* Verificamos si el enlace tiene un QR generado */}
       {enlace.qr ? (
-        <img src={enlace.qr} alt="QR" />
+        // Si ya tiene un QR generado, lo mostramos
+        <QRCodeSVG value={enlace.qr} size={256} /> // Se pasa el enlace acortado al componente QRCode
       ) : (
+        // Si no tiene QR generado, mostramos un botón para generarlo
         <button onClick={handlerGenerarEnlace}>Generar enlace</button>
       )}
     </div>
