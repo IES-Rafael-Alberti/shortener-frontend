@@ -35,7 +35,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--color-palette-white);
+            background-color: var(--color-header);
             border: none;
             color: var(--color-txt);
             border-radius: 5%;
@@ -105,7 +105,36 @@
 
                 color: var(--color-contrast-txt);
                 margin-right: 5%;
-            } & :hover {
+            }
+            
+            .auth__login:hover, .auth__register:hover {
+                border: solid 1px var(--color-palette-Black);
+                background-color: var(--color-contrast-btn);
+                color: var(--color-txt);
+            }
+
+            .auth__userName {
+                display: flex;
+                flex-wrap: wrap;
+                color: var(--color-palette-White);
+                text-decoration: none;
+                align-content: center;
+                padding-right: 10%;
+            }
+    
+            .auth__logOut {
+                background-color: var(--color-btn);
+                width: 70%;
+                padding: 6% 0 6% 0;
+    
+                border: solid 1px var(--color-btn);
+                border-radius: 8px;
+    
+                color: var(--color-contrast-txt);
+                margin-right: 5%;
+            }
+    
+            .auth__logOut:hover {
                 border: solid 1px var(--color-palette-Black);
                 background-color: var(--color-contrast-btn);
                 color: var(--color-txt);
