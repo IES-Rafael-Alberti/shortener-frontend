@@ -59,40 +59,57 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Formulario de Inicio de Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Correo Electronico</label>
-          <input
-            type="text"
-            placeholder="Correo electrónico"
-            name="email"
-            value={datos.email}
-            onChange={handlerChange}
-            onBlur={handlerBlur} 
-          />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+    <main className='login'>
+      <h2 className='login__title'>Formulario de Inicio de Sesión</h2>
+      
+      <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
+        <fieldset className='form__fieldset'>
+          <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
+          
+          
+          <label className='fieldset__label'>Correo Electronico
+            
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              name="email"
+              value={datos.email}
+              onChange={handlerChange}
+              onBlur={handlerBlur}
+              className='label__input'
+              aria-invalid={errors.email ? "true" : "false"}
+              aria-describedby="email-error" 
+            />
+            {errors.email && <p id='email-error' className='label__error' role='alert'>{errors.email}</p>}
+          </label>
 
-        <label>Contraseña</label>
-        
-          <input
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            value={datos.password}
-            onChange={handlerChange}
-            onBlur={handlerBlur} 
-          />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-        
-          <p>¿No tienes una cuenta? <Link to="/register">Entra aquí</Link></p> 
-        <button type="submit" disabled={errors.email || errors.password}>
-          Acceso
-        </button>
-        </div>
+          <label className='fieldset__label'>Contraseña
+          
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="password"
+              value={datos.password}
+              onChange={handlerChange}
+              onBlur={handlerBlur}
+              className='label__input'
+              aria-invalid={errors.password ? "true" : "false"}
+              aria-describedby="password-error" 
+            />
+            {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
+          </label>
+
+          <span className='fieldset__signup'>
+            <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register" className='link'>Entra aquí</Link></p> 
+            
+            <button type="submit" className='signup__submit' disabled={errors.email || errors.password}>
+              Acceso
+            </button>
+          </span>
+
+        </fieldset>
       </form>
-    </div>
+    </main>
   );
 };
 
