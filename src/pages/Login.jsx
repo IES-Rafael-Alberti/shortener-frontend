@@ -1,4 +1,3 @@
-// Login.js
 import { useState } from 'react';
 import useUserStore from '../stores/useUserStore';
 import { loginFirebase } from '../config/firebase';
@@ -22,6 +21,8 @@ const Login = () => {
     email: "",
     password: ""
   });
+
+  const [isFormValid, setIsFormValid] = useState(false); 
 
   // Expresiones regulares
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
@@ -51,6 +52,13 @@ const Login = () => {
         [name]: ""
       });
     }
+
+    // Comprobar si el formulario es válido
+    if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
   };
 
   const recaptchaRef = React.createRef();
@@ -58,22 +66,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
       const recaptchaValue = recaptchaRef.current.getValue();
+      // Asegúrate de que el recaptcha no esté vacío antes de proceder
       if (!recaptchaValue) {
-        Swal.fire("Error", "Por favor completa el reCAPTCHA", "error");
+        Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
         return;
       }
-      const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
       login({ email: datos.email, id: userFirebase.user.uid }); // Guardar el usuario en el estado global
-      
     } catch (error) {
       Swal.fire("Error", error.message, "error");
+      setIsFormValid(false);
     }
   };
-  
+
   if (user.email) {
-    return <Navigate to="/" replace />
-}
+    return <Navigate to="/userProfile" replace />;
+  }
+
 
   return (
     <main className='login'>
@@ -82,7 +92,6 @@ const Login = () => {
       <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
         <fieldset className='form__fieldset'>
           <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
-          
           
           
           <label className='fieldset__label'>Correo Electronico
@@ -117,15 +126,18 @@ const Login = () => {
             {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
           </label>
 
-          <ReCAPTCHA
-        ref={recaptchaRef}
-        sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
-      />
+          {/* Mostrar el reCaptcha solo si el formulario es válido */}
+          {isFormValid && (
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+            />
+          )}
 
           <span className='fieldset__signup'>
             <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register" className='link'>Entra aquí</Link></p> 
             
-            <button type="submit" className='signup__submit' disabled={errors.email || errors.password}>
+            <button type="submit" className='signup__submit' disabled={!isFormValid}>
               Acceso
             </button>
           </span>
