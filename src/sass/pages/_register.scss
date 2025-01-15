@@ -1,0 +1,102 @@
+.register {
+    height: 78.3vh;
+    background-color: var(--color-bg);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .register__title {
+        color: var(--color-light-txt);
+        font-weight: 300;
+        font-size: 3rem;
+
+        padding-bottom: 2%;
+    }
+
+    .register__form {
+        padding: 1%;
+        width: 35%;
+        min-height: 33%;
+
+        background-color: var(--color-palette-Black);
+        border-radius: 16px;
+
+        color: var(--color-palette-White);
+
+        .form__fieldset {
+            display: flex;
+            flex-direction: column;
+
+            border: none;
+
+            .visually-hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                overflow: hidden;
+            }
+
+            .fieldset__label {
+                display: flex;
+                flex-direction: column;
+
+                margin-bottom: 2%;
+                font-size: 1.5rem;
+
+                .label__input {
+                    margin-top: 1%;
+                    padding: 0.5%;
+
+                    font-size: 1.5rem;
+                    border-radius: 8px;
+                }
+
+                .label__error {
+                    font-size: 1.3rem;
+                    padding-top: 2%;
+                    color: var(--color-palette-Crimson);
+                }
+            }
+
+            .fieldset__register {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 2%;
+
+                .register__registerLink {
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                
+                    .link {
+                        color: var(--color-palette-Crimson);
+                        text-decoration: none;
+                    }
+                }
+    
+                .register__submit {
+                    padding: 2% 0 2% 0;
+                    width: 25%;
+                    font-size: 1.2rem;
+
+                    background-color: var(--color-btn);
+                    border: none;
+                    border-radius: 8px;
+
+                    color: var(--color-palette-White);
+                }
+
+                .register__submit:hover {
+                    background-color: var(--color-contrast-btn);
+                    color: var(--color-palette-Black);
+                }
+            }
+        }
+    }
+}
