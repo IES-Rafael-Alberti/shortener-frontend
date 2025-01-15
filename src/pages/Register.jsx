@@ -4,13 +4,17 @@ import { auth, loginFirebase } from "../config/firebase";
 import Swal from "sweetalert2";
 import useUserStore from "../stores/useUserStore";
 import { Link } from 'react-router';
+import React from 'react';
+import { Navigate } from 'react-router';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Register = () => {
 
   const login = useUserStore((state) => state.login);
 
+  const user = useUserStore((state) => state.user);
+
   const [datos, setDatos] = useState({
-    name: "",
     email: "",
     password: ""
   });
@@ -19,6 +23,8 @@ const Register = () => {
     email: "",
     password: ""
   });
+
+  const [isFormValid, setIsFormValid] = useState(false); 
 
   // Expresiones regulares
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
@@ -34,10 +40,8 @@ const Register = () => {
   };
 
   const handlerChange = (e) => {
-    setDatos({
-      ...datos,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setDatos({ ...datos, [name]: value });
   };
 
   const handlerBlur = (e) => {
@@ -55,23 +59,41 @@ const Register = () => {
       });
     } else {
       setErrors({
-        ...errors,
+        ...errors, 
         [name]: ""
       });
     }
+
+    if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
   };
+
+  const recaptchaRef = React.createRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await createUserWithEmailAndPassword(auth, datos.email, datos.password);
       const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
-      login({ email: datos.email, id: userFirebase.user.uid }); 
+      const recaptchaValue = recaptchaRef.current.getValue();
+      // Asegúrate de que el recaptcha no esté vacío antes de proceder
+      if (!recaptchaValue) {
+        Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
+        return;
+      }
+      login({ email: datos.email, id: userFirebase.user.uid }); // Guardar el usuario en el estado global
     } catch (error) {
-      showError(error.message); 
+      Swal.fire("Error", error.message, "error");
+      setIsFormValid(false);
     }
   };
+
+  if (user.email) {
+    return <Navigate to="/userProfile" replace />;
+  }
 
   return (
     <main className='register'>
@@ -113,6 +135,13 @@ const Register = () => {
           />
           {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
         </label>
+
+        {isFormValid && (
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+            />
+          )}
 
         <span className='fieldset__register'>
           <p className='register__registerLink'>¿Ya tienes una cuenta? <Link to="/login" className='link'>Entra aquí</Link></p> 

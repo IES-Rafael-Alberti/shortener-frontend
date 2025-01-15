@@ -8,7 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Navigate } from 'react-router';
 
 const Login = () => {
-  const login = useUserStore((state) => state.login); // Acción para iniciar sesión
+  const login = useUserStore((state) => state.login);
 
   const user = useUserStore((state) => state.user);
 
