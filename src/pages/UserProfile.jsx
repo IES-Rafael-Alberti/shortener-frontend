@@ -55,21 +55,43 @@ const UserProfile = () => {
   ];
 
   return (
-    <div>      
-      <h3>{user.email}</h3>
+      <main className="userProfile">
+        <span className="container">
+          <h1 className="userProfile__title">Perfil del usuario</h1>
+          <section aria-labelledby="user-email" className="userProfile__user">
+            <h2 className="user__user" id="user-email">{user.email}</h2>
+          </section>
+        </span>
+      
+        <section aria-labelledby="user-links" className="userProfile__links">
+          <h2 id="user-links" className="links__title">Mis enlaces</h2>
+          <ul className="links__list">
+            {enlaces.map((enlace) => (
+              <li className="list__element" key={enlace.id}>
+                <h3 className="element__name">{enlace.nombre}</h3>
 
-      <div>
-        <h2>Mis enlaces</h2>
-        <ul>
-        {enlaces.map((enlace) =>(
-          <li key={enlace.id}>
-            <h3>{enlace.nombre}</h3>
-            <button onClick={() => handleRedirect(enlace.id)}>Consultar</button>
-          </li>
-        ))}
-        </ul>
-      </div>
-    </div>
+                <span className="buttons">
+                  <button 
+                    className="element__button"
+                    onClick={() => handleRedirect(enlace.id)} 
+                    aria-label={`Consultar el enlace ${enlace.nombre}`}
+                  >
+                    Consultar
+                  </button>
+
+                  <button 
+                    className="element__buttonPort"
+                    onClick={() => navigate("/portfolio")} 
+                    aria-label={`Consultar el enlace ${enlace.nombre}`}
+                  >
+                    Añadir al portfolio
+                  </button>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>    
   )
 }
 
