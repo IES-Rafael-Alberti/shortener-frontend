@@ -43,7 +43,6 @@ const Register = () => {
   const handlerBlur = (e) => {
     const { name, value } = e.target;
 
-    if (name === "")
     if (name === "email" && !emailRegex.test(value)) {
       setErrors({
         ...errors,
@@ -75,53 +74,57 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Formulario de Registro</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-
-          <label>Nombre</label>
+    <main className='register'>
+    <h2 className='register__title'>Formulario de Registro</h2>
+    
+    <form className='register__form' onSubmit={handleSubmit} aria-labelledby='register-title'>
+      <fieldset className='form__fieldset'>
+        <legend className='visually-hidden'>Formulario de Registro</legend>
+        
+        
+        <label className='fieldset__label'>Correo Electronico
+          
           <input
-            type='text'
-            placeholder='Nombre'
-            id="name"
-            name='name'
-            value={datos.name}
-            onChange={handlerChange}
-            onBlur={handlerBlur}
-          />
-          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
-
-          <label>Correo Electrónico</label>
-          <input
-            type="text"
+            type="email"
             placeholder="Correo electrónico"
-            id="email"
             name="email"
             value={datos.email}
             onChange={handlerChange}
-            onBlur={handlerBlur} 
+            onBlur={handlerBlur}
+            className='label__input'
+            aria-invalid={errors.email ? "true" : "false"}
+            aria-describedby="email-error" 
           />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          {errors.email && <p id='email-error' className='label__error' role='alert'>{errors.email}</p>}
+        </label>
+
+        <label className='fieldset__label'>Contraseña
+      
           <input
             type="password"
             placeholder="Contraseña"
-            id="password"
             name="password"
             value={datos.password}
             onChange={handlerChange}
-            onBlur={handlerBlur} 
+            onBlur={handlerBlur}
+            className='label__input'
+            aria-invalid={errors.password ? "true" : "false"}
+            aria-describedby="password-error" 
           />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-        
-          <p>¿Ya tienes una cuenta? <Link to="/login">Entra aquí</Link></p>
+          {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
+        </label>
 
-          <button type="submit" disabled={errors.email || errors.password}>Registro</button>
-
-        </div>
+        <span className='fieldset__register'>
+          <p className='register__registerLink'>¿Ya tienes una cuenta? <Link to="/login" className='link'>Entra aquí</Link></p> 
         
-      </form>
-    </div>
+          <button type="submit" className='register__submit' disabled={errors.email || errors.password}>
+            Acceso
+          </button>
+        </span>
+
+      </fieldset>
+    </form>
+  </main>
   );
 };
 
