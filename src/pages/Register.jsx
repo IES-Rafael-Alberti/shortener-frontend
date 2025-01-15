@@ -30,15 +30,6 @@ const Register = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
   const passwordRegex = /^[A-Za-z0-9]{6,}$/;
 
-  const showError = (mensaje) => {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: mensaje,
-      confirmButtonText: "Aceptar"
-    });
-  };
-
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setDatos({ ...datos, [name]: value });
