@@ -4,9 +4,14 @@ import useUserStore from '../stores/useUserStore';
 import { loginFirebase } from '../config/firebase';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
+import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
+import { Navigate } from 'react-router';
 
 const Login = () => {
   const login = useUserStore((state) => state.login); // Acción para iniciar sesión
+
+  const user = useUserStore((state) => state.user);
 
   const [datos, setDatos] = useState({
     email: "",
@@ -48,15 +53,27 @@ const Login = () => {
     }
   };
 
+  const recaptchaRef = React.createRef();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const recaptchaValue = recaptchaRef.current.getValue();
+      if (!recaptchaValue) {
+        Swal.fire("Error", "Por favor completa el reCAPTCHA", "error");
+        return;
+      }
       const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
       login({ email: datos.email, id: userFirebase.user.uid }); // Guardar el usuario en el estado global
+      
     } catch (error) {
       Swal.fire("Error", error.message, "error");
     }
   };
+  
+  if (user.email) {
+    return <Navigate to="/" replace />
+}
 
   return (
     <main className='login'>
@@ -65,6 +82,7 @@ const Login = () => {
       <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
         <fieldset className='form__fieldset'>
           <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
+          
           
           
           <label className='fieldset__label'>Correo Electronico
@@ -98,6 +116,11 @@ const Login = () => {
             />
             {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
           </label>
+
+          <ReCAPTCHA
+        ref={recaptchaRef}
+        sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+      />
 
           <span className='fieldset__signup'>
             <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register" className='link'>Entra aquí</Link></p> 
