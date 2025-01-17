@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 // Librería añadida para generar códigos QR
 import { QRCodeSVG } from "qrcode.react";
 import linkVisits from "../data/link_visits_100.json";
+import links from "../data/links.json"
 
 const LinkPage = () => {
   const { id } = useParams();
 
   // Si el ID no es igual a "1", mostramos un mensaje indicando que la API no está funcional.
-  if (id !== "1") {
-    return <div>La API no está todavía funcional</div>;
-  }
+  
 
   const [estadisticas, setEstadisticas] = useState({
     ultimoMes: null,
@@ -22,15 +21,9 @@ const LinkPage = () => {
   });
 
   // Estado para manejar los datos del enlace
-  const [enlace, setEnlace] = useState({
-    id: 1,
-    shorter: "Google",
-    url: "https://es.wikipedia.org/wiki/Roma", // Enlace acortado
-    author: 1,
-    date: Date.parse("2024-10-17"),
-    linktree: false,
-    qr: null // Inicialmente el QR está en null (no generado)
-  });
+  const [enlace, setEnlace] = useState(() => links.filter((link) => link.id === id)[0]);
+
+  console.log(enlace)
 
   useEffect(() => {
     const visitsPage = linkVisits.filter((link) => link.link === enlace.url);
