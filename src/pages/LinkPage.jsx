@@ -90,6 +90,7 @@ const LinkPage = () => {
   };
 
   return (
+    /*
     <div>
       <h2>{enlace.nombre}</h2>
       <p>Enlace acortado: {enlace.enlaceAcortado}</p>
@@ -101,7 +102,7 @@ const LinkPage = () => {
         <li>Semana 3: {enlace.estadisticas.semana3}</li>
         <li>Semana 4: {enlace.estadisticas.semana4}</li>
       </ul>
-      {/* Verificamos si el enlace tiene un QR generado */}
+      {/* Verificamos si el enlace tiene un QR generado */ /*}
       {enlace.qr ? (
         // Si ya tiene un QR generado, lo mostramos
         <QRCodeSVG value={enlace.qr} size={256} /> // Se pasa el enlace acortado al componente QRCode
@@ -110,6 +111,39 @@ const LinkPage = () => {
         <button onClick={handlerGenerarEnlace}>Generar enlace</button>
       )}
     </div>
+    */
+    <main className="linkPage">
+      <h1 className="linkPage__title" id="enlace-title">{enlace.nombre}</h1>
+
+      <section className="linkPage__statistics" aria-labelledby="statistics-title">
+        <h2 id="statistics-title" className="statistics__title">Estadísticas</h2>
+        <span className="statistics__gridContainer">
+          <p className="statistics__shortenedLink">Enlace acortado: <a href={enlace.enlaceAcortado} target="_blank" rel="noopener noreferrer">{enlace.enlaceAcortado}</a></p>
+          <p className="statistics__item">Último mes: <span>{enlace.estadisticas.ultimoMes}</span></p>
+          <section className="statistics__chart" aria-labelledby="chart-title">
+            <h3 id="chart-title" className="chart__title">Gráfica de clics por semana</h3>
+            <Bar data={chartData} options={chartOptions} />
+          </section>
+          <section className="statistics__qr" aria-labelledby="qr-title">
+            <h2 id="qr-title" className="qr__title">Código QR</h2>
+            {enlace.qr ? (
+              <div className="qr__generated">
+                <QRCodeSVG value={enlace.qr} size={256}/>
+              </div>
+            ) : (
+              <button 
+                className="qr__generateButton" 
+                onClick={handlerGenerarEnlace} 
+                aria-describedby="qr-button"
+              >
+                Generar QR
+              </button>
+            )}
+            {!enlace.qr && <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>}
+          </section>
+        </span>
+      </section>
+    </main>
   );
 };
 
