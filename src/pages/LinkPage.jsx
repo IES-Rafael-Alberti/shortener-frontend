@@ -67,7 +67,7 @@ const LinkPage = () => {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
     setEnlace({
       ...enlace, // Mantenemos los otros datos del enlace
-      qr: enlace.url // Establecemos el enlace acortado como valor del QR
+      qr: true // Establecemos el enlace acortado como valor del QR
     });
   };
 
@@ -86,7 +86,7 @@ const LinkPage = () => {
       {/* Verificamos si el enlace tiene un QR generado */}
       {enlace.qr ? (
         // Si ya tiene un QR generado, lo mostramos
-        <QRCodeSVG value={enlace.qr} size={256} /> // Se pasa el enlace acortado al componente QRCode
+        <QRCodeSVG value={enlace.url} size={256} /> // Se pasa el enlace acortado al componente QRCode
       ) : (
         // Si no tiene QR generado, mostramos un botón para generarlo
         <button onClick={handlerGenerarEnlace}>Generar enlace</button>
