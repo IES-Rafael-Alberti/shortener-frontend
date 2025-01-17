@@ -21,33 +21,36 @@
         }
 
         .statistics__gridContainer {
+            margin-bottom: 2%;
             display: grid;
-            grid-template-rows: 1fr 4fr;
+            grid-template-rows: 0.4fr 1fr 4fr;
             grid-template-columns: 3fr 1fr 2fr;
             grid-template-areas: 
-                "link item qr"
+                "link link link"
+                "stats stats item"
                 "stats stats qr";
             gap: 1rem;
-    
+
             .statistics__shortenedLink {
                 grid-area: link;
-                width: 100%;
+                width: 96.8%;
                 padding: 2%;
                 border-radius: 8px;
-    
+
                 font-size: 1.5rem;
-    
+
                 background-color: var(--color-palette-Black);
                 color: var(--color-palette-White);
-    
+
                 a {
                     text-decoration: none;
                     color: var(--color-palette-Crimson);
                 }
             }
-    
+
             .statistics__item {
                 grid-area: item;
+                width: 90%;
                 background-color: var(--color-palette-Black);
                 border-radius: 8px;
                 color: var(--color-palette-White);
@@ -58,22 +61,30 @@
 
                 padding-left: 5%;
             }
-    
-            .statistics__list {
-                grid-area: stats;
+
+            .statistics__chart {
+                grid-area: stats; // Ubicación de la gráfica en la cuadrícula
                 display: flex;
-                list-style-type: none;
+                flex-direction: column;
+                align-items: center;
 
                 background-color: var(--color-palette-Black);
                 border-radius: 8px;
+                padding: 2%;
                 color: var(--color-palette-White);
-                font-size: 1.5rem;
-    
-                .list__item {
-                    
-                    span {
-                        color: var(--color-palette-Crimson);
-                    }
+
+                .chart__title {
+                    margin-bottom: 1rem;
+                    font-size: 1.8rem;
+                    font-weight: 400;
+                    text-align: center;
+                }
+
+                canvas {
+                    max-width: 80%;
+                    height: 40vh;
+                    border-radius: 8px;
+                    background-color: var(--color-bg);
                 }
             }
 
@@ -85,6 +96,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-content: center;
 
                 border-radius: 8px;
                 padding: 3%;
@@ -93,32 +105,37 @@
                 .qr__title {
                     font-weight: 400;
                     text-align: center;
-                    height: 80%;
+                    height: 10%;
                 }
-        
+
                 .qr__generated {
                     display: flex;
                     border: 5px solid var(--color-palette-White);
                     border-radius: 8px;
                     width: fit-content;
                 }
-        
-                .qr__generateButton {
-                    padding: 1% 4%;
 
-                    font-size: 1.5rem;
-                    background-color: var(--color-btn);
-                    border: none;
-                    border-radius: 8px;
-                    color: var(--color-palette-White);
-                }
+                span {
+                    display: flex;
+                    flex-direction: column;
 
-                .qr__generateButton:hover {
-                    background-color: var(--color-contrast-big-btn);
-                }
-        
-                .qr__description {
-                    padding-top: 1%;
+                    .qr__generateButton {
+                        padding: 1% 4%;
+    
+                        font-size: 1.5rem;
+                        background-color: var(--color-btn);
+                        border: none;
+                        border-radius: 8px;
+                        color: var(--color-palette-White);
+                    }
+    
+                    .qr__generateButton:hover {
+                        background-color: var(--color-contrast-big-btn);
+                    }
+    
+                    .qr__description {
+                        padding-top: 1%;
+                    }
                 }
             }
         }

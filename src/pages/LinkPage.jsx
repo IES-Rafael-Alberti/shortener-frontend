@@ -1,39 +1,117 @@
 import { useParams } from "react-router";
 import { useState } from "react";
 // Se importa la librería QRCode para generar los códigos QR
-// Librería añadida para generar códigos QR
 import { QRCodeSVG } from "qrcode.react";
+// Importamos componentes y configuración de react-chartjs-2
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+// Definimos el plugin personalizado
+const pluginBackground = {
+  id: "customCanvasBackgroundColor",
+  beforeDraw: (chart) => {
+    const ctx = chart.canvas.getContext("2d");
+    ctx.save();
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.fillStyle = "#171717"; // Fondo personalizado
+    ctx.fillRect(0, 0, chart.width, chart.height);
+    ctx.restore();
+  },
+};
+
+// Registramos los elementos necesarios y el plugin personalizado
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, pluginBackground);
 
 const LinkPage = () => {
   const { id } = useParams();
 
-  // Si el ID no es igual a "1", mostramos un mensaje indicando que la API no está funcional.
   if (id !== "1") {
     return <div>La API no está todavía funcional</div>;
   }
 
-  // Estado para manejar los datos del enlace
   const [enlace, setEnlace] = useState({
     id: 1,
     nombre: "Google",
     estadisticas: {
-      ultimoMes: 1500,
-      semana1: 400,
-      semana2: 350,
-      semana3: 380,
-      semana4: 370
+      ultimoMes: 6,
+      semana1: 1,
+      semana2: 1,
+      semana3: 3,
+      semana4: 1,
     },
-    enlaceAcortado: "https://es.wikipedia.org/wiki/Roma", // Enlace acortado
-    qr: null // Inicialmente el QR está en null (no generado)
+    enlaceAcortado: "https://es.wikipedia.org/wiki/Roma",
+    qr: null,
   });
 
-  // Función para generar el código QR cuando el usuario hace clic en el botón
   const handlerGenerarEnlace = (e) => {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    e.preventDefault();
     setEnlace({
-      ...enlace, // Mantenemos los otros datos del enlace
-      qr: enlace.enlaceAcortado // Establecemos el enlace acortado como valor del QR
+      ...enlace,
+      qr: enlace.enlaceAcortado,
     });
+  };
+
+  const chartData = {
+    labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
+    datasets: [
+      {
+        label: "Clicks por semana",
+        data: [
+          enlace.estadisticas.semana1,
+          enlace.estadisticas.semana2,
+          enlace.estadisticas.semana3,
+          enlace.estadisticas.semana4,
+        ],
+        backgroundColor: "#DA0037",
+        borderColor: "#620019",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: "top",
+        labels: {
+          color: "#EDEDED",
+          font: {
+            size:14,
+          }
+        }
+      },
+      title: {
+        display: false,
+        text: "Estadísticas semanales de clics",
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: "#EDEDED", // Cambia el color de las etiquetas del eje X
+        },
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: "#EDEDED",
+          callback: function (value) {
+            return Number.isInteger(value) ? value : Math.round(value);
+          },
+          stepSize: 100,
+        },
+      },
+    },
   };
 
   return (
@@ -45,12 +123,10 @@ const LinkPage = () => {
         <span className="statistics__gridContainer">
           <p className="statistics__shortenedLink">Enlace acortado: <a href={enlace.enlaceAcortado} target="_blank" rel="noopener noreferrer">{enlace.enlaceAcortado}</a></p>
           <p className="statistics__item">Último mes: <span>{enlace.estadisticas.ultimoMes}</span></p>
-          <ul className="statistics__list">
-            <li className="list__item">Semana 1: <span>{enlace.estadisticas.semana1}</span></li>
-            <li className="list__item">Semana 2: <span>{enlace.estadisticas.semana2}</span></li>
-            <li className="list__item">Semana 3: <span>{enlace.estadisticas.semana3}</span></li>
-            <li className="list__item">Semana 4: <span>{enlace.estadisticas.semana4}</span></li>
-          </ul>
+          <section className="statistics__chart" aria-labelledby="chart-title">
+            <h3 id="chart-title" className="chart__title">Gráfica de clics por semana</h3>
+            <Bar data={chartData} options={chartOptions} />
+          </section>
           <section className="statistics__qr" aria-labelledby="qr-title">
             <h2 id="qr-title" className="qr__title">Código QR</h2>
             {enlace.qr ? (
@@ -58,15 +134,17 @@ const LinkPage = () => {
                 <QRCodeSVG value={enlace.qr} size={256} aria-label={`Código QR para ${enlace.enlaceAcortado}`} />
               </div>
             ) : (
-              <button 
-                className="qr__generateButton" 
-                onClick={handlerGenerarEnlace} 
-                aria-describedby="qr-button"
-              >
-                Generar QR
-              </button>
+              <span>
+                <button 
+                  className="qr__generateButton" 
+                  onClick={handlerGenerarEnlace} 
+                  aria-describedby="qr-button"
+                >
+                  Generar QR
+                </button>
+                <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>
+              </span>
             )}
-            {!enlace.qr && <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>}
           </section>
         </span>
       </section>
