@@ -70,7 +70,10 @@
                 font-size: 1.5rem;
     
                 .list__item {
-    
+                    
+                    span {
+                        color: var(--color-palette-Crimson);
+                    }
                 }
             }
 
@@ -79,24 +82,43 @@
                 width: 90%;
                 background-color: var(--color-palette-Black);
 
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
                 border-radius: 8px;
                 padding: 3%;
                 color: var(--color-palette-White);
 
                 .qr__title {
                     font-weight: 400;
+                    text-align: center;
+                    height: 80%;
                 }
         
                 .qr__generated {
-        
+                    display: flex;
+                    border: 5px solid var(--color-palette-White);
+                    border-radius: 8px;
+                    width: fit-content;
                 }
         
                 .qr__generateButton {
-        
+                    padding: 1% 4%;
+
+                    font-size: 1.5rem;
+                    background-color: var(--color-btn);
+                    border: none;
+                    border-radius: 8px;
+                    color: var(--color-palette-White);
+                }
+
+                .qr__generateButton:hover {
+                    background-color: var(--color-contrast-big-btn);
                 }
         
                 .qr__description {
-        
+                    padding-top: 1%;
                 }
             }
         }

@@ -63,7 +63,7 @@ const LinkPage = () => {
                 onClick={handlerGenerarEnlace} 
                 aria-describedby="qr-button"
               >
-                Generar enlace
+                Generar QR
               </button>
             )}
             {!enlace.qr && <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>}
