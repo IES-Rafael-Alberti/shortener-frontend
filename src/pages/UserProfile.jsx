@@ -1,80 +1,51 @@
+import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
+import links from "../data/links.json";
 
 const UserProfile = () => {
-
   const user = useUserStore((state) => state.user);
-
   const navigate = useNavigate(); // Hook para navegación
+  const [enlaces, setEnlaces] = useState([]); // Inicializamos el estado como un array vacío
+
+  // Verificamos si el user está disponible antes de proceder
+  useEffect(() => {
+    if (user && user.id) {
+      const enlaces = links.filter((link) => link.author === user.id);
+      setEnlaces(enlaces);
+    }
+  }, [user]); // Recorremos los enlaces cuando el user cambia
 
   const handleRedirect = (id) => {
     navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
   };
 
-  //Aqui va la peticion a la API
-  const enlaces = [
-    {
-      id: 1,
-      nombre: "Google",
-      estadisticas: {
-        ultimoMes: 1500,
-        semana1: 400,
-        semana2: 350,
-        semana3: 380,
-        semana4: 370
-      },
-      enlaceAcortado: "https://bit.ly/google-link",
-      qr: null
-    },
-    {
-      id: 2,
-      nombre: "GitHub",
-      estadisticas: {
-        ultimoMes: 800,
-        semana1: 200,
-        semana2: 180,
-        semana3: 210,
-        semana4: 210
-      },
-      enlaceAcortado: "https://bit.ly/github-link",
-      qr: null
-    },
-    {
-      id: 3,
-      nombre: "YouTube",
-      estadisticas: {
-        ultimoMes: 2000,
-        semana1: 500,
-        semana2: 520,
-        semana3: 480,
-        semana4: 500
-      },
-      enlaceAcortado: "https://bit.ly/youtube-link",
-      qr: null
-    }
-  ];
+  if (!user) {
+    return <div>Cargando perfil...</div>; // Agregamos un mensaje de carga si el user no está disponible
+  }
 
   return (
-      <main className="userProfile">
-        <span className="container">
-          <h1 className="userProfile__title">Perfil del usuario</h1>
-          <section aria-labelledby="user-email" className="userProfile__user">
-            <h2 className="user__user" id="user-email">{user.email}</h2>
-          </section>
-        </span>
-      
-        <section aria-labelledby="user-links" className="userProfile__links">
-          <h2 id="user-links" className="links__title">Mis enlaces</h2>
+    <main className="userProfile">
+      <span className="container">
+        <h1 className="userProfile__title">Perfil del usuario</h1>
+        <section aria-labelledby="user-email" className="userProfile__user">
+          <h2 className="user__user" id="user-email">{user.email}</h2>
+        </section>
+      </span>
+
+      <section aria-labelledby="user-links" className="userProfile__links">
+        <h2 id="user-links" className="links__title">Mis enlaces</h2>
+        {enlaces.length > 0 ? (
           <ul className="links__list">
             {enlaces.map((enlace) => (
               <li className="list__element" key={enlace.id}>
-                <h3 className="element__name">{enlace.nombre}</h3>
+                <h3 className="element__name">{enlace.shorter}</h3>
 
                 <span className="buttons">
                   <button 
                     className="element__button"
                     onClick={() => handleRedirect(enlace.id)} 
-                    aria-label={`Consultar el enlace ${enlace.nombre}`}
+                    aria-label={`Consultar el enlace ${enlace.shorter}`}
                   >
                     Consultar
                   </button>
@@ -82,7 +53,7 @@ const UserProfile = () => {
                   <button 
                     className="element__buttonPort"
                     onClick={() => navigate("/portfolio")} 
-                    aria-label={`Consultar el enlace ${enlace.nombre}`}
+                    aria-label={`Añadir el enlace ${enlace.shorter} al portfolio`}
                   >
                     Añadir al portfolio
                   </button>
@@ -90,9 +61,12 @@ const UserProfile = () => {
               </li>
             ))}
           </ul>
-        </section>
-      </main>    
-  )
-}
+        ) : (
+          <p>No tienes enlaces.</p> // Mensaje si no hay enlaces disponibles
+        )}
+      </section>
+    </main>    
+  );
+};
 
-export default UserProfile
+export default UserProfile;
