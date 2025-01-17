@@ -1,0 +1,143 @@
+.linkPage {
+    min-height: 78.3vh;
+    background-color: var(--color-bg);
+
+    .linkPage__title {
+        padding: 1% 0 0 1%;
+        color: var(--color-light-txt);
+        font-weight: 300;
+        font-size: 2.5rem;
+    }
+
+    .linkPage__statistics {
+        padding: 1% 0 0 3%;
+
+        .statistics__title {
+            width: 100%;
+            margin-bottom: 1%;
+            color: var(--color-light-txt);
+            font-weight: 300;
+            font-size: 2rem;
+        }
+
+        .statistics__gridContainer {
+            margin-bottom: 2%;
+            display: grid;
+            grid-template-rows: 0.4fr 1fr 4fr;
+            grid-template-columns: 3fr 1fr 2fr;
+            grid-template-areas: 
+                "link link link"
+                "stats stats item"
+                "stats stats qr";
+            gap: 1rem;
+
+            .statistics__shortenedLink {
+                grid-area: link;
+                width: 96.8%;
+                padding: 2%;
+                border-radius: 8px;
+
+                font-size: 1.5rem;
+
+                background-color: var(--color-palette-Black);
+                color: var(--color-palette-White);
+
+                a {
+                    text-decoration: none;
+                    color: var(--color-palette-Crimson);
+                }
+            }
+
+            .statistics__item {
+                grid-area: item;
+                width: 90%;
+                background-color: var(--color-palette-Black);
+                border-radius: 8px;
+                color: var(--color-palette-White);
+                font-size: 1.5rem;
+
+                display: flex;
+                align-items: center;
+
+                padding-left: 5%;
+            }
+
+            .statistics__chart {
+                grid-area: stats; // Ubicación de la gráfica en la cuadrícula
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                background-color: var(--color-palette-Black);
+                border-radius: 8px;
+                padding: 2%;
+                color: var(--color-palette-White);
+
+                .chart__title {
+                    margin-bottom: 1rem;
+                    font-size: 1.8rem;
+                    font-weight: 400;
+                    text-align: center;
+                }
+
+                canvas {
+                    max-width: 80%;
+                    height: 40vh;
+                    border-radius: 8px;
+                    background-color: var(--color-bg);
+                }
+            }
+
+            .statistics__qr {
+                grid-area: qr;
+                width: 90%;
+                background-color: var(--color-palette-Black);
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 8px;
+                padding: 3%;
+                color: var(--color-palette-White);
+
+                .qr__title {
+                    font-weight: 400;
+                    text-align: center;
+                    height: 10%;
+                }
+
+                .qr__generated {
+                    display: flex;
+                    border: 5px solid var(--color-palette-White);
+                    border-radius: 8px;
+                    width: fit-content;
+                }
+
+                span {
+                    display: flex;
+                    flex-direction: column;
+
+                    .qr__generateButton {
+                        padding: 1% 4%;
+    
+                        font-size: 1.5rem;
+                        background-color: var(--color-btn);
+                        border: none;
+                        border-radius: 8px;
+                        color: var(--color-palette-White);
+                    }
+    
+                    .qr__generateButton:hover {
+                        background-color: var(--color-contrast-big-btn);
+                    }
+    
+                    .qr__description {
+                        padding-top: 1%;
+                    }
+                }
+            }
+        }
+    }
+}
