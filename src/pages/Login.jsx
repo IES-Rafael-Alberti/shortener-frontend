@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import useUserStore from '../stores/useUserStore';
-import { loginFirebase } from '../config/firebase';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import { Navigate } from 'react-router';
+import axios from 'axios';
 
 const Login = () => {
   const login = useUserStore((state) => state.login);
@@ -66,21 +66,34 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
+      // Convierte los datos del formulario en formato `x-www-form-urlencoded`
+      const urlencodedData = new URLSearchParams();
+      Object.keys(datos).forEach((key) => {
+        urlencodedData.append(key, datos[key]);
+      });
+  
       const recaptchaValue = recaptchaRef.current.getValue();
-      // Asegúrate de que el recaptcha no esté vacío antes de proceder
       if (!recaptchaValue) {
         Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
         return;
       }
-      login({ email: datos.email, id: userFirebase.user.uid }); // Guardar el usuario en el estado global
+  
+      // Realiza la solicitud con Axios
+      const response = await axios.post("http://localhost:3000/auth/login", urlencodedData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      console.log(response.data.token);
+      login(response.data);
+      Swal.fire("Éxito", "Usuario logueado con éxito", "success");
     } catch (error) {
-      Swal.fire("Error", error.message, "error");
-      setIsFormValid(false);
+      console.error(error);
+      Swal.fire("Error", error.response?.data?.message || "Ocurrió un error al hacer el login", "error");
     }
   };
 
-  if (user.email) {
+  if (user.token) {
     return <Navigate to="/userProfile" replace />;
   }
 

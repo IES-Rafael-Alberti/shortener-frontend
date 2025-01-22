@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, loginFirebase } from "../config/firebase";
 import Swal from "sweetalert2";
 import useUserStore from "../stores/useUserStore";
 import { Link } from 'react-router';
@@ -87,7 +85,7 @@ const Register = () => {
         },
       });
   
-      console.log(response.data);
+      login(response.data);
       Swal.fire("Éxito", "Usuario registrado con éxito", "success");
     } catch (error) {
       if (error.response.data.error === "User already exists")

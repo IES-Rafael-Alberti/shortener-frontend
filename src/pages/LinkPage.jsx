@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -39,6 +40,16 @@ const LinkPage = () => {
   const [enlace, setEnlace] = useState(() => links.filter((link) => link.id === id)[0]);
 
   useEffect(() => {
+
+    const fetchVisits = async () => {
+
+      const response = await axios.get("http://localhost:3000/visits");
+      console.log(response.data);
+
+    }
+
+    fetchVisits();
+
     const visitsPage = linkVisits.filter((link) => link.link === enlace.url);
 
     const today = new Date();

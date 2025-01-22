@@ -1,19 +1,31 @@
 import { NavLink, useNavigate } from 'react-router';
 import logo from '../assets/ShortenerLogo.png';
 import useUserStore from '../stores/useUserStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import fetchMe from '../utils/fetchMe';
 
 const Header = () => {
     const user = useUserStore((state) => state.user);
     const logout = useUserStore((state) => state.logout);
     const navigate = useNavigate();
     const [theme, setTheme] = useState("light");
+    const [userData, setUserData] = useState({ email: "" });
 
     const toggleMode = () => {
         const newTheme = theme === "dark" ? "light" : "dark";
         setTheme(newTheme);
         localStorage.setItem("theme", newTheme);
     };
+
+    useEffect(() => {
+        if (user.token) {
+            const fetchUserData = async () => {
+                const data = await fetchMe(user.token); // Llamamos a la función fetchMe con el token del user
+                setUserData(data); // Actualizamos el estado con los datos del user
+              }
+              fetchUserData();
+        }
+    })
 
     return (
         <header className="header">
@@ -37,7 +49,7 @@ const Header = () => {
                 </article>
 
                 <article className='rightSide__auth'>
-                    {!user.email ? (
+                    {!user.token ? (
                         <>
                             <button className='auth__login' onClick={() => navigate('/login')}>Login</button>
                             <button className='auth__register' onClick={() => navigate('/register')}>Registro</button>
@@ -45,7 +57,7 @@ const Header = () => {
                     ):
                     (
                         <>
-                            <NavLink to="/userProfile" className="auth__userName">{user?.email}</NavLink>
+                            <NavLink to="/userProfile" className="auth__userName">{userData?.email}</NavLink>
                             <button className="auth__logOut" onClick={logout}>Logout</button>
                         </>
                     )}
