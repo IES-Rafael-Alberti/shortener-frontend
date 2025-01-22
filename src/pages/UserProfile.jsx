@@ -20,6 +20,16 @@ const UserProfile = () => {
     navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
   };
 
+  const handlePortfolio = (id) => {
+    const enlace = enlaces.filter((link) => link.id === id)[0];
+    if (enlace.linktree) {
+      enlace.linktree = false;
+    } else {
+      enlace.linktree = true;
+    }
+    setEnlaces([...enlaces]);
+  };
+
   if (!user) {
     return <div>Cargando perfil...</div>; // Agregamos un mensaje de carga si el user no está disponible
   }
@@ -50,13 +60,23 @@ const UserProfile = () => {
                     Consultar
                   </button>
 
+                  {enlace.linktree ? (
                   <button 
-                    className="element__buttonPort"
-                    onClick={() => navigate("/portfolio")} 
+                    className="element__buttonPort" 
+                    onClick={() => handlePortfolio(enlace.id)} 
+                    aria-label={`Añadir el enlace ${enlace.shorter} al portfolio`}
+                  >
+                    Eliminar del portfolio
+                  </button>
+                ) : (
+                  <button 
+                    className="element__buttonPort" 
+                    onClick={() => handlePortfolio(enlace.id)} 
                     aria-label={`Añadir el enlace ${enlace.shorter} al portfolio`}
                   >
                     Añadir al portfolio
                   </button>
+                )}
                 </span>
               </li>
             ))}

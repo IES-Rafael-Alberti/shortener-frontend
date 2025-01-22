@@ -26,7 +26,6 @@ const Portfolio = () => {
           </li>
         ))}
       </ul>
-
     </div>
   )
 }
