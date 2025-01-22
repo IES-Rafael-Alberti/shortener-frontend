@@ -1,6 +1,6 @@
 import { useParams } from "react-router"
-import links from "../data/links.json"
 import { useState, useEffect } from "react"
+import axios from "axios"
 
 const Portfolio = () => {
 
@@ -9,9 +9,16 @@ const Portfolio = () => {
   const [enlacesPortfolio, setEnlacesPortfolio] = useState([])
 
   useEffect(() => {
-      const enlacesPortfolio = links.filter((link) => link.author == id).filter((link) => link.linktree);
-      setEnlacesPortfolio(enlacesPortfolio);
+    const fetchPortfolio = async () => {
+      const response = await axios.get("http://localhost:3000/link")
+      setEnlacesPortfolio(response.data)
+    }
+
     
+    fetchPortfolio()
+    
+    console.log(enlacesPortfolio)
+
   }, [id]);
  
 

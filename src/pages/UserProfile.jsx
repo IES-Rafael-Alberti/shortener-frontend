@@ -39,14 +39,27 @@ const UserProfile = () => {
   };
 
   const handlePortfolio = (id) => {
-    const enlace = enlaces.filter((link) => link.id === id)[0];
+    const enlace = enlaces.filter((link) => link.code === id)[0];
     if (enlace.linktree) {
       enlace.linktree = false;
     } else {
       enlace.linktree = true;
     }
     setEnlaces([...enlaces]);
+
+    axios.put(`http://localhost:3000/link/${id}`, {linktree: enlace.linktree}, {
+      headers: { "Authorization": `Bearer ${user.token}` }
+    });
   };
+
+  const handlerEliminar = (id) => {
+    axios.delete(`http://localhost:3000/link/${id}`, {
+      headers: { "Authorization": `Bearer ${user.token}` }
+    });
+    setEnlaces(enlaces.filter((enlace) => enlace.code !== id));
+  };
+
+  console.log(userData);
 
   if (!user) {
     return <div>Cargando perfil...</div>; // Agregamos un mensaje de carga si el user no está disponible
@@ -95,6 +108,12 @@ const UserProfile = () => {
                     Añadir al portfolio
                   </button>
                 )}
+
+                <button
+                  onClick={() => handlerEliminar(enlace.code)}>
+                  Eliminar
+                </button>
+
                 </span>
               </li>
             ))}
@@ -106,5 +125,6 @@ const UserProfile = () => {
     </main>    
   );
 };
+
 
 export default UserProfile;

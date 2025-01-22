@@ -5,6 +5,7 @@ import { QRCodeSVG } from "qrcode.react";
 import links from "../data/links.json";
 import linkVisits from "../data/link_visits_100.json";
 import { Bar } from "react-chartjs-2";
+import useUserStore from "../stores/useUserStore";
 
 import {
   Chart as ChartJS,
@@ -28,6 +29,7 @@ ChartJS.register(
 
 const LinkPage = () => {
   const { id } = useParams();
+  const user = useUserStore((state) => state.user);
 
   const [estadisticas, setEstadisticas] = useState({
     ultimoMes: null,
@@ -37,20 +39,30 @@ const LinkPage = () => {
     semana4: null
   });
 
-  const [enlace, setEnlace] = useState(() => links.filter((link) => link.id === id)[0]);
+  const [enlaceLocal, setEnlaceLocal] = useState(() => links.filter((link) => link.id === "1")[0]);
+
+  const [ enlace, setEnlace ] = useState({}); 
 
   useEffect(() => {
 
-    const fetchVisits = async () => {
+    const fetchEnlace = async () => {
+      const response = await axios.get(`http://localhost:3000/link/${id}`, 
+      { headers: { 
+        "Authorization": `Bearer ${user.token}`
+    } }
+  
+  );
 
-      const response = await axios.get("http://localhost:3000/visits");
-      console.log(response.data);
-
+      setEnlace(response.data);
     }
 
-    fetchVisits();
+    console.log(user)
+    fetchEnlace();
 
-    const visitsPage = linkVisits.filter((link) => link.link === enlace.url);
+    console.log(enlace);
+    
+
+    const visitsPage = linkVisits.filter((link) => link.link === enlaceLocal.url);
 
     const today = new Date();
     const lastMonth = new Date(today);
@@ -85,12 +97,20 @@ const LinkPage = () => {
     });
   }, [id]); 
 
+
   const handlerGenerarEnlace = (e) => {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
     setEnlace({
       ...enlace, // Mantenemos los otros datos del enlace
       qr: true // Establecemos el enlace acortado como valor del QR
     });
+    if (user.token) {
+      axios.put(`http://localhost:3000/link/${id}`, { qr: true }, {
+        headers: {
+          "Authorization": `Bearer ${user.token}`
+        }
+      });
+    }
   };
   
 
@@ -151,11 +171,11 @@ const LinkPage = () => {
   return (
     
     <main className="linkPage">
-      <h1 className="linkPage__title" id="enlace-title">{enlace.nombre}</h1>
+      <h1 className="linkPage__title" id="enlace-title">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</h1>
       <section className="linkPage__statistics" aria-labelledby="statistics-title">
       <h2 id="statistics-title" className="statistics__title">Estadísticas</h2>
       <span className="statistics__gridContainer">
-      <p className="statistics__shortenedLink">Enlace acortado: <a href={enlace.url} target="_blank" rel="noopener noreferrer">{enlace.shorter}</a></p>
+      <p className="statistics__shortenedLink">Enlace acortado: <a href={enlace.url} target="_blank" rel="noopener noreferrer">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</a></p>
       
       <p className="statistics__item">Último mes: <span>{estadisticas.ultimoMes}</span></p>
 
@@ -169,7 +189,7 @@ const LinkPage = () => {
             <h2 id="qr-title" className="qr__title">Código QR</h2>
             {enlace.qr ? (
               <div className="qr__generated">
-                <QRCodeSVG value={enlace.qr} size={256}/>
+                <QRCodeSVG value={enlace.url} size={256}/>
               </div>
             ) : (
               <button 
