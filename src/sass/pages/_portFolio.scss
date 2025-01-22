@@ -1,0 +1,51 @@
+.portfolio {
+    min-height: 78.3vh;
+    background-color: var(--color-bg);
+
+    .portfolio__section {
+        padding-top: 2%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .section__title {
+            color: var(--color-light-txt);
+            font-weight: 300;
+            font-size: 2.5rem;
+        }
+
+        .section__list {
+            list-style: none;
+            width: 50%;
+
+            .list__element {
+                margin-top: 2%;
+                padding: 2%;
+                background-color: var(--color-palette-Black);
+                border-radius: 16px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+                .element__link {
+                    color: var(--color-palette-White);
+                    text-decoration: none;
+                    font-size: 1.5rem;
+                }
+
+                .element__link:hover {
+                    color: var(--color-palette-Crimson);
+                }
+            }
+
+            .list__element:hover {
+                transform: scale(1.05);
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}

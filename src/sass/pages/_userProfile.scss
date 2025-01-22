@@ -2,7 +2,6 @@
     min-height: 78.3vh;
     padding-left: 1%;
     padding-top: 1%;
-    
     background-color: var(--color-bg);
 
     .container {
@@ -14,10 +13,10 @@
             font-weight: 300;
             font-size: 2.5rem;
         }
-    
+
         .userProfile__user {
             padding-left: 0.5%;
-            
+
             .user__user {
                 color: var(--color-palette-Crimson);
                 font-weight: 500;
@@ -28,6 +27,9 @@
     .userProfile__links {
         padding-left: 1%;
         padding-top: 0.5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra la lista horizontalmente */
 
         .links__title {
             color: var(--color-light-txt);
@@ -37,16 +39,23 @@
         .links__list {
             padding-top: 1%;
             list-style-type: none;
+            display: grid; /* Grid para la distribución */
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
+            gap: 1rem; /* Espaciado entre filas y columnas */
+            width: 95%; /* Ocupa el 80% del ancho de la página */
 
-            display: flex;
-            flex-direction: row;
+            @media (max-width: 768px) {
+                grid-template-columns: repeat(2, 1fr); // Media query styles
+            }
+        
+            @media (max-width: 480px) {
+                grid-template-columns: 1fr; // Media query styles
+            }
 
             .list__element {
-                padding: 1% 0.5% 1% 1%;
-                margin-right: 1%;
-                width: 28%;
-
+                padding: 2.5% 0.5% 2.5% 2%;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-between;
                 align-items: center;
 
@@ -54,16 +63,20 @@
                 border-radius: 8px;
 
                 .element__name {
+                    width: 100%;
                     color: var(--color-palette-White);
                     font-weight: 400;
                 }
 
                 .buttons {
-                    width: 44%;
+                    width: 100%;
+                    height: 50%;
+                    display: flex;
+                    justify-content: center;
 
                     .element__button {
                         margin-right: 5%;
-                        padding: 5%;
+                        padding: 1% 5%;
                         background-color: var(--color-btn);
                         border: none;
                         border-radius: 4px;
@@ -72,7 +85,7 @@
                     }
 
                     .element__buttonPort {
-                        padding: 5%;
+                        padding: 2% 5%;
                         background-color: var(--color-btn);
                         border: none;
                         border-radius: 4px;
