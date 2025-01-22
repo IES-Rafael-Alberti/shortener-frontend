@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
 import fetchMe from "../utils/fetchMe";
+import axios from "axios";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState({email: ""}); // Inicializamos el estado con un objeto vacío 
@@ -18,6 +19,18 @@ const UserProfile = () => {
       const data = await fetchMe(user.token); // Llamamos a la función fetchMe con el token del user
       setUserData(data); // Actualizamos el estado con los datos del user
     }
+    const fetchLinks = async () => {
+      const response = await axios.get("http://localhost:3000/link", {
+        headers: {
+          "Authorization": `Bearer ${user.token}`
+        }
+      });
+      setEnlaces(response.data); // Actualizamos el estado con los enlaces del user
+    }
+
+    fetchLinks();
+    console.log(enlaces)
+
     fetchUserData();
 }, [user]); // Recorremos los enlaces cuando el user cambia
 
@@ -53,14 +66,14 @@ const UserProfile = () => {
         {enlaces.length > 0 ? (
           <ul className="links__list">
             {enlaces.map((enlace) => (
-              <li className="list__element" key={enlace.id}>
-                <h3 className="element__name">{enlace.shorter}</h3>
+              <li className="list__element" key={enlace.code}>
+                <h3 className="element__name">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</h3>
 
                 <span className="buttons">
                   <button 
                     className="element__button"
-                    onClick={() => handleRedirect(enlace.id)} 
-                    aria-label={`Consultar el enlace ${enlace.shorter}`}
+                    onClick={() => handleRedirect(enlace.code)} 
+                    aria-label={`Consultar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
                   >
                     Consultar
                   </button>
@@ -68,16 +81,16 @@ const UserProfile = () => {
                   {enlace.linktree ? (
                   <button 
                     className="element__buttonPort" 
-                    onClick={() => handlePortfolio(enlace.id)} 
-                    aria-label={`Añadir el enlace ${enlace.shorter} al portfolio`}
+                    onClick={() => handlePortfolio(enlace.code)} 
+                    aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
                   >
                     Eliminar del portfolio
                   </button>
                 ) : (
                   <button 
                     className="element__buttonPort" 
-                    onClick={() => handlePortfolio(enlace.id)} 
-                    aria-label={`Añadir el enlace ${enlace.shorter} al portfolio`}
+                    onClick={() => handlePortfolio(enlace.code)} 
+                    aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
                   >
                     Añadir al portfolio
                   </button>
