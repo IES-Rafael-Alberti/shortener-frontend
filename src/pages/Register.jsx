@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import React from 'react';
 import { Navigate } from 'react-router';
 import ReCAPTCHA from 'react-google-recaptcha';
+import axios from 'axios';
 
 const Register = () => {
 
@@ -67,18 +68,35 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, datos.email, datos.password);
-      const userFirebase = await loginFirebase({ email: datos.email, password: datos.password });
+      // Convierte los datos del formulario en formato `x-www-form-urlencoded`
+      const urlencodedData = new URLSearchParams();
+      Object.keys(datos).forEach((key) => {
+        urlencodedData.append(key, datos[key]);
+      });
+  
       const recaptchaValue = recaptchaRef.current.getValue();
-      // Asegúrate de que el recaptcha no esté vacío antes de proceder
       if (!recaptchaValue) {
         Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
         return;
       }
-      login({ email: datos.email, id: userFirebase.user.uid }); // Guardar el usuario en el estado global
+  
+      // Realiza la solicitud con Axios
+      const response = await axios.post("http://localhost:3000/auth/register", urlencodedData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+  
+      console.log(response.data);
+      Swal.fire("Éxito", "Usuario registrado con éxito", "success");
     } catch (error) {
-      Swal.fire("Error", error.message, "error");
-      setIsFormValid(false);
+      if (error.response.data.error === "User already exists")
+      {
+        Swal.fire("Error", "El usuario ya existe", "error");
+        return;
+      }
+      console.error(error);
+      Swal.fire("Error", error.response?.data?.message || "Ocurrió un error al registrar", "error");
     }
   };
 
