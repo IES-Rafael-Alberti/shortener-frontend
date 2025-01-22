@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
 import links from "../data/links.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const UserProfile = () => {
   const user = useUserStore((state) => state.user);
@@ -50,6 +52,8 @@ const UserProfile = () => {
             {enlaces.map((enlace) => (
               <li className="list__element" key={enlace.id}>
                 <h3 className="element__name">{enlace.shorter}</h3>
+                
+                <button className="element__delete" aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark}/></button>
 
                 <span className="buttons">
                   <button 
