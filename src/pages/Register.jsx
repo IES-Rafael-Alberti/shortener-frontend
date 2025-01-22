@@ -85,7 +85,7 @@ const Register = () => {
         },
       });
   
-      console.log(response.data);
+      login(response.data);
       Swal.fire("Éxito", "Usuario registrado con éxito", "success");
     } catch (error) {
       if (error.response.data.error === "User already exists")
