@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
-import links from "../data/links.json";
+import fetchMe from "../utils/fetchMe";
 
 const UserProfile = () => {
+  const [userData, setUserData] = useState({email: ""}); // Inicializamos el estado con un objeto vacío 
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate(); // Hook para navegación
   const [enlaces, setEnlaces] = useState([]); // Inicializamos el estado como un array vacío
 
   // Verificamos si el user está disponible antes de proceder
   useEffect(() => {
-    if (user && user.id) {
-      const enlaces = links.filter((link) => link.author === user.id);
-      setEnlaces(enlaces);
+    if (!user) {
+      return;
     }
-  }, [user]); // Recorremos los enlaces cuando el user cambia
+    const fetchUserData = async () => {
+      const data = await fetchMe(user.token); // Llamamos a la función fetchMe con el token del user
+      setUserData(data); // Actualizamos el estado con los datos del user
+    }
+    fetchUserData();
+}, [user]); // Recorremos los enlaces cuando el user cambia
 
   const handleRedirect = (id) => {
     navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
@@ -39,7 +44,7 @@ const UserProfile = () => {
       <span className="container">
         <h1 className="userProfile__title">Perfil del usuario</h1>
         <section aria-labelledby="user-email" className="userProfile__user">
-          <h2 className="user__user" id="user-email">{user.email}</h2>
+          <h2 className="user__user" id="user-email">{userData.email}</h2>
         </section>
       </span>
 

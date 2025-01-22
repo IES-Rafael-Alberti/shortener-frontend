@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, loginFirebase } from "../config/firebase";
 import Swal from "sweetalert2";
 import useUserStore from "../stores/useUserStore";
 import { Link } from 'react-router';
