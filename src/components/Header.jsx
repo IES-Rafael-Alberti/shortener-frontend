@@ -27,6 +27,16 @@ const Header = () => {
         }
     })
 
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        setTheme(savedTheme);
+        document.body.setAttribute("data-theme", savedTheme);
+    }, []);
+
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
+
     return (
         <header className="header">
             <figure className="header__branding">
