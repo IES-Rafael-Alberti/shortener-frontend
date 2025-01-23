@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
+import fetchMe from "../utils/fetchMe";
+import axios from "axios";
 import links from "../data/links.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -80,8 +82,9 @@ const UserProfile = () => {
         {enlaces.length > 0 ? (
           <ul className="links__list">
             {enlaces.map((enlace) => (
-              <li className="list__element" key={enlace.id}>
-                <h3 className="element__name">{enlace.shorter}</h3>
+              <li className="list__element" key={enlace.code}>
+                <h3 className="element__name">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</h3>
+                
                 <button className="element__delete" aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark}/></button>
 
                 <span className="buttons">

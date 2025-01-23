@@ -32,9 +32,11 @@
         border-radius: 16px;
 
         color: var(--color-palette-White);
+        transition: background-color 0.5s ease , transform 0.5s ease ;
     }
     
     .home__button:hover {
         background-color: var(--color-contrast-big-btn);
+        transform: scale(1.1);
     }
 }

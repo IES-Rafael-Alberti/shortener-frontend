@@ -1,5 +1,5 @@
 .header {
-    width: 100vw;
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
@@ -99,18 +99,19 @@
                 background-color: var(--color-btn);
                 width: 70%;
                 padding: 6% 0 6% 0;
-
-                border: solid 1px var(--color-btn);
+                border: none;
                 border-radius: 8px;
 
-                color: var(--color-contrast-txt);
+                color: var(--color-palette-White);
                 margin-right: 5%;
+
+                font-size: 1.1rem;
+                transition: background-color 0.5s ease;
             }
             
             .auth__login:hover, .auth__register:hover {
-                border: solid 1px var(--color-palette-Black);
                 background-color: var(--color-contrast-btn);
-                color: var(--color-txt);
+                color: var(--color-palette-Black);
             }
 
             .auth__userName {
