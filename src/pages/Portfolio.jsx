@@ -1,12 +1,44 @@
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import useUserStore from "../stores/useUserStore"
 
 const Portfolio = () => {
 
   const { id } = useParams()
 
   const [enlacesPortfolio, setEnlacesPortfolio] = useState([])
+
+  const user = useUserStore((state) => state.user);
+
+  const obtenerEnlace = async (code) => {
+    if (user.token){
+      console.log(user.token)
+      const response = await axios.get("http://localhost:3000/passthrough/"+code, {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      })
+      
+      console.log(response.status)
+      return response.data.url
+    }
+      else{
+        const response = await axios.get("http://localhost:3000/passthrough/"+code)
+        return response.data.url
+      }
+    
+  }
+
+  const getIPAddress = async () => {
+    try {
+      const response = await axios.get('https://api.ipify.org?format=json');
+      return response.data.ip;
+    } catch (error) {
+      console.error('Error obteniendo la IP:', error);
+      return null
+    }
+  };
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -22,22 +54,17 @@ const Portfolio = () => {
     console.log(enlacesPortfolio)
 
   }, [id]);
+
+  const handlerVisit = async (id, code) => {
+    
+    obtenerEnlace(code).then((url) => window.location.href = url) 
+     
+  }
+
  
 
   return (
-    /*
-    <div>
-      
-      <h1>Portfolio</h1>
-      <ul>
-        {enlacesPortfolio.map((enlace) => (
-          <li key={enlace.id}>
-            <a href={enlace.url} target="_blank" rel="noreferrer">{enlace.shorter}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-    */
+    
     <main className = 'portfolio'>
       <section className = 'portfolio__section' aria-labelledby="portfolio-title">
         <h1 className = 'section__title' id="portfolio-title">Portfolio</h1>
@@ -45,11 +72,11 @@ const Portfolio = () => {
           {enlacesPortfolio && enlacesPortfolio.map((enlace) => (
             <li className = 'list__element' key={enlace.code}>
               <a 
-                className = 'element__link'
-                href={enlace.url} 
+                className = 'element__link' 
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label={`Abrir el proyecto ${import.meta.env.VITE_DOMAIN+"/"+ enlace.code} en una nueva ventana`}
+                onClick={() => {handlerVisit(enlace._id, enlace.code)} }
               >
                 {import.meta.env.VITE_DOMAIN+"/"+ enlace.code}
               </a>

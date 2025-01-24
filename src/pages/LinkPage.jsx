@@ -2,8 +2,6 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 // Se importa la librería QRCode para generar los códigos QR
 import { QRCodeSVG } from "qrcode.react";
-import links from "../data/links.json";
-import linkVisits from "../data/link_visits_100.json";
 import { Bar } from "react-chartjs-2";
 import useUserStore from "../stores/useUserStore";
 
@@ -28,8 +26,10 @@ ChartJS.register(
 );
 
 const LinkPage = () => {
+
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
+  const [ qr, setQr ] = useState(false);
 
   const [estadisticas, setEstadisticas] = useState({
     ultimoMes: null,
@@ -38,43 +38,54 @@ const LinkPage = () => {
     semana3: null,
     semana4: null
   });
-
-  const [enlaceLocal, setEnlaceLocal] = useState(() => links.filter((link) => link.id === "1")[0]);
-
   const [ enlace, setEnlace ] = useState({}); 
+  const [ visits, setVisits ] = useState([]);
 
   useEffect(() => {
+
+    const fetchVisits = async () => {
+      const response = await axios.get(`http://localhost:3000/link/${id}/visit`,
+      { headers: { 
+        "Authorization": `Bearer ${user.token}`
+    } }
+  );
+  setVisits(response.data);
+  }
 
     const fetchEnlace = async () => {
       const response = await axios.get(`http://localhost:3000/link/${id}`, 
       { headers: { 
         "Authorization": `Bearer ${user.token}`
     } }
-  
   );
-
       setEnlace(response.data);
+      
     }
 
-    console.log(user)
-    fetchEnlace();
-
-    console.log(enlace);
     
+  
 
-    const visitsPage = linkVisits.filter((link) => link.link === enlaceLocal.url);
+    fetchEnlace();
+    fetchVisits();
+    
+    console.log(enlace)
 
     const today = new Date();
     const lastMonth = new Date(today);
     lastMonth.setMonth(lastMonth.getMonth() - 1);
-    const monthVisits = visitsPage.filter((visit) => new Date(visit.date) > lastMonth);
 
+    const monthVisits = visits.filter((visit) => new Date(visit.date) > lastMonth);
+
+    console.log(monthVisits)
+
+    
     const weekStarts = [
       new Date(today.setDate(today.getDate() - 21)),
       new Date(today.setDate(today.getDate() + 7)), 
       new Date(today.setDate(today.getDate() + 7)), 
       new Date(today.setDate(today.getDate() + 7))
     ];
+
 
     const weekVisits = [0, 0, 0, 0]; 
 
@@ -95,24 +106,32 @@ const LinkPage = () => {
       semana3: weekVisits[2],
       semana4: weekVisits[3],
     });
-  }, [id]); 
+  }, [visits.length]); 
 
 
   const handlerGenerarEnlace = (e) => {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-    setEnlace({
-      ...enlace, // Mantenemos los otros datos del enlace
-      qr: true // Establecemos el enlace acortado como valor del QR
-    });
-    if (user.token) {
-      axios.put(`http://localhost:3000/link/${id}`, { qr: true }, {
-        headers: {
-          "Authorization": `Bearer ${user.token}`
-        }
-      });
-    }
+    setQr(true); // Actualizar el estado para mostrar el código QR
   };
   
+
+  const obtenerEnlace = async (code) => {
+    if (user.token){
+      console.log(user.token)
+      const response = await axios.get("http://localhost:3000/passthrough/"+code, {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      })
+      
+      console.log(response.status)
+      return response.data.url
+    }
+  }
+
+  const handlerVisit = async (code) => {
+    obtenerEnlace(code).then((url) => window.location.href = url)
+  }
 
   const chartData = {
     labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
@@ -175,7 +194,7 @@ const LinkPage = () => {
       <section className="linkPage__statistics" aria-labelledby="statistics-title">
       <h2 id="statistics-title" className="statistics__title">Estadísticas</h2>
       <span className="statistics__gridContainer">
-      <p className="statistics__shortenedLink">Enlace acortado: <a href={enlace.url} target="_blank" rel="noopener noreferrer">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</a></p>
+      <p className="statistics__shortenedLink">Enlace acortado: <a onClick={() => handlerVisit(enlace.code)} target="_blank" rel="noopener noreferrer">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</a></p>
       
       <p className="statistics__item">Último mes: <span>{estadisticas.ultimoMes}</span></p>
 
@@ -187,9 +206,9 @@ const LinkPage = () => {
 
       <section className="statistics__qr" aria-labelledby="qr-title">
             <h2 id="qr-title" className="qr__title">Código QR</h2>
-            {enlace.qr ? (
+            {qr ? (
               <div className="qr__generated">
-                <QRCodeSVG value={enlace.url} size={256}/>
+                <QRCodeSVG value={import.meta.env.VITE_DOMAIN+"/"+enlace.code} size={256}/>
               </div>
             ) : (
               <button 
@@ -200,7 +219,7 @@ const LinkPage = () => {
                 Generar QR
               </button>
             )}
-            {!enlace.qr && <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>}
+            {!qr && <p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace</p>}
           </section>
 
       </span>
