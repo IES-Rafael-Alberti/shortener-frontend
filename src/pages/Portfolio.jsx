@@ -10,7 +10,8 @@ const Portfolio = () => {
 
   useEffect(() => {
     const fetchPortfolio = async () => {
-      const response = await axios.get("http://localhost:3000/link")
+      console.log(id)
+      const response = await axios.get("http://localhost:3000/linktree/"+id)
       setEnlacesPortfolio(response.data)
     }
 
