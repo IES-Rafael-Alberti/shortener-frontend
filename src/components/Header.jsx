@@ -3,6 +3,8 @@ import logo from '../assets/ShortenerLogo.png';
 import useUserStore from '../stores/useUserStore';
 import { useEffect, useState } from 'react';
 import fetchMe from '../utils/fetchMe';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
     const user = useUserStore((state) => state.user);
@@ -22,8 +24,8 @@ const Header = () => {
             const fetchUserData = async () => {
                 const data = await fetchMe(user.token); // Llamamos a la función fetchMe con el token del user
                 setUserData(data); // Actualizamos el estado con los datos del user
-              }
-              fetchUserData();
+            }
+            fetchUserData();
         }
     })
 
@@ -67,7 +69,7 @@ const Header = () => {
                     ):
                     (
                         <>
-                            <NavLink to="/userProfile" className="auth__userName">{userData?.email}</NavLink>
+                            <NavLink to="/userProfile" className="auth__userName"><FontAwesomeIcon className='userName__logo' icon={faCircleUser}/></NavLink>
                             <button className="auth__logOut" onClick={logout}>Logout</button>
                         </>
                     )}

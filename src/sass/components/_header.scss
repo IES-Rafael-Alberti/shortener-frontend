@@ -93,6 +93,7 @@
 
         .rightSide__auth {
             display: flex;
+            align-items: center;
             width: 55%;
 
             .auth__login, .auth__register {
@@ -115,24 +116,28 @@
             }
 
             .auth__userName {
+                margin-right: 8%;
                 display: flex;
-                flex-wrap: wrap;
-                color: var(--color-palette-White);
-                text-decoration: none;
-                align-content: center;
-                padding-right: 10%;
+                align-items: center;
+
+                .userName__logo {
+                    color: var(--color-palette-White);
+                    font-size: 4rem;
+                }
             }
     
             .auth__logOut {
                 background-color: var(--color-btn);
                 width: 70%;
+                height: 50%;
                 padding: 6% 0 6% 0;
     
                 border: solid 1px var(--color-btn);
                 border-radius: 8px;
     
-                color: var(--color-contrast-txt);
+                color: var(--color-palette-White);
                 margin-right: 5%;
+                font-size: 1.1rem;
             }
     
             .auth__logOut:hover {
