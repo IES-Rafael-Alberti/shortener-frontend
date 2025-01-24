@@ -74,7 +74,16 @@ const Register = () => {
   
       const recaptchaValue = recaptchaRef.current.getValue();
       if (!recaptchaValue) {
-        Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
+        Swal.fire({
+          title: "ReCaptcha no validado",
+          icon: "error",
+          customClass: {
+            popup: "swal__popup",       // Clase para el contenedor principal del modal
+            title: "swal__title",       // Clase para el título
+            icon: "swal__icon",         // Clase para el icono
+            confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+          }
+        });
         return;
       }
   
@@ -86,15 +95,42 @@ const Register = () => {
       });
   
       login(response.data);
-      Swal.fire("Éxito", "Usuario registrado con éxito", "success");
+      Swal.fire({
+        title: "Registro completado con éxito",
+        icon: "success",
+        customClass: {
+          popup: "swal__popup",       // Clase para el contenedor principal del modal
+          title: "swal__title",       // Clase para el título
+          icon: "swal__icon",         // Clase para el icono
+          confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+        }
+      });
     } catch (error) {
       if (error.response.data.error === "User already exists")
       {
-        Swal.fire("Error", "El usuario ya existe", "error");
+        Swal.fire({
+          title: "El usuario ya existe",
+          icon: "error",
+          customClass: {
+            popup: "swal__popup",       // Clase para el contenedor principal del modal
+            title: "swal__title",       // Clase para el título
+            icon: "swal__icon",         // Clase para el icono
+            confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+          }
+        });
         return;
       }
       console.error(error);
-      Swal.fire("Error", error.response?.data?.message || "Ocurrió un error al registrar", "error");
+      Swal.fire({
+        title: "Error al realizar el registro",
+        icon: "error",
+        customClass: {
+          popup: "swal__popup",       // Clase para el contenedor principal del modal
+          title: "swal__title",       // Clase para el título
+          icon: "swal__icon",         // Clase para el icono
+          confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+        }
+      });
     }
   };
 

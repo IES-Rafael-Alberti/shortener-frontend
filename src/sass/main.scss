@@ -43,6 +43,8 @@
     --color-toggle-border: var(--color-palette-Gray);
 
     --color-input-border: var(--color-palette-Gray);
+
+    --color-text-popup: var(--color-palette-Black);
 }
 
 [data-theme="dark"] {
@@ -70,6 +72,8 @@
     --color-toggle-border: var(--color-palette-White);
 
     --color-input-border: var(--color-palette-Black);
+
+    --color-text-popup: var(--color-palette-White);
 }
 
 //General reset
@@ -86,4 +90,32 @@ body {
 
 main {
     padding-bottom: 6%;
+}
+
+//Estilos popUps
+.swal__popup {
+    background-color: var(--color-bg);
+    border-radius: 2.5%;
+    padding: 2%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.swal__title {
+    font-size: 1.8rem;
+    color: var(--color-text-popup);
+    font-weight: bold;
+    text-align: center;
+}
+
+.swal__confirm-button {
+    background-color: var(--color-btn);
+    color: var(--color-palette-White);
+    border-radius: 10px;
+    padding: 20% 100%;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.swal__confirm-button:hover {
+    background-color: var(--color-contrast-big-btn);
 }
