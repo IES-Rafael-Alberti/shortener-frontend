@@ -3,7 +3,6 @@ import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router";
 import fetchMe from "../utils/fetchMe";
 import axios from "axios";
-import links from "../data/links.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
