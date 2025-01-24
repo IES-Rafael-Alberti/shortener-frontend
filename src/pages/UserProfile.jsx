@@ -53,6 +53,7 @@ const UserProfile = () => {
     axios.put(`http://localhost:3000/link/${id}`, {linktree: enlace.linktree}, {
       headers: { "Authorization": `Bearer ${user.token}` }
     });
+    console.log(enlaces);
   };
 
   const handlerEliminar = (id) => {
@@ -85,7 +86,7 @@ const UserProfile = () => {
               <li className="list__element" key={enlace.code}>
                 <h3 className="element__name">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}</h3>
                 
-                <button className="element__delete" aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark}/></button>
+                <button onClick={() => handlerEliminar(enlace.code)} className="element__delete" aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark} /></button>
 
                 <span className="buttons">
                   <button 
@@ -113,11 +114,6 @@ const UserProfile = () => {
                     Añadir al portfolio
                   </button>
                 )}
-
-                <button
-                  onClick={() => handlerEliminar(enlace.code)}>
-                  Eliminar
-                </button>
 
                 </span>
               </li>
