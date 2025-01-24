@@ -42,14 +42,14 @@ const UserProfile = () => {
 
   const handlePortfolio = (id) => {
     const enlace = enlaces.filter((link) => link.code === id)[0];
-    if (enlace.linktree) {
-      enlace.linktree = false;
+    if (enlace.portfolio) {
+      enlace.portfolio = false;
     } else {
-      enlace.linktree = true;
+      enlace.portfolio = true;
     }
     setEnlaces([...enlaces]);
 
-    axios.put(`http://localhost:3000/link/${id}`, {linktree: enlace.linktree}, {
+    axios.put(`http://localhost:3000/link/${id}`, {portfolio: enlace.portfolio}, {
       headers: { "Authorization": `Bearer ${user.token}` }
     });
     console.log(enlaces);
@@ -96,7 +96,7 @@ const UserProfile = () => {
                     Consultar
                   </button>
 
-                  {enlace.linktree ? (
+                  {enlace.portfolio ? (
                   <button 
                     className="element__buttonPort" 
                     onClick={() => handlePortfolio(enlace.code)} 

@@ -11,7 +11,8 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchPortfolio = async () => {
       console.log(id)
-      const response = await axios.get("http://localhost:3000/linktree/"+id)
+      const response = await axios.get("http://localhost:3000/portfolio/"+id)
+      console.log(response.data)
       setEnlacesPortfolio(response.data)
     }
 
@@ -41,16 +42,16 @@ const Portfolio = () => {
       <section className = 'portfolio__section' aria-labelledby="portfolio-title">
         <h1 className = 'section__title' id="portfolio-title">Portfolio</h1>
         <ul className = 'section__list'>
-          {enlacesPortfolio.map((enlace) => (
-            <li className = 'list__element' key={enlace.id}>
+          {enlacesPortfolio && enlacesPortfolio.map((enlace) => (
+            <li className = 'list__element' key={enlace.code}>
               <a 
                 className = 'element__link'
                 href={enlace.url} 
                 target="_blank" 
                 rel="noreferrer" 
-                aria-label={`Abrir el proyecto ${enlace.shorter} en una nueva ventana`}
+                aria-label={`Abrir el proyecto ${import.meta.env.VITE_DOMAIN+"/"+ enlace.code} en una nueva ventana`}
               >
-                {enlace.shorter}
+                {import.meta.env.VITE_DOMAIN+"/"+ enlace.code}
               </a>
             </li>
           ))}

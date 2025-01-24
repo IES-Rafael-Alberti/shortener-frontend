@@ -98,7 +98,7 @@ const Register = () => {
     }
   };
 
-  if (user.email) {
+  if (user.token) {
     return <Navigate to="/userProfile" replace />;
   }
 
