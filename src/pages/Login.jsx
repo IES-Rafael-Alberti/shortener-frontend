@@ -74,7 +74,16 @@ const Login = () => {
   
       const recaptchaValue = recaptchaRef.current.getValue();
       if (!recaptchaValue) {
-        Swal.fire("Error", "Por favor, valida el reCaptcha", "error");
+        Swal.fire({
+          title: "ReCaptcha no validado",
+          icon: "error",
+          customClass: {
+            popup: "swal__popup",       // Clase para el contenedor principal del modal
+            title: "swal__title",       // Clase para el título
+            icon: "swal__icon",         // Clase para el icono
+            confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+          }
+        });
         return;
       }
   
@@ -86,10 +95,28 @@ const Login = () => {
       });
       console.log(response.data.token);
       login(response.data);
-      Swal.fire("Éxito", "Usuario logueado con éxito", "success");
+      Swal.fire({
+        title: "Sesión iniciada con éxito",
+        icon: "success",
+        customClass: {
+          popup: "swal__popup",       // Clase para el contenedor principal del modal
+          title: "swal__title",       // Clase para el título
+          icon: "swal__icon",         // Clase para el icono
+          confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+        }
+      });
     } catch (error) {
       console.error(error);
-      Swal.fire("Error", error.response?.data?.message || "Ocurrió un error al hacer el login", "error");
+      Swal.fire({
+        title: "Error al iniciar sesión",
+        icon: "error",
+        customClass: {
+          popup: "swal__popup",
+          title: "swal__title",
+          icon: "swal__icon",
+          confirmButton: "swal__confirm-button"
+        }
+      });
     }
   };
 
