@@ -25,13 +25,13 @@ const Header = () => {
               }
               fetchUserData();
         }
-    })
 
-    useEffect(() => {
         const savedTheme = localStorage.getItem("theme") || "light";
         setTheme(savedTheme);
         document.body.setAttribute("data-theme", savedTheme);
-    }, []);
+
+    }, [])
+
 
     useEffect(() => {
         document.body.setAttribute("data-theme", theme);
