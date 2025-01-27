@@ -1,0 +1,103 @@
+.notFound {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--color-palette-White);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .notFound__section {
+        margin: 10%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
+        grid-template-areas: 
+        "title title title error error"
+        "title title title error error"
+        "backHome backHome description description description"
+        "backHome backHome description description description"
+        "backHome backHome description description description";
+        row-gap: 3%;
+        column-gap: 1%;
+
+        .section__title {
+            grid-area: title;
+            padding: 5%;
+
+            font-size: 4rem;
+            border: solid 2px var(--color-palette-Black);
+            border-radius: 14px;
+            color: var(--color-palette-Crimson);
+        }
+
+        .section__error {
+            grid-area: error;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 4rem;
+            border: solid 2px var(--color-palette-Black);
+            border-radius: 14px;
+        }
+
+        .section__description {
+            grid-area: description;
+
+            padding: 5%;
+
+            font-size: 2rem;
+            border: solid 2px var(--color-palette-Black);
+            border-radius: 14px;
+        }
+
+        .section__backHome {
+            grid-area: backHome;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 4rem;
+            border: solid 2px var(--color-palette-Black);
+            border-radius: 14px;
+
+            .backHome__Link {
+                text-decoration: none;
+
+                color: var(--color-palette-Black);
+
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                svg {
+                    opacity: 0;
+                    transform: translateX(10px);
+                    transition: opacity 0.3s ease, transform 0.3s ease;
+                }
+
+                &:hover svg {
+                    opacity: 1;
+                    transform: translateX(0);
+                    color: var(--color-palette-Crimson);
+                }
+
+                .right {
+                    opacity: 0;
+                    transform: translateX(-10px);
+                }
+
+                &:hover .right {
+                    opacity: 1;
+                    transform: translateX(0);
+                    color: var(--color-palette-Crimson);
+                }
+            }
+        }
+    }
+}

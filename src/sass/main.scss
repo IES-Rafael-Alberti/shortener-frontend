@@ -6,6 +6,7 @@
 @use './pages/userProfile';
 @use './pages/linkPage';
 @use './pages/portFolio';
+@use './pages/notFound';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
@@ -18,6 +19,7 @@
     --color-palette-Burgundy: #620019;
     --color-palette-Gray: #444444;
 }
+
 [data-theme="light"] {
     --color-bg: var(--color-white);
     --color-contrast: var(--color-palette-Black);
