@@ -40,6 +40,10 @@ const UserProfile = () => {
     navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
   };
 
+  const handleConfig = (id) => {
+    navigate(`/userProfile/linkConfig/${id}`); // Redirigir a la página de configuración del enlace con el ID
+  };
+
   const handlePortfolio = (id) => {
     const enlace = enlaces.filter((link) => link.code === id)[0];
     if (enlace.portfolio) {
@@ -87,6 +91,8 @@ const UserProfile = () => {
                 
                 <button onClick={() => handlerEliminar(enlace.code)} className="element__delete" aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark} /></button>
 
+
+
                 <span className="buttons">
                   <button 
                     className="element__button"
@@ -94,6 +100,14 @@ const UserProfile = () => {
                     aria-label={`Consultar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
                   >
                     Consultar
+                  </button>
+
+                  <button 
+                    className="element_button"
+                    onClick={() => handleConfig(enlace.code)}
+                    aria-label={`Configurar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
+                  >
+                    Configurar
                   </button>
 
                   {enlace.portfolio ? (
