@@ -40,4 +40,21 @@
         background-color: var(--color-contrast-big-btn);
         transform: scale(1.1);
     }
+
+    @media (max-width: 768px) {
+        .home__title {
+            font-size: 3rem;
+        }
+
+        .home__button {
+            margin-top: 1%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .home__button {
+            font-size: 1.5rem;
+            border-radius: 8px;
+        }
+    }
 }
