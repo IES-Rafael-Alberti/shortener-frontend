@@ -103,7 +103,7 @@ const UserProfile = () => {
                   </button>
 
                   <button 
-                    className="element_button"
+                    className="element__button"
                     onClick={() => handleConfig(enlace.code)}
                     aria-label={`Configurar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
                   >
