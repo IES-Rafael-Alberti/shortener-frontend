@@ -28,14 +28,14 @@ const Passthrough = () => {
       validateStatus: (status) => status === 403 || status === 200 || status === 404,
     });
 
-    console.log(response.data);
+    
 
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-
+      console.log(serverReasons)
       if (
-        serverReasons.includes("not_activated_yet") ||
-        serverReasons.includes("expired") ||
+        serverReasons.includes("dateActivation") ||
+        serverReasons.includes("dateExpiration") ||
         serverReasons.includes("invalid_password")
       ) {
         Swal.fire({
@@ -51,7 +51,8 @@ const Passthrough = () => {
         }).then(() => {
           navigate("/");
         });
-      } else if (serverReasons.includes("login_required")) {
+      } else if (serverReasons.includes("requireLogin")) {
+        console.log("login")
         Swal.fire({
           title: "Hay alguna protección en el enlace",
           icon: "error",
@@ -116,6 +117,36 @@ const Passthrough = () => {
     obtenerEnlace(id); // Llamar a la función solo cuando el componente se monte
   }, [id]); // Solo se ejecutará cuando cambie el parámetro `id`
 
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  
+  // Codificar los datos como x-www-form-urlencoded
+  const data = new URLSearchParams();
+  data.append("password", "123456");
+
+  console.log(data)
+
+  try {
+    const response = await axios.get(`http://localhost:3000/passthrough/${id}`, data,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        validateStatus: (status) => status === 403 || status === 200,
+      }
+    );
+
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+  }
+};
+
+  
+
   return <div>
 
 
@@ -123,17 +154,15 @@ const Passthrough = () => {
     {reasons.password && 
     <form>
         <label htmlFor="">Contraseña</label>
-        <input type="text"></input>
+        <input type="text" value="123456"></input>
+        <button onClick={handleSubmit}>hola</button>
     </form>}
     {reasons.recaptcha &&
     <ReCAPTCHA
     ref={recaptchaRef}
     sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+    onClick={}
   />
-    }
-
-    {reasons.recaptcha  && 
-    <button>hola</button>
     }
 
 
