@@ -161,7 +161,6 @@ const handleSubmit = async (e) => {
     <ReCAPTCHA
     ref={recaptchaRef}
     sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
-    onClick={}
   />
     }
 
