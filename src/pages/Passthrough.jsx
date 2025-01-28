@@ -34,7 +34,7 @@ const Passthrough = () => {
 >>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-
+      console.log(serverReasons)
       if (
         serverReasons.includes("dateActivation") ||
         serverReasons.includes("dateExpiration") ||
@@ -261,6 +261,7 @@ const handleSubmit = async (e) => {
     <ReCAPTCHA
     ref={recaptchaRef}
     sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+    onClick={}
   />
     }
 
