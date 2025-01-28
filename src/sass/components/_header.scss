@@ -2,7 +2,6 @@
     width: 100%;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
     
     padding: 1.5% 1% 1.5% 1%;
@@ -10,11 +9,12 @@
     background-color: var(--color-header);
 
     .header__branding {
+        width: 50%;
         display: flex;
         align-items: center;
 
         .branding__logo {
-            width: 20%;
+            width: 10%;
         }
 
         .branding__name {
@@ -25,76 +25,43 @@
     }
 
     .header__rightSide {
-        width: 20%;
+        width: 50%;
 
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
-        .rightSide__themeToggle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--color-header);
+        
+        .rightSide__button {
+            margin-right: 1%;
             border: none;
-            color: var(--color-txt);
-            border-radius: 5%;
-            width: 30%;
-            height: 100%;
+            background-color: var(--color-header);
             cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 5%;
+            transition: transform 0.3s;
     
-            .themeToggle__switch {
-                position: relative;
-                display: inline-block;
-                width: 50px;
-                height: 25px;
+            &:hover {
+                transform: scale(1.1);
             }
-            
-            .themeToggle__switch input {
-                opacity: 0;
-                width: 0;
-                height: 0;
+
+            .button__icon {
+                font-size: 2rem;
+                color: var(--color-palette-White); // Color general del icono
+                transition: color 0.4s;
+        
+                &:hover {
+                    color: var(--color-palette-Crimson); // Color al pasar el cursor
+                }
             }
-            
-            .themeToggle__slider {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: var(--color-palette-White);
-                color: var(--color-palette-White);
-                border-radius: 25px;
-                cursor: pointer;
-                transition: background-color 0.4s;
-            }
-            
-            .themeToggle__slider:before {
-                content: "";
-                position: absolute;
-                width: 42%;
-                height: 80%;
-                left: 4%;
-                bottom: 10%;
-                background-color: var(--color-palette-Black);
-                border-radius: 50%;
-                transition: transform 0.4s;
-            }
-    
-            input:checked + .themeToggle__slider {
-                background-color: var(--color-palette-Crimson);
-            }
-            
-            input:checked + .themeToggle__slider:before {
-                transform: translateX(120%);
-            }
-            
         }
 
         .rightSide__auth {
             display: flex;
             align-items: center;
-            width: 55%;
+            width: 20%;
 
             .auth__login, .auth__register {
                 background-color: var(--color-btn);
@@ -122,7 +89,7 @@
 
                 .userName__logo {
                     color: var(--color-palette-White);
-                    font-size: 4rem;
+                    font-size: 3rem;
                 }
             }
     
@@ -141,9 +108,100 @@
             }
     
             .auth__logOut:hover {
-                border: solid 1px var(--color-palette-Black);
-                background-color: var(--color-contrast-btn);
+                border: solid 1px var(--color-contrast-big-btn);
+                background-color: var(--color-contrast-big-btn);
                 color: var(--color-txt);
+            }
+        }
+
+        @media (max-width: 1280px) {
+            .rightSide__button {
+                margin-right: 2%;
+            }
+
+            .rightSide__auth {
+                width: 30%;
+            }
+        }
+
+        @media (max-width: 1010px) {
+            .rightSide__button {
+                margin-right: 2%;
+            }
+
+            .rightSide__auth {
+                width: 30%;
+            }
+        }
+
+        @media (max-width: 870px) {
+            .rightSide__button {
+                margin-right: 2%;
+            }
+
+            .rightSide__auth {
+                width: 30%;
+
+                .auth__logOut {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rightSide__button {
+                margin-right: 3%;
+                
+                .button__icon {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .rightSide__auth {
+                width: 30%;
+
+                .auth__logOut {
+                    font-size: 0.8rem;
+                }
+
+                .auth__userName {
+                 
+                    .userName__logo {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header__branding {
+            width: 50%;
+
+            .branding__name {
+                font-size: 1rem;
+            }
+        }
+
+        .header__rightSide {
+            
+            .rightSide__auth {
+                width: 50%;
+
+                .auth__logOut {
+                    font-size: 0.8rem;
+                }
+
+                .auth__userName {
+                 
+                    .userName__logo {
+                        font-size: 2rem;
+                    }
+                }
+            }
+
+            .rightSide__button {
+                margin-right: 5%;
             }
         }
     }
