@@ -15,6 +15,7 @@ import {
   Legend,
 } from "chart.js";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +31,7 @@ const LinkPage = () => {
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
   const [ qr, setQr ] = useState(false);
+  const navigate = useNavigate();
 
   const [estadisticas, setEstadisticas] = useState({
     ultimoMes: null,
@@ -114,23 +116,10 @@ const LinkPage = () => {
     setQr(true); // Actualizar el estado para mostrar el código QR
   };
   
+  const handlerVisit = (code) => {
 
-  const obtenerEnlace = async (code) => {
-    if (user.token){
-      console.log(user.token)
-      const response = await axios.get("http://localhost:3000/passthrough/"+code, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      
-      console.log(response.status)
-      return response.data.url
-    }
-  }
-
-  const handlerVisit = async (code) => {
-    obtenerEnlace(code).then((url) => window.location.href = url)
+    navigate("/passthrough/"+code)
+  
   }
 
   const chartData = {
