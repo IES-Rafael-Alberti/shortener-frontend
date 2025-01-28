@@ -9,6 +9,7 @@ import LayoutPrivate from "../layouts/LayoutPrivate";
 import UserProfile from "../pages/UserProfile";
 import LinkPage from "../pages/LinkPage";
 import ConfigurarLink from "../pages/ConfigurarLink";
+import Passthrough from "../pages/Passthrough";
 
 const Login = lazy(() => import("../pages/Login"));
 
@@ -49,6 +50,12 @@ export const router = createBrowserRouter([
                 path: "/portfolio/:id",
                 element: (<Suspense fallback={<div>Loading...</div>}>
                     <Portfolio />
+                </Suspense>)
+            },
+            {
+                path: "/passthrough/:id",
+                element: (<Suspense fallback={<div>Loading...</div>}>
+                    <Passthrough />
                 </Suspense>)
             }
         ]
