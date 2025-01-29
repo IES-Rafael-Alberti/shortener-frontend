@@ -135,7 +135,7 @@ const Passthrough = () => {
           </div>
         )}
         {reasons.recaptcha && (
-          <ReCAPTCHA ref={recaptchaRef} sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz" />
+          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} />
         )}
 
         {(reasons.recaptcha || reasons.password) && (
