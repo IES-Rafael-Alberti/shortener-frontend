@@ -26,12 +26,8 @@ const Passthrough = () => {
       },
       validateStatus: (status) => status === 403 || status === 200 || status === 404,
     });
-
-<<<<<<< HEAD
-=======
     
 
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
 
@@ -48,10 +44,6 @@ const Passthrough = () => {
           navigate("/");
         });
       } else if (serverReasons.includes("requireLogin")) {
-<<<<<<< HEAD
-=======
-        console.log("login")
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
         Swal.fire({
           title: "Debes iniciar sesión",
           icon: "error",
@@ -91,38 +83,21 @@ const Passthrough = () => {
     }
   };
 
+
   useEffect(() => {
     obtenerEnlace(id);
   }, [id]);
 
-<<<<<<< HEAD
-  const handleSubmit = async () => {
-    try {
-      if (!reasons.recaptcha){
-      const response = await axios.get(
-        `http://localhost:3000/passthrough/${id}?password=${encodeURIComponent(password)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          validateStatus: (status) => status === 403 || status === 200,
-        }
-      );
-=======
 
 const handleSubmit = async (e) => {
   e.preventDefault();
 
   
-  // Codificar los datos como x-www-form-urlencoded
-  const data = new URLSearchParams();
-  data.append("password", "123456");
 
-  console.log(data)
 
   try {
-    const response = await axios.get(`http://localhost:3000/passthrough/${id}`, data,
+    
+    const response = await axios.get(`http://localhost:3000/passthrough/${id}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -134,16 +109,14 @@ const handleSubmit = async (e) => {
 
       if (response.status === 200) {
         window.location.href = response.data.url;
-      } else if (response.status === 403) {
+      } /*else if (response.status === 403) {
           Swal.fire({
             title: "Contraseña incorrecta",
             icon: "error",
           });
         
-    }
-  }
-
-    else if (!reasons.password){
+    }*/
+  else if (!reasons.password){
       console.log(recaptchaRef.current);
       console.log(recaptcha)
       const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
@@ -175,113 +148,7 @@ const handleSubmit = async (e) => {
     }
   };
 
-  
-
-  return <div>
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
-
-      if (response.status === 200) {
-        window.location.href = response.data.url;
-      } else if (response.status === 403) {
-          Swal.fire({
-            title: "Contraseña incorrecta",
-            icon: "error",
-          });
-        
-    }
-  }
-
-<<<<<<< HEAD
-    else if (!reasons.password){
-      "todo: recaptcha"
-    }
-    else if (reasons.password && reasons.recaptcha){
-      "Todo: recaptcha y password"
-    }
-
-    } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-    }
-  };
-
-  
-
-  return <div>
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
-
-      if (response.status === 200) {
-        window.location.href = response.data.url;
-      } else if (response.status === 403) {
-          Swal.fire({
-            title: "Contraseña incorrecta",
-            icon: "error",
-          });
-        
-    }
-  }
-
-<<<<<<< HEAD
-    else if (!reasons.password){
-      "todo: recaptcha"
-    }
-    else if (reasons.password && reasons.recaptcha){
-      "Todo: recaptcha y password"
-    }
-
-    } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-    }
-  };
-
-  
-
-  return <div>
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
-
-      if (response.status === 200) {
-        window.location.href = response.data.url;
-      } else if (response.status === 403) {
-          Swal.fire({
-            title: "Contraseña incorrecta",
-            icon: "error",
-          });
-        
-    }
-  }
-
-<<<<<<< HEAD
-    else if (!reasons.password){
-      console.log(recaptchaRef.current);
-      console.log(recaptcha)
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${encodeURIComponent(recaptcha)}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        validateStatus: (status) => status === 403 || status === 200,
-      });
-
-      if (response.status === 200) {
-        window.location.href = response.data.url;
-      }
-      else if (response.status === 403) {
-        Swal.fire({
-          title: "Recaptcha incorrecto",
-          icon: "error",
-        });
-      }
-      
-
-    }
-    else if (reasons.password && reasons.recaptcha){
-      "Todo: recaptcha y password"
-    }
-
-    } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-    }
-  };
-
+ 
   return (
     <div>
       <form>
@@ -298,22 +165,7 @@ const handleSubmit = async (e) => {
         {reasons.recaptcha && (
           <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
         )}
-=======
-<form action="submit">
-    {reasons.password && 
-    <form>
-        <label htmlFor="">Contraseña</label>
-        <input type="text" value="123456"></input>
-        <button onClick={handleSubmit}>hola</button>
-    </form>}
-    {reasons.recaptcha &&
-    <ReCAPTCHA
-    ref={recaptchaRef}
-    sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
-  />
-    }
 
->>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
 
         {(reasons.recaptcha || reasons.password) && (
           <button type="button" onClick={handleSubmit}>
