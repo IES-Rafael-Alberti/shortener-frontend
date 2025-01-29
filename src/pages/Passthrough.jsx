@@ -16,7 +16,6 @@ const Passthrough = () => {
   });
   const [password, setPassword] = useState("");
   const recaptchaRef = useRef();
-  const [recaptcha, setRecaptcha] = useState("");
   //console.log(recaptchaRef.current.getValue());
 
   const obtenerEnlace = async (code) => {
@@ -92,33 +91,28 @@ const Passthrough = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  
-
-
   try {
-    
-    const response = await axios.get(`http://localhost:3000/passthrough/${id}`,
-      {
+
+    if (reasons.password && !reasons.recaptcha) {
+      const response = await axios.get(`http://localhost:3000/passthrough/${id}?password=${password}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
         validateStatus: (status) => status === 403 || status === 200,
-      }
-    );
+      });
 
       if (response.status === 200) {
         window.location.href = response.data.url;
-      } /*else if (response.status === 403) {
+      } 
+      else if (response.status === 403) {
           Swal.fire({
             title: "Contraseña incorrecta",
             icon: "error",
           });
         
-    }*/
-  else if (!reasons.password){
-      console.log(recaptchaRef.current);
-      console.log(recaptcha)
+    }
+    } else if (!reasons.password && reasons.recaptcha) {
       const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -138,10 +132,25 @@ const handleSubmit = async (e) => {
       }
       
 
+    } else if (reasons.password && reasons.recaptcha){
+      const response = await axios.get(`http://localhost:3000/passthrough/${id}?password=${password}&recaptcha=${recaptchaRef.current.getValue()}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        validateStatus: (status) => status === 403 || status === 200,
+      });
+      if (response.status === 200) {
+        window.location.href = response.data.url;
     }
-    else if (reasons.password && reasons.recaptcha){
-      "Todo: recaptcha y password"
+    else if (response.status === 403) {
+      Swal.fire({
+        title: "Recaptcha o contraseña incorrectos",
+        icon: "error",
+      });
+      recaptchaRef.current.reset();
     }
+  }
 
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
@@ -163,7 +172,7 @@ const handleSubmit = async (e) => {
           </div>
         )}
         {reasons.recaptcha && (
-          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
+          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} />
         )}
 
 
