@@ -59,7 +59,7 @@ const Portfolio = () => {
 
   const handlerVisit = (code) => {
 
-    navigate("/passthrough/"+code)
+    navigate("/"+code)
   
   }
 
