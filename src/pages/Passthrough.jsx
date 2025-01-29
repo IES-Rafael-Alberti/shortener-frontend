@@ -18,6 +18,8 @@ const Passthrough = () => {
   const recaptchaRef = useRef();
   const [recaptcha, setRecaptcha] = useState("");
   //console.log(recaptchaRef.current.getValue());
+  const [recaptcha, setRecaptcha] = useState("");
+  //console.log(recaptchaRef.current.getValue());
 
   const obtenerEnlace = async (code) => {
     const response = await axios.get(`http://localhost:3000/passthrough/${code}`, {
@@ -231,7 +233,7 @@ const handleSubmit = async (e) => {
     else if (!reasons.password){
       console.log(recaptchaRef.current);
       console.log(recaptcha)
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
+      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${encodeURIComponent(recaptcha)}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",
@@ -323,6 +325,7 @@ const handleSubmit = async (e) => {
           </div>
         )}
         {reasons.recaptcha && (
+          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
           <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
         )}
 =======
