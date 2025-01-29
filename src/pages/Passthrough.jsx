@@ -32,9 +32,14 @@ const Passthrough = () => {
     
 
 >>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-
+      console.log(serverReasons)
       if (
         serverReasons.includes("dateActivation") ||
         serverReasons.includes("dateExpiration") ||
@@ -48,6 +53,10 @@ const Passthrough = () => {
           navigate("/");
         });
       } else if (serverReasons.includes("requireLogin")) {
+<<<<<<< HEAD
+=======
+        console.log("login")
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
 <<<<<<< HEAD
 =======
         console.log("login")
@@ -96,6 +105,7 @@ const Passthrough = () => {
   }, [id]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const handleSubmit = async () => {
     try {
       if (!reasons.recaptcha){
@@ -109,6 +119,40 @@ const Passthrough = () => {
           validateStatus: (status) => status === 403 || status === 200,
         }
       );
+=======
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  
+  // Codificar los datos como x-www-form-urlencoded
+  const data = new URLSearchParams();
+  data.append("password", "123456");
+
+  console.log(data)
+
+  try {
+    const response = await axios.get(`http://localhost:3000/passthrough/${id}`, data,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        validateStatus: (status) => status === 403 || status === 200,
+      }
+    );
+
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+  }
+};
+
+  
+
+  return <div>
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
+
       if (response.status === 200) {
         window.location.href = response.data.url;
       } else if (response.status === 403) {
@@ -120,6 +164,7 @@ const Passthrough = () => {
     }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     else if (!reasons.password){
       console.log(recaptchaRef.current);
@@ -169,6 +214,23 @@ const Passthrough = () => {
         {reasons.recaptcha && (
           <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
         )}
+=======
+<form action="submit">
+    {reasons.password && 
+    <form>
+        <label htmlFor="">Contraseña</label>
+        <input type="text" value="123456"></input>
+        <button onClick={handleSubmit}>hola</button>
+    </form>}
+    {reasons.recaptcha &&
+    <ReCAPTCHA
+    ref={recaptchaRef}
+    sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+    onClick={}
+  />
+    }
+
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
 =======
 <form action="submit">
     {reasons.password && 
