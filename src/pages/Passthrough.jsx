@@ -100,6 +100,7 @@ const Passthrough = () => {
     }
   };
 
+
   useEffect(() => {
     obtenerEnlace(id);
   }, [id]);
@@ -125,14 +126,11 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   
-  // Codificar los datos como x-www-form-urlencoded
-  const data = new URLSearchParams();
-  data.append("password", "123456");
 
-  console.log(data)
 
   try {
-    const response = await axios.get(`http://localhost:3000/passthrough/${id}`, data,
+    
+    const response = await axios.get(`http://localhost:3000/passthrough/${id}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -144,16 +142,14 @@ const handleSubmit = async (e) => {
 
       if (response.status === 200) {
         window.location.href = response.data.url;
-      } else if (response.status === 403) {
+      } /*else if (response.status === 403) {
           Swal.fire({
             title: "Contraseña incorrecta",
             icon: "error",
           });
         
-    }
-  }
-
-    else if (!reasons.password){
+    }*/
+  else if (!reasons.password){
       console.log(recaptchaRef.current);
       console.log(recaptcha)
       const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${encodeURIComponent(recaptcha)}`, {
