@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-docs": "jsdoc ./src --destination ./docs"
+    "generate-docs": "jsdoc -c jsdoc.json"  
   },
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
