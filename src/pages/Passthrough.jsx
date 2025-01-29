@@ -3,9 +3,8 @@ import axios from "axios";
 import useUserStore from "../stores/useUserStore";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import React from "react";
 
 const Passthrough = () => {
   const { id } = useParams();
@@ -15,10 +14,8 @@ const Passthrough = () => {
     password: null,
     recaptcha: null,
   });
-    const recaptchaRef = React.createRef();
-  
-
-
+  const [password, setPassword] = useState("");
+  const recaptchaRef = useRef();
 
   const obtenerEnlace = async (code) => {
     const response = await axios.get(`http://localhost:3000/passthrough/${code}`, {
@@ -28,11 +25,9 @@ const Passthrough = () => {
       validateStatus: (status) => status === 403 || status === 200 || status === 404,
     });
 
-    
-
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-      console.log(serverReasons)
+
       if (
         serverReasons.includes("dateActivation") ||
         serverReasons.includes("dateExpiration") ||
@@ -42,27 +37,14 @@ const Passthrough = () => {
           title: "Hay alguna protección en el enlace",
           icon: "error",
           text: serverReasons.join(", "),
-          customClass: {
-            popup: "swal__popup",
-            title: "swal__title",
-            icon: "swal__icon",
-            confirmButton: "swal__confirm-button",
-          },
         }).then(() => {
           navigate("/");
         });
       } else if (serverReasons.includes("requireLogin")) {
-        console.log("login")
         Swal.fire({
-          title: "Hay alguna protección en el enlace",
+          title: "Debes iniciar sesión",
           icon: "error",
           text: serverReasons.join(", "),
-          customClass: {
-            popup: "swal__popup",
-            title: "swal__title",
-            icon: "swal__icon",
-            confirmButton: "swal__confirm-button",
-          },
         }).then(() => {
           navigate("/login");
         });
@@ -72,103 +54,99 @@ const Passthrough = () => {
             ...prevReasons,
             password: true,
           }));
-          console.log(reasons);
         }
-        if (serverReasons.includes("recaptcha")){
-            setReasons((prevReasons) => ({
-                ...prevReasons,
-                recaptcha: true,
-              }));
+        if (serverReasons.includes("recaptcha")) {
+          setReasons((prevReasons) => ({
+            ...prevReasons,
+            recaptcha: true,
+          }));
         }
-        console.log(reasons);
 
         Swal.fire({
-          title: "Hay alguna protección en el enlace",
+          title: "Hay protecciones en el enlace",
           icon: "warning",
           text: serverReasons.join(", "),
-          customClass: {
-            popup: "swal__popup",
-            title: "swal__title",
-            icon: "swal__icon",
-            confirmButton: "swal__confirm-button",
-          },
         });
       }
     } else if (response.status === 404) {
       Swal.fire({
         title: "Enlace no encontrado",
         icon: "error",
-        customClass: {
-          popup: "swal__popup",
-          title: "swal__title",
-          icon: "swal__icon",
-          confirmButton: "swal__confirm-button",
-        },
       }).then(() => {
         navigate("/");
       });
-    }
-    else if (response.status === 200){
-        window.location.href = response.data.url;
+    } else if (response.status === 200) {
+      window.location.href = response.data.url;
     }
   };
 
   useEffect(() => {
-    obtenerEnlace(id); // Llamar a la función solo cuando el componente se monte
-  }, [id]); // Solo se ejecutará cuando cambie el parámetro `id`
+    obtenerEnlace(id);
+  }, [id]);
 
+  const handleSubmit = async () => {
+    try {
+      if (!reasons.recaptcha){
+      const response = await axios.get(
+        `http://localhost:3000/passthrough/${id}?password=${encodeURIComponent(password)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          validateStatus: (status) => status === 403 || status === 200,
+        }
+      );
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  
-  // Codificar los datos como x-www-form-urlencoded
-  const data = new URLSearchParams();
-  data.append("password", "123456");
-
-  console.log(data)
-
-  try {
-    const response = await axios.get(`http://localhost:3000/passthrough/${id}`, data,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        validateStatus: (status) => status === 403 || status === 200,
-      }
-    );
-
-    console.log("Response:", response.data);
-  } catch (error) {
-    console.error("Error:", error.response?.data || error.message);
+      if (response.status === 200) {
+        window.location.href = response.data.url;
+      } else if (response.status === 403) {
+          Swal.fire({
+            title: "Contraseña incorrecta",
+            icon: "error",
+          });
+        
+    }
   }
-};
 
-  
-
-  return <div>
-
-
-<form action="submit">
-    {reasons.password && 
-    <form>
-        <label htmlFor="">Contraseña</label>
-        <input type="text" value="123456"></input>
-        <button onClick={handleSubmit}>hola</button>
-    </form>}
-    {reasons.recaptcha &&
-    <ReCAPTCHA
-    ref={recaptchaRef}
-    sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
-  />
+    else if (!reasons.password){
+      "todo: recaptcha"
+    }
+    else if (reasons.password && reasons.recaptcha){
+      "Todo: recaptcha y password"
     }
 
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
+    }
+  };
 
+  return (
+    <div>
+      <form>
+        {reasons.password && (
+          <div>
+            <label>Contraseña</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        )}
+        {reasons.recaptcha && (
+          <ReCAPTCHA ref={recaptchaRef} sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz" />
+        )}
 
-</form>
-  </div>;
+        {(reasons.recaptcha || reasons.password) && (
+          <button type="button" onClick={handleSubmit}>
+          Enviar
+        </button>
+        )}
+
+      </form>
+    </div>
+  );
 };
 
 export default Passthrough;
-
