@@ -27,9 +27,14 @@ const Passthrough = () => {
       validateStatus: (status) => status === 403 || status === 200 || status === 404,
     });
 
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-
+      console.log(serverReasons)
       if (
         serverReasons.includes("dateActivation") ||
         serverReasons.includes("dateExpiration") ||
@@ -43,6 +48,10 @@ const Passthrough = () => {
           navigate("/");
         });
       } else if (serverReasons.includes("requireLogin")) {
+<<<<<<< HEAD
+=======
+        console.log("login")
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
         Swal.fire({
           title: "Debes iniciar sesión",
           icon: "error",
@@ -86,6 +95,7 @@ const Passthrough = () => {
     obtenerEnlace(id);
   }, [id]);
 
+<<<<<<< HEAD
   const handleSubmit = async () => {
     try {
       if (!reasons.recaptcha){
@@ -110,6 +120,7 @@ const Passthrough = () => {
     }
   }
 
+<<<<<<< HEAD
     else if (!reasons.password){
       console.log(recaptchaRef.current);
       console.log(recaptcha)
@@ -158,6 +169,23 @@ const Passthrough = () => {
         {reasons.recaptcha && (
           <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
         )}
+=======
+<form action="submit">
+    {reasons.password && 
+    <form>
+        <label htmlFor="">Contraseña</label>
+        <input type="text" value="123456"></input>
+        <button onClick={handleSubmit}>hola</button>
+    </form>}
+    {reasons.recaptcha &&
+    <ReCAPTCHA
+    ref={recaptchaRef}
+    sitekey="6LchHbgqAAAAAMaYK9S_kHPDzHsRdEd7atXMMAEz"
+    onClick={}
+  />
+    }
+
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
 
         {(reasons.recaptcha || reasons.password) && (
           <button type="button" onClick={handleSubmit}>
