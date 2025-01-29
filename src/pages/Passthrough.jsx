@@ -16,6 +16,8 @@ const Passthrough = () => {
   });
   const [password, setPassword] = useState("");
   const recaptchaRef = useRef();
+  const [recaptcha, setRecaptcha] = useState("");
+  //console.log(recaptchaRef.current.getValue());
 
   const obtenerEnlace = async (code) => {
     const response = await axios.get(`http://localhost:3000/passthrough/${code}`, {
@@ -142,6 +144,55 @@ const handleSubmit = async (e) => {
   }
 
     else if (!reasons.password){
+      console.log(recaptchaRef.current);
+      console.log(recaptcha)
+      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${encodeURIComponent(recaptcha)}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        validateStatus: (status) => status === 403 || status === 200,
+      });
+
+      if (response.status === 200) {
+        window.location.href = response.data.url;
+      }
+      else if (response.status === 403) {
+        Swal.fire({
+          title: "Recaptcha incorrecto",
+          icon: "error",
+        });
+      }
+      
+
+    }
+    else if (reasons.password && reasons.recaptcha){
+      "Todo: recaptcha y password"
+    }
+
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
+    }
+  };
+
+  
+
+  return <div>
+>>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
+
+      if (response.status === 200) {
+        window.location.href = response.data.url;
+      } else if (response.status === 403) {
+          Swal.fire({
+            title: "Contraseña incorrecta",
+            icon: "error",
+          });
+        
+    }
+  }
+
+<<<<<<< HEAD
+    else if (!reasons.password){
       "todo: recaptcha"
     }
     else if (reasons.password && reasons.recaptcha){
@@ -196,7 +247,7 @@ const handleSubmit = async (e) => {
           </div>
         )}
         {reasons.recaptcha && (
-          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} />
+          <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA} onChange={setRecaptcha} />
         )}
 =======
 <form action="submit">
