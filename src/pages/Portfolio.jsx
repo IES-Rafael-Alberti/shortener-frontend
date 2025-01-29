@@ -1,16 +1,18 @@
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useState, useEffect } from "react"
 import axios from "axios"
-import useUserStore from "../stores/useUserStore"
+//import useUserStore from "../stores/useUserStore"
 
 const Portfolio = () => {
 
   const { id } = useParams()
 
+  const navigate = useNavigate()
+
   const [enlacesPortfolio, setEnlacesPortfolio] = useState([])
 
-  const user = useUserStore((state) => state.user);
-
+  //const user = useUserStore((state) => state.user);
+/*
   const obtenerEnlace = async (code) => {
     if (user.token){
       console.log(user.token)
@@ -29,8 +31,8 @@ const Portfolio = () => {
       }
     
   }
-
-  const getIPAddress = async () => {
+*/
+  /*const getIPAddress = async () => {
     try {
       const response = await axios.get('https://api.ipify.org?format=json');
       return response.data.ip;
@@ -39,7 +41,7 @@ const Portfolio = () => {
       return null
     }
   };
-
+*/
   useEffect(() => {
     const fetchPortfolio = async () => {
       console.log(id)
@@ -55,10 +57,10 @@ const Portfolio = () => {
 
   }, [id]);
 
-  const handlerVisit = async (id, code) => {
-    
-    obtenerEnlace(code).then((url) => window.location.href = url) 
-     
+  const handlerVisit = (code) => {
+
+    navigate("/passthrough/"+code)
+  
   }
 
  
@@ -76,7 +78,7 @@ const Portfolio = () => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label={`Abrir el proyecto ${import.meta.env.VITE_DOMAIN+"/"+ enlace.code} en una nueva ventana`}
-                onClick={() => {handlerVisit(enlace._id, enlace.code)} }
+                onClick={() => {handlerVisit(enlace.code)} }
               >
                 {import.meta.env.VITE_DOMAIN+"/"+ enlace.code}
               </a>
