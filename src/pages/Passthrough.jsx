@@ -113,7 +113,7 @@ const Passthrough = () => {
     else if (!reasons.password){
       console.log(recaptchaRef.current);
       console.log(recaptcha)
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${encodeURIComponent(recaptcha)}`, {
+      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",

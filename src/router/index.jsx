@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
                 </Suspense>)
             },
             {
-                path: "/passthrough/:id",
+                path: "/:id",
                 element: (<Suspense fallback={<div>Loading...</div>}>
                     <Passthrough />
                 </Suspense>)
