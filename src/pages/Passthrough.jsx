@@ -32,7 +32,7 @@ const Passthrough = () => {
 >>>>>>> 9eec5e4 (Problemas al pasar la contraseña por el passthrough)
     if (response.status === 403) {
       const { reasons: serverReasons } = response.data;
-      console.log(serverReasons)
+
       if (
         serverReasons.includes("dateActivation") ||
         serverReasons.includes("dateExpiration") ||
@@ -130,11 +130,28 @@ const handleSubmit = async (e) => {
       }
     );
 
-    console.log("Response:", response.data);
-  } catch (error) {
-    console.error("Error:", error.response?.data || error.message);
+      if (response.status === 200) {
+        window.location.href = response.data.url;
+      } else if (response.status === 403) {
+          Swal.fire({
+            title: "Contraseña incorrecta",
+            icon: "error",
+          });
+        
+    }
   }
-};
+
+    else if (!reasons.password){
+      "todo: recaptcha"
+    }
+    else if (reasons.password && reasons.recaptcha){
+      "Todo: recaptcha y password"
+    }
+
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
+    }
+  };
 
   
 
