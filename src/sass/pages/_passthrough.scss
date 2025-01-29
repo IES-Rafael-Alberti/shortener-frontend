@@ -1,4 +1,4 @@
-.login {
+.passth {
     height: 78.3vh;
     background-color: var(--color-bg);
 
@@ -7,19 +7,15 @@
     align-items: center;
     flex-direction: column;
 
-    .login__title {
+    .passth__title {
         color: var(--color-light-txt);
         font-weight: 300;
         font-size: 3rem;
 
         padding-bottom: 2%;
-
-        @media (max-width: 620px) {
-            font-size: 2rem;
-        }
     }
 
-    .login__form {
+    .passth__form {
         padding: 1%;
         width: 35%;
         min-height: 33%;
@@ -113,27 +109,7 @@
                     color: var(--color-palette-Black);
                     transform: scale(1.05);
                 }
-
-                @media (max-width: 480px) {
-                    flex-direction: column;
-
-                    .signup__submit {
-                        margin-top: 4%;
-                        width: 100%;
-                    }
-                }
             }
-        }
-
-        @media (max-width: 768px) {
-            padding: 2%;
-            width: 75%;
-        }
-
-        @media (max-width: 480px) {
-            padding: 2%;
-            padding-bottom: 5%;
-            width: 80%;
         }
     }
 }

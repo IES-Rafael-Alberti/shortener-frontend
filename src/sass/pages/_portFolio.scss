@@ -19,6 +19,14 @@
             list-style: none;
             width: 50%;
 
+            @media (max-width: 768px) {
+                width: 75%;
+            }
+    
+            @media (max-width: 480px) {
+                width: 80%;
+            }
+
             .list__element {
                 margin-top: 2%;
                 padding: 2%;

@@ -13,6 +13,10 @@
         font-size: 3rem;
 
         padding-bottom: 2%;
+
+        @media (max-width: 620px) {
+            font-size: 2rem;
+        }
     }
 
     .register__form {
@@ -107,7 +111,27 @@
                     background-color: var(--color-contrast-btn);
                     color: var(--color-palette-Black);
                 }
+
+                @media (max-width: 480px) {
+                    flex-direction: column;
+
+                    .register__submit {
+                        margin-top: 4%;
+                        width: 100%;
+                    }
+                }
             }
+        }
+
+        @media (max-width: 768px) {
+            padding: 2%;
+            width: 75%;
+        }
+
+        @media (max-width: 480px) {
+            padding: 2%;
+            padding-bottom: 5%;
+            width: 80%;
         }
     }
 }

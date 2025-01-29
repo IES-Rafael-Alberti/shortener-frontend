@@ -64,6 +64,7 @@ const ConfigurarLink = () => {
   };
 
   return (
+    /*
     <div>
       <h2>Configurar Enlace</h2>
       <p>Enlace: {import.meta.env.VITE_DOMAIN + "/" + enlace.code}</p>
@@ -127,6 +128,78 @@ const ConfigurarLink = () => {
         <button type="submit">Guardar configuración</button>
       </form>
     </div>
+    */
+    <main className='config-link'>
+      <h2 className='config-link__title'>Configurar Enlace</h2>
+      <p className='config-link__info'>Enlace: {import.meta.env.VITE_DOMAIN + "/" + enlace.code}</p>
+      
+      <form className='config-link__form' onSubmit={handleSubmit}>
+        <fieldset className='form__fieldset'>
+          <legend className='visually-hidden'>Configuración de Enlace</legend>
+          
+          <label className='fieldset__label'>Contraseña
+            <input
+              type='text'
+              name='password'
+              id='password'
+              placeholder='Contraseña'
+              value={enlace.password || ""}
+              onChange={handleChange}
+              className='label__input'
+            />
+          </label>
+          
+          <label className='fieldset__label'>Fecha de Activación
+            <input
+              type='date'
+              name='dateActivation'
+              id='dateActivation'
+              value={enlace.dateActivation || ""}
+              onChange={handleChange}
+              className='label__input'
+            />
+          </label>
+          
+          <label className='fieldset__label'>Fecha de Expiración
+            <input
+              type='date'
+              name='dateExpiration'
+              id='dateExpiration'
+              value={enlace.dateExpiration || ""}
+              onChange={handleChange}
+              className='label__input'
+            />
+          </label>
+          
+          <label className='fieldset__labelR'>
+            <input
+              type='checkbox'
+              name='recaptcha'
+              id='recaptcha'
+              checked={enlace.recaptcha || false}
+              onChange={handleChange}
+              className='label__checkbox'
+            />
+            <span>Recaptcha</span>
+          </label>
+          
+          <label className='fieldset__labelR'>
+            <input
+              type='checkbox'
+              name='requireLogin'
+              id='requireLogin'
+              checked={enlace.requireLogin || false}
+              onChange={handleChange}
+              className='label__checkbox'
+            />
+            <span>Requiere Login</span>
+          </label>
+          
+          <button type='submit' className='config-link__submit'>Guardar configuración</button>
+        </fieldset>
+      </form>
+    </main>
+  
   );
 };
 

@@ -184,6 +184,41 @@ const handleSubmit = async (e) => {
 
       </form>
     </div>
+    /*<main className='passth'>
+      <h2 className='passth__title'>Formulario</h2>
+      
+      <form className='passth__form' onSubmit={handleSubmit} aria-labelledby='passth-title'>
+        <fieldset className='form__fieldset'>
+          <legend className='visually-hidden'>Formulario</legend>
+          
+          {reasons.password && (
+            <label className='fieldset__label'>Contraseña
+              <input
+                type='password'
+                placeholder='Contraseña'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='label__input'
+              />
+            </label>
+          )}
+          
+          {reasons.recaptcha && (
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA}
+            />
+          )}
+          
+          {(reasons.recaptcha || reasons.password) && (
+            <button type='submit' className='signup__submit'>
+              Enviar
+            </button>
+          )}
+        </fieldset>
+      </form>
+    </main>
+   */
   );
 };
 

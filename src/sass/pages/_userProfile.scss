@@ -22,6 +22,10 @@
                 font-weight: 500;
             }
         }
+
+        @media (max-width: 580px) {
+            flex-direction: column;
+        }
     }
 
     .userProfile__links {
@@ -39,17 +43,13 @@
         .links__list {
             padding-top: 1%;
             list-style-type: none;
-            display: grid; /* Grid para la distribución */
-            grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
-            gap: 1rem; /* Espaciado entre filas y columnas */
-            width: 95%; /* Ocupa el 80% del ancho de la página */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            width: 95%;
 
             @media (max-width: 768px) {
-                grid-template-columns: repeat(2, 1fr); // Media query styles
-            }
-        
-            @media (max-width: 480px) {
-                grid-template-columns: 1fr; // Media query styles
+                grid-template-columns: 1fr;
             }
 
             .list__element {
@@ -122,5 +122,9 @@
                 }
             }
         }
+    }
+
+    @media (max-width: 768px) {
+
     }
 }
