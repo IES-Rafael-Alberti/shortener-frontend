@@ -7,32 +7,49 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Navigate } from 'react-router';
 import axios from 'axios';
 
+/**
+ * Componente para iniciar sesión en la aplicación.
+ * 
+ * Este componente permite a los usuarios autenticarse en la aplicación.
+ * 
+ * @component
+ * @returns {JSX.Element} Formulario de inicio de sesión.
+ * */
 const Login = () => {
+
   const login = useUserStore((state) => state.login);
-
   const user = useUserStore((state) => state.user);
-
   const [datos, setDatos] = useState({
     email: "",
     password: ""
   });
-
   const [errors, setErrors] = useState({
     email: "",
     password: ""
   });
-
   const [isFormValid, setIsFormValid] = useState(false); 
 
   // Expresiones regulares
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
   const passwordRegex = /^[A-Za-z0-9]{6,}$/;
 
+  /**
+   * Maneja el cambio en los campos del formulario.
+   * 
+   * @param {Event} e - Evento de cambio en un campo del formulario.
+   * @memberof Login
+   * */
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setDatos({ ...datos, [name]: value });
   };
 
+  /**
+   * Maneja el evento de blur en los campos del formulario.
+   * 
+   * @param {Event} e - Evento de blur en un campo del formulario.
+   * @memberof Login
+   * */
   const handlerBlur = (e) => {
     const { name, value } = e.target;
 
@@ -63,6 +80,13 @@ const Login = () => {
 
   const recaptchaRef = React.createRef();
 
+  /**
+   * Maneja el evento de envío del formulario.
+   * 
+   * @async
+   * @param {Event} e - Evento de envío del formulario.
+   * @memberof Login
+   * */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

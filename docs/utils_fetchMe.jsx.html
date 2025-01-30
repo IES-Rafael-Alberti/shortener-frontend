@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> utils/fetchMe.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,40 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>utils/fetchMe.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from "axios";
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+/**
+ * Obtiene los datos del usuario.
+ * 
+ * @async
+ * @function
+ * @param {string} token - Token de autenticación.
+ * @returns {Promise&lt;Object>} Datos del usuario.
+ * */
+const fetchMe = async (token) => {
+        const response = await axios.get("http://localhost:3000/me", {
+        headers: {
+        Authorization: `Bearer ${token}`
+        }
+    });
     
+    return response.data;
 
+    }
 
-
-
-
+export default fetchMe;</code></pre>
+        </article>
+    </section>
 
 
 

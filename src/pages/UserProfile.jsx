@@ -6,6 +6,14 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Página de perfil de usuario.
+ * 
+ * Este componente muestra el perfil del usuario autenticado, incluyendo su correo electrónico y los enlaces acortados.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de perfil de usuario.
+ * */
 const UserProfile = () => {
   const [userData, setUserData] = useState({email: ""}); // Inicializamos el estado con un objeto vacío 
   const user = useUserStore((state) => state.user);
@@ -36,14 +44,32 @@ const UserProfile = () => {
     fetchUserData();
 }, [user]); // Recorremos los enlaces cuando el user cambia
 
+/**
+ * Redirige a la página del enlace.
+ * 
+ * @function
+ * @param {string} id - ID del enlace.
+ * */
   const handleRedirect = (id) => {
     navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
   };
 
+  /**
+   * Redirige a la página de configuración del enlace.
+   *  
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
   const handleConfig = (id) => {
     navigate(`/userProfile/linkConfig/${id}`); // Redirigir a la página de configuración del enlace con el ID
   };
 
+  /**
+   * Añade o elimina un enlace del portfolio.
+   * 
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
   const handlePortfolio = (id) => {
     const enlace = enlaces.filter((link) => link.code === id)[0];
     if (enlace.portfolio) {
@@ -59,6 +85,12 @@ const UserProfile = () => {
     console.log(enlaces);
   };
 
+  /**
+   * Elimina un enlace.
+   * 
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
   const handlerEliminar = (id) => {
     axios.delete(`http://localhost:3000/link/${id}`, {
       headers: { "Authorization": `Bearer ${user.token}` }

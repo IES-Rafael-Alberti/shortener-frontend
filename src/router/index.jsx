@@ -13,6 +13,12 @@ import Passthrough from "../pages/Passthrough";
 
 const Login = lazy(() => import("../pages/Login"));
 
+/**
+ * Configuración de las rutas de la aplicación.
+ * 
+ * Este archivo define las rutas de la aplicación y los componentes que se renderizarán en cada una de ellas.
+ * 
+ */
 export const router = createBrowserRouter([
     {
         path: "/",

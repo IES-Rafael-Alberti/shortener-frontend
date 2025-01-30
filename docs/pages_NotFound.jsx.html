@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> pages/NotFound.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,52 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>pages/NotFound.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { NavLink } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Página de error 404.
+ * 
+ * Este componente muestra un mensaje de error 404 cuando una página no se encuentra.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de error 404.
+ * */
+const NotFound = () => {
+  return (
+    &lt;main className = 'notFound'>
+      &lt;section className="notFound__section">
+        &lt;h1 className="section__title">Shortener&lt;/h1>
+        &lt;p className="section__error">ERROR 404&lt;/p>
+        &lt;p className="section__description">Lo sentimos. Esta página no existe o no está disponible en este momento.&lt;/p>
+        &lt;p className="section__backHome">
+          &lt;NavLink className="backHome__Link" to="/">
+            &lt;FontAwesomeIcon className="right" icon={faArrowRightLong} />
+            &lt;span>VOLVER&lt;/span> 
+            &lt;FontAwesomeIcon icon={faArrowLeftLong} />
+          &lt;/NavLink>
+        &lt;/p>
+      &lt;/section>
+    &lt;/main>
+  )
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default NotFound
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,6 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+/**
+ * Store para manejar la sesión del usuario
+ * 
+ * Este store utiliza `zustand` para manejar el estado de la sesión del usuario.
+ * Se encarga de almacenar el token de autenticación del usuario y provee métodos
+ * para iniciar y cerrar sesión.
+ * 
+ */
 const useUserStore = create(
   persist(
     (set) => ({

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> pages/Home.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,140 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>pages/Home.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from "axios";
+import useUserStore from "../stores/useUserStore";
+import { useState } from "react";
 
+/**
+ * Componente principal de la página de inicio.
+ * 
+ * Este componente permite a los usuarios generar enlaces cortos para las URLs que proporcionan.
+ * Si el usuario está autenticado, se incluye un token de autenticación en la solicitud para la creación del enlace.
+ * También permite volver a la interfaz de generación de enlaces después de que se haya creado uno.
+ * 
+ * @component
+ * @returns {JSX.Element} La interfaz de usuario para generar enlaces cortos.
+ * 
+ */
+const Home = () => {
+  /**
+   * Estado global del usuario, que contiene el token de autenticación.
+   * @type {{ token: string }}
+   * @memberof Home
+   */
+  const user = useUserStore((state) => state.user);
 
-    <h3> </h3>
+  /**
+   * Estado que almacena el código generado para el enlace.
+   * @type {string|null}
+   * @memberof Home
+   */
+  const [enlace, setEnlace] = useState(null);
 
+  /**
+   * Estado que almacena el valor del campo de entrada para la URL.
+   * @type {string}
+   * @memberof Home
+   */
+  const [urlInput, setUrlInput] = useState(""); // Estado para manejar el valor del input
 
+  /**
+   * Función que se ejecuta cuando el usuario desea volver al generador de enlaces.
+   * Resetea el estado del enlace y la URL ingresada.
+   * 
+   * @function
+   * @memberof Home
+   */
+  const handlerVolver = () => {
+    setEnlace(null);
+    setUrlInput(""); // Restablece el valor del input
+  };
 
+  /**
+   * Función que maneja la generación del enlace corto.
+   * Realiza una solicitud a la API para crear un enlace corto para la URL proporcionada.
+   * Si el usuario está autenticado, se incluye el token en la solicitud.
+   * 
+   * @async
+   * @function
+   * @memberof Home
+   */
+  const handlerGenerarEnlace = async () => {
+    if (user.token) {
+      try {
+        const urlEncodedData = new URLSearchParams();
+        urlEncodedData.append("url", urlInput);
 
+        const response = await axios.post("http://localhost:3000/link", urlEncodedData, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const urlEncodedData = new URLSearchParams();
+        urlEncodedData.append("url", urlInput);
 
+        const response = await axios.post("http://localhost:3000/link", urlEncodedData, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
+        setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
+        setEnlace(response.data.code);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
+  return (
+    &lt;main className="home">
+      &lt;h1 className="home__title">Introduzca su enlace&lt;/h1>
+      &lt;input
+        type="url"
+        name="url"
+        id="url"
+        className="home__input"
+        value={urlInput} // Conecta el valor del input al estado
+        onChange={(e) => setUrlInput(e.target.value)} // Actualiza el estado al escribir
+      />
+      {!enlace ? (
+        &lt;button
+          className="home__button"
+          onClick={() => handlerGenerarEnlace()}
+          disabled={!urlInput.trim()} // Desactiva si el input está vacío
+        >
+          Generar enlace
+        &lt;/button>
+      ) : (
+        &lt;button className="home__button" onClick={() => handlerVolver()}>
+          Volver al generador
+        &lt;/button>
+      )}
+    &lt;/main>
+  );
+};
 
-
-
-
-    
-
-
-
-
-
+export default Home;
+</code></pre>
+        </article>
+    </section>
 
 
 

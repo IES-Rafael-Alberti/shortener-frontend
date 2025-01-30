@@ -3,10 +3,40 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useUserStore from "../stores/useUserStore";
 
+/**
+ * Componente para configurar un enlace existente.
+ * 
+ * Este componente permite al usuario modificar la configuración de un enlace,
+ * incluyendo la protección con contraseña, la activación de reCAPTCHA, las fechas de activación y expiración, 
+ * y la necesidad de iniciar sesión para acceder.
+ * 
+ * @component
+ * @returns {JSX.Element} Formulario para configurar los parámetros de un enlace.
+ * 
+ */
 const ConfigurarLink = () => {
-  const { id } = useParams(); // Obtenemos el 'id' desde la URL
+  /**
+   * ID del enlace obtenido desde la URL.
+   * @type {string}
+   */
+  const { id } = useParams();
+
+  /**
+   * Información del usuario autenticado.
+   * @type {Object}
+   * @property {string} token - Token de autenticación del usuario.
+   */
   const user = useUserStore((state) => state.user);
 
+  /**
+   * Estado que almacena los datos del enlace.
+   * @type {Object}
+   * @property {string} password - Contraseña para acceder al enlace.
+   * @property {boolean} recaptcha - Indica si se requiere reCAPTCHA.
+   * @property {string} dateActivation - Fecha de activación del enlace en formato "YYYY-MM-DD".
+   * @property {string} dateExpiration - Fecha de expiración del enlace en formato "YYYY-MM-DD".
+   * @property {boolean} requireLogin - Indica si el acceso requiere autenticación.
+   */
   const [enlace, setEnlace] = useState({
     password: "",
     recaptcha: false,
@@ -15,7 +45,14 @@ const ConfigurarLink = () => {
     requireLogin: false,
   });
 
-  // Efecto para cargar los datos del enlace
+  /**
+   * Obtiene los datos del enlace desde la API y actualiza el estado.
+   * 
+   * @async
+   * @memberof ConfigurarLink
+   * @function fetchEnlace
+   * @returns {Promise<void>} Actualiza el estado con la información del enlace.
+   */
   useEffect(() => {
     const fetchEnlace = async () => {
       try {
@@ -24,8 +61,9 @@ const ConfigurarLink = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        // Ajustar las fechas para los inputs de tipo date
+
         const data = response.data;
+
         setEnlace({
           ...data,
           dateActivation: data.dateActivation ? data.dateActivation.split("T")[0] : "",
@@ -39,7 +77,13 @@ const ConfigurarLink = () => {
     fetchEnlace();
   }, [id, user.token]);
 
-  // Función para manejar cambios en los inputs
+  /**
+   * Maneja los cambios en los campos del formulario y actualiza el estado.
+   * 
+   * @function handleChange
+   * @memberof ConfigurarLink
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Evento de cambio en un input.
+   */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setEnlace({
@@ -48,7 +92,14 @@ const ConfigurarLink = () => {
     });
   };
 
-  // Función para manejar el envío del formulario
+  /**
+   * Envía los datos del formulario para actualizar la configuración del enlace.
+   * 
+   * @async
+   * @memberof ConfigurarLink
+   * @function handleSubmit
+   * @param {React.FormEvent<HTMLFormElement>} e - Evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
