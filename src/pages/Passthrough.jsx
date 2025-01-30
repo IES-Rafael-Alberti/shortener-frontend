@@ -6,6 +6,14 @@ import { useNavigate } from "react-router";
 import { useState, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
+/**
+ * Componente para redirigir a un enlace.
+ * 
+ * Este componente permite redirigir a un enlace, si esta protegido solicita la contraseña o reCAPTCHA.
+ * 
+ * @component
+ * @returns {JSX.Element} Formulario para ingresar la contraseña o reCAPTCHA.
+ * */
 const Passthrough = () => {
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
@@ -18,6 +26,14 @@ const Passthrough = () => {
   const recaptchaRef = useRef();
   //console.log(recaptchaRef.current.getValue());
 
+  /**
+   * Obtiene el enlace desde la API y redirige a la URL.
+   * 
+   * @async
+   * @function
+   * @memberof Passthrough
+   * @param {string} code - Código del enlace.
+   * */
   const obtenerEnlace = async (code) => {
     const response = await axios.get(`http://localhost:3000/passthrough/${code}`, {
       headers: {
@@ -88,6 +104,15 @@ const Passthrough = () => {
   }, [id]);
 
 
+  /**
+   * Realiza una solicitud a la API para redirigir al enlace.
+   * 
+   * 
+   * @async
+   * @function
+   * @memberof Passthrough
+   * @param {Event} e - Evento de envío del formulario.
+   * */
 const handleSubmit = async (e) => {
   e.preventDefault();
 

@@ -8,21 +8,79 @@ import { faLightbulb as faSolidLightbulb } from "@fortawesome/free-solid-svg-ico
 import { faLightbulb as faRegularLightbulb } from "@fortawesome/free-regular-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Componente Header que muestra el logo, botones de autenticación y cambio de tema.
+ * 
+ * @component
+ * @returns {JSX.Element} El componente del encabezado de la aplicación con opciones de autenticación y cambio de tema.
+ */
 const Header = () => {
+    /**
+     * Estado global del usuario, que contiene el token de autenticación.
+     * @type {{ token: string }}
+     * @memberof Header
+     */
     const user = useUserStore((state) => state.user);
+
+    /**
+     * Función para cerrar sesión que modifica el estado global.
+     * @memberof Header
+     */
     const logout = useUserStore((state) => state.logout);
+
+    /**
+     * Hook para manejar la navegación a otras páginas dentro de la aplicación.
+     * @type {Function}
+     * @memberof Header
+     */
     const navigate = useNavigate();
+
+    /**
+     * Estado para manejar el tema de la aplicación (modo claro u oscuro).
+     * @type {"light" | "dark"}
+     * @memberof Header
+     */
     const [theme, setTheme] = useState("light");
+
+    /**
+     * Estado para almacenar los datos del usuario autenticado.
+     * @type {Object}
+     * @property {string} email - Correo electrónico del usuario.
+     * @memberof Header
+     */
     const [userData, setUserData] = useState({ email: "" });
 
+    /**
+     * Cambia el tema entre "light" y "dark".
+     * Guarda la preferencia del tema en el `localStorage`.
+     * 
+     * @function toggleMode
+     * @memberof Header
+     */
     const toggleMode = () => {
         const newTheme = theme === "dark" ? "light" : "dark";
         setTheme(newTheme);
         localStorage.setItem("theme", newTheme);
     };
 
+    /**
+     * Efecto que se ejecuta al montar el componente, recuperando los datos del usuario 
+     * y el tema preferido del usuario desde `localStorage`.
+     * 
+     * @function
+     * @async
+     * @memberof Header
+     */
     useEffect(() => {
         if (user.token) {
+            /**
+             * Obtiene los datos del usuario autenticado.
+             * 
+             * @async
+             * @function fetchUserData
+             * @memberof Header
+             * @returns {Promise<void>} Datos del usuario actualizados.
+             */
             const fetchUserData = async () => {
                 const data = await fetchMe(user.token);
                 setUserData(data);
@@ -33,8 +91,13 @@ const Header = () => {
         const savedTheme = localStorage.getItem("theme") || "light";
         setTheme(savedTheme);
         document.body.setAttribute("data-theme", savedTheme);
-    }, []);
+    }, [user.token]);
 
+    /**
+     * Efecto que aplica el tema al `body` cuando cambia el estado `theme`.
+     * 
+     * @memberof Header
+     */
     useEffect(() => {
         document.body.setAttribute("data-theme", theme);
     }, [theme]);

@@ -3,6 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Página de error 404.
+ * 
+ * Este componente muestra un mensaje de error 404 cuando una página no se encuentra.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de error 404.
+ * */
 const NotFound = () => {
   return (
     <main className = 'notFound'>

@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> pages/LinkPage.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Documentación del Proyecto</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#ConfigurarLink">ConfigurarLink</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#LayoutPrivate">LayoutPrivate</a></li><li><a href="global.html#LayoutPublic">LayoutPublic</a></li><li><a href="global.html#LinkPage">LinkPage</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#Passthrough">Passthrough</a></li><li><a href="global.html#Portfolio">Portfolio</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#fetchMe">fetchMe</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#useUserStore">useUserStore</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>pages/LinkPage.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+// Se importa la librería QRCode para generar los códigos QR
+import { QRCodeSVG } from "qrcode.react";
+import { Bar } from "react-chartjs-2";
+import useUserStore from "../stores/useUserStore";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import axios from "axios";
+import { useNavigate } from "react-router";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+/**
+ * Página para visualizar las estadísticas de un enlace acortado.
+ * 
+ * Este componente muestra las estadísticas de un enlace acortado, incluyendo el número de clics
+ * en el último mes y por semana, así como un gráfico de barras con los clics por semana.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de estadísticas de un enlace acortado. 
+ * */
+
+const LinkPage = () => {
+
+  const { id } = useParams();
+  const user = useUserStore((state) => state.user);
+  const [ qr, setQr ] = useState(false);
+  const navigate = useNavigate();
+
+  const [estadisticas, setEstadisticas] = useState({
+    ultimoMes: null,
+    semana1: null,
+    semana2: null,
+    semana3: null,
+    semana4: null
+  });
+  const [ enlace, setEnlace ] = useState({}); 
+  const [ visits, setVisits ] = useState([]);
+
+  useEffect(() => {
+
+    /*
+    * Obtiene los datos de las visitas del enlace desde la API y actualiza el estado.
+    *
+    * @async
+    * @memberof LinkPage
+    * @function fetchVisits
+    * @returns {Promise&lt;void>} Actualiza el estado con la información de las visitas.
+    * */
+    const fetchVisits = async () => {
+      const response = await axios.get(`http://localhost:3000/link/${id}/visit`,
+      { headers: { 
+        "Authorization": `Bearer ${user.token}`
+    } }
+  );
+  setVisits(response.data);
+  }
+
+    /*
+    * Obtiene los datos del enlace desde la API y actualiza el estado.
+    *
+    * @async
+    * @memberof LinkPage
+    * @function fetchEnlace
+    * @returns {Promise&lt;void>} Actualiza el estado con la información del enlace.
+    * */
+    const fetchEnlace = async () => {
+      const response = await axios.get(`http://localhost:3000/link/${id}`, 
+      { headers: { 
+        "Authorization": `Bearer ${user.token}`
+    } }
+  );
+      setEnlace(response.data);
+      
+    }
+
+    
+  
+
+    fetchEnlace();
+    fetchVisits();
+    
+    const today = new Date();
+    const lastMonth = new Date(today);
+    lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+    const monthVisits = visits.filter((visit) => new Date(visit.date) > lastMonth);
+
+    console.log(monthVisits)
+
+    
+    const weekStarts = [
+      new Date(today.setDate(today.getDate() - 21)),
+      new Date(today.setDate(today.getDate() + 7)), 
+      new Date(today.setDate(today.getDate() + 7)), 
+      new Date(today.setDate(today.getDate() + 7))
+    ];
+
+
+    const weekVisits = [0, 0, 0, 0]; 
+
+    monthVisits.forEach((visit) => {
+      const visitDate = new Date(visit.date);
+      for (let i = 0; i &lt; weekStarts.length; i++) {
+        if (visitDate &lt; weekStarts[i]) {
+          weekVisits[i] += 1;
+          break;
+        }
+      }
+    });
+
+    setEstadisticas({
+      ultimoMes: monthVisits.length,
+      semana1: weekVisits[0],
+      semana2: weekVisits[1],
+      semana3: weekVisits[2],
+      semana4: weekVisits[3],
+    });
+  }, [visits.length]); 
+
+
+  /** 
+   * Maneja el evento de generar un código QR para el enlace.
+   *  
+   * @function
+   * @memberof LinkPage
+   * @param {Event} e - Evento de click en el botón de generar QR.
+   * */
+  const handlerGenerarEnlace = (e) => {
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    setQr(true); // Actualizar el estado para mostrar el código QR
+  };
+  
+  /**
+   * Maneja el evento de visitar el enlace acortado.
+   *  
+   * @function
+   * @memberof LinkPage
+   * @param {string} code - Código del enlace acortado.
+   * */
+  const handlerVisit = (code) => {
+
+    navigate("/"+code)
+  
+  }
+
+  const chartData = {
+    labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
+    datasets: [
+      {
+        label: "Clicks por semana",
+        data: [
+          estadisticas.semana1,
+          estadisticas.semana2,
+          estadisticas.semana3,
+          estadisticas.semana4
+        ],
+        backgroundColor: "#DA0037",
+        borderColor: "#620019",
+        borderWidth: 1
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: "top",
+        labels: {
+          color: "#EDEDED",
+          font: {
+            size:14,
+          }
+        }
+      },
+      title: {
+        display: false,
+        text: "Estadísticas semanales de clics",
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: "#EDEDED", // Cambia el color de las etiquetas del eje X
+        },
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: "#EDEDED",
+          callback: function (value) {
+            return Number.isInteger(value) ? value : Math.round(value);
+          },
+          stepSize: 100,
+        },
+      },
+    },
+  };
+  return (
+    
+    &lt;main className="linkPage">
+      &lt;h1 className="linkPage__title" id="enlace-title">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}&lt;/h1>
+      &lt;section className="linkPage__statistics" aria-labelledby="statistics-title">
+      &lt;h2 id="statistics-title" className="statistics__title">Estadísticas&lt;/h2>
+      &lt;span className="statistics__gridContainer">
+      &lt;p className="statistics__shortenedLink">Enlace acortado: &lt;a onClick={() => handlerVisit(enlace.code)} target="_blank" rel="noopener noreferrer">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}&lt;/a>&lt;/p>
+      
+      &lt;p className="statistics__item">Último mes: &lt;span>{estadisticas.ultimoMes}&lt;/span>&lt;/p>
+
+      &lt;section className="statistics__chart" aria-labelledby="chart-title">
+          
+          &lt;h3 id="chart-title" className="chart__title">Gráfica de clics por semana&lt;/h3>
+          &lt;Bar data={chartData} options={chartOptions} />
+        &lt;/section>
+
+      &lt;section className="statistics__qr" aria-labelledby="qr-title">
+            &lt;h2 id="qr-title" className="qr__title">Código QR&lt;/h2>
+            {qr ? (
+              &lt;div className="qr__generated">
+                &lt;QRCodeSVG value={import.meta.env.VITE_DOMAIN+"/"+enlace.code} size={256}/>
+              &lt;/div>
+            ) : (
+              &lt;button 
+                className="qr__generateButton" 
+                onClick={handlerGenerarEnlace} 
+                aria-describedby="qr-button"
+              >
+                Generar QR
+              &lt;/button>
+            )}
+            {!qr &amp;&amp; &lt;p id="qr-description" className="qr__description">Presiona para generar un código QR para este enlace&lt;/p>}
+          &lt;/section>
+
+      &lt;/span>
+      &lt;/section>
+    &lt;/main>
+  );
+};
+
+export default LinkPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

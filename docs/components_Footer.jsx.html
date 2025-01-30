@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/Footer.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,82 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/Footer.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { NavLink } from "react-router";
+import fetchMe from "../utils/fetchMe";
+import useUserStore from "../stores/useUserStore";
+import { useEffect, useState } from "react";
 
+/**
+ * Componente de pie de página que muestra un enlace al portfolio si el usuario está autenticado.
+ *
+ * @component
+ * @returns {JSX.Element} El componente de footer con un enlace condicional para usuarios autenticados.
+ * 
+ */
+const Footer = () => {
+    /**
+     * Estado para almacenar los datos del usuario obtenidos del servidor.
+     * @type {Object}
+     * @property {string} email - El correo electrónico del usuario.
+     * @property {string} _id - El identificador único del usuario.
+     * @memberof Footer
+     */
+    const [userData, setUserData] = useState({ email: "", _id: "" });
 
-    <h3> </h3>
+    /**
+     * Datos del usuario del estado global.
+     * @type {{ token: string }}
+     * @memberof Footer
+     */
+    const user = useUserStore((state) => state.user);
 
+    /**
+     * Obtiene los datos del usuario utilizando el token de autenticación.
+     * 
+     * @async
+     * @function fetchUserData
+     * @memberof Footer
+     * @param {string} token - Token de autenticación del usuario.
+     * @returns {Promise&lt;void>} Actualiza el estado con los datos del usuario obtenidos.
+     * @example
+     * fetchUserData('some-token')
+     */
+    const fetchUserData = async (token) => {
+        const data = await fetchMe(token);
+        setUserData(data);
+    };
 
+    useEffect(() => {
+        if (user.token) {
+            fetchUserData(user.token);
+        }
+    }, [user.token]); // Dependencia para actualizar datos cuando el token cambie.
 
+    return (
+        &lt;footer className="footer">
+            {user.token &amp;&amp; (
+                &lt;NavLink className="footer__link" to={`/portfolio/${userData._id}`}>
+                    Portfolio
+                &lt;/NavLink>
+            )}
+        &lt;/footer>
+    );
+};
 
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Footer;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> router/index.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,106 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>router/index.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createBrowserRouter } from "react-router";
+import LayoutPublic from "../layouts/LayoutPublic";
+import Home from "../pages/Home";
+import { lazy, Suspense } from "react";
+import NotFound from "../pages/NotFound";
+import Register from "../pages/Register";
+import Portfolio from "../pages/Portfolio";
+import LayoutPrivate from "../layouts/LayoutPrivate";
+import UserProfile from "../pages/UserProfile";
+import LinkPage from "../pages/LinkPage";
+import ConfigurarLink from "../pages/ConfigurarLink";
+import Passthrough from "../pages/Passthrough";
 
+const Login = lazy(() => import("../pages/Login"));
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Configuración de las rutas de la aplicación.
+ * 
+ * Este archivo define las rutas de la aplicación y los componentes que se renderizarán en cada una de ellas.
+ * 
+ */
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: (
+            &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                &lt;LayoutPublic />
+            &lt;/Suspense>),
+        errorElement: (
+            &lt;Suspense fallback={&lt;div>Loading error page...&lt;/div>}>
+              &lt;NotFound />
+            &lt;/Suspense>
+          ),
+        children: [
+            {
+                index: true,
+                element: (
+                &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                    &lt;Home />
+                &lt;/Suspense>)
+            },
+            {
+                path: "/login",
+                element: (
+                &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                    &lt;Login />
+                &lt;/Suspense>)
+            },
+            {   
+                path: "/register",
+                element: (&lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                    &lt;Register />
+                &lt;/Suspense>)
+            },
+            {   
+                path: "/portfolio/:id",
+                element: (&lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                    &lt;Portfolio />
+                &lt;/Suspense>)
+            },
+            {
+                path: "/:id",
+                element: (&lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>
+                    &lt;Passthrough />
+                &lt;/Suspense>)
+            }
+        ]
+    },
+    {
+        path: "/userProfile",
+        element: &lt;LayoutPrivate />,
+        children: [
+            {
+                index: true,
+                element: &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>&lt;UserProfile />&lt;/Suspense>
+            },
+            {
+                path: "linkPage/:id",  // Aquí se arregla el path
+                element: &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>&lt;LinkPage />&lt;/Suspense>
+            },
+            {
+                path: "linkConfig/:id",  // Aquí se arregla el path
+                element: &lt;Suspense fallback={&lt;div>Loading...&lt;/div>}>&lt;ConfigurarLink />&lt;/Suspense>
+            }
+        ]
+    }
+])
+</code></pre>
+        </article>
+    </section>
 
 
 
