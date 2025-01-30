@@ -30,7 +30,7 @@ const UserProfile = () => {
       setUserData(data); // Actualizamos el estado con los datos del user
     }
     const fetchLinks = async () => {
-      const response = await axios.get("http://localhost:3000/link", {
+      const response = await axios.get(`${import.meta.env.VITE_API}/link`, {
         headers: {
           "Authorization": `Bearer ${user.token}`
         }
@@ -79,7 +79,7 @@ const UserProfile = () => {
     }
     setEnlaces([...enlaces]);
 
-    axios.put(`http://localhost:3000/link/${id}`, {portfolio: enlace.portfolio}, {
+    axios.put(`${import.meta.env.VITE_API}/link/${id}`, {portfolio: enlace.portfolio}, {
       headers: { "Authorization": `Bearer ${user.token}` }
     });
     console.log(enlaces);
@@ -92,7 +92,7 @@ const UserProfile = () => {
    * @param {string} id - ID del enlace.
    * */
   const handlerEliminar = (id) => {
-    axios.delete(`http://localhost:3000/link/${id}`, {
+    axios.delete(`${import.meta.env.VITE_API}/link/${id}`, {
       headers: { "Authorization": `Bearer ${user.token}` }
     });
     setEnlaces(enlaces.filter((enlace) => enlace.code !== id));

@@ -62,7 +62,7 @@ const Home = () => {
         const urlEncodedData = new URLSearchParams();
         urlEncodedData.append("url", urlInput);
 
-        const response = await axios.post("http://localhost:3000/link", urlEncodedData, {
+        const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: `Bearer ${user.token}`,
@@ -77,7 +77,7 @@ const Home = () => {
         const urlEncodedData = new URLSearchParams();
         urlEncodedData.append("url", urlInput);
 
-        const response = await axios.post("http://localhost:3000/link", urlEncodedData, {
+        const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },

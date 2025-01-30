@@ -9,7 +9,7 @@ import axios from "axios";
  * @returns {Promise<Object>} Datos del usuario.
  * */
 const fetchMe = async (token) => {
-        const response = await axios.get("http://localhost:3000/me", {
+        const response = await axios.get(`${import.meta.env.VITE_API}/me`, {
         headers: {
         Authorization: `Bearer ${token}`
         }

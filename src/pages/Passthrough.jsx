@@ -35,7 +35,7 @@ const Passthrough = () => {
    * @param {string} code - Código del enlace.
    * */
   const obtenerEnlace = async (code) => {
-    const response = await axios.get(`http://localhost:3000/passthrough/${code}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API}/passthrough/${code}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -119,7 +119,7 @@ const handleSubmit = async (e) => {
   try {
 
     if (reasons.password && !reasons.recaptcha) {
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?password=${password}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API}/passthrough/${id}?password=${password}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",
@@ -138,7 +138,7 @@ const handleSubmit = async (e) => {
         
     }
     } else if (!reasons.password && reasons.recaptcha) {
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API}/passthrough/${id}?recaptcha=${recaptchaRef.current.getValue()}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",
@@ -158,7 +158,7 @@ const handleSubmit = async (e) => {
       
 
     } else if (reasons.password && reasons.recaptcha){
-      const response = await axios.get(`http://localhost:3000/passthrough/${id}?password=${password}&recaptcha=${recaptchaRef.current.getValue()}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API}/passthrough/${id}?password=${password}&recaptcha=${recaptchaRef.current.getValue()}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/x-www-form-urlencoded",

@@ -53,7 +53,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchPortfolio = async () => {
       console.log(id)
-      const response = await axios.get("http://localhost:3000/portfolio/"+id)
+      const response = await axios.get(`${import.meta.env.VITE_API}/portfolio/`+id)
       console.log(response.data)
       setEnlacesPortfolio(response.data)
     }

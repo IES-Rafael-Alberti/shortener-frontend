@@ -56,7 +56,7 @@ const ConfigurarLink = () => {
   useEffect(() => {
     const fetchEnlace = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/link/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API}/link/${id}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -103,7 +103,7 @@ const ConfigurarLink = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/link/${id}`, enlace, {
+      await axios.put(`${import.meta.env.VITE_API}/link/${id}`, enlace, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

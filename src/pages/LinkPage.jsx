@@ -64,7 +64,7 @@ const LinkPage = () => {
     * @returns {Promise<void>} Actualiza el estado con la información de las visitas.
     * */
     const fetchVisits = async () => {
-      const response = await axios.get(`http://localhost:3000/link/${id}/visit`,
+      const response = await axios.get(`${import.meta.env.VITE_API}/link/${id}/visit`,
       { headers: { 
         "Authorization": `Bearer ${user.token}`
     } }
@@ -81,7 +81,7 @@ const LinkPage = () => {
     * @returns {Promise<void>} Actualiza el estado con la información del enlace.
     * */
     const fetchEnlace = async () => {
-      const response = await axios.get(`http://localhost:3000/link/${id}`, 
+      const response = await axios.get(`${import.meta.env.VITE_API}/link/${id}`,
       { headers: { 
         "Authorization": `Bearer ${user.token}`
     } }
