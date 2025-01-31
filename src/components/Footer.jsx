@@ -38,7 +38,7 @@ const Footer = () => {
     }, [user.token]); // Dependencia para actualizar datos cuando el token cambie.
 
     return (<footer className="footer">
-        {userData && (<NavLink className="footer__link" to={`/portfolio/${userData._id}`}>
+        {user.token && (<NavLink className="footer__link" to={`/portfolio/${userData._id}`}>
             Portfolio
         </NavLink>)}
     </footer>);
