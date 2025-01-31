@@ -22,7 +22,7 @@
     }
 
     .config-link__form {
-        padding: 1% 1.5% 1% 1.5%;
+        padding: 1.3%;
         min-width: 40%;
         min-height: 33%;
 
@@ -52,11 +52,11 @@
                 display: flex;
                 flex-direction: column;
 
-                margin-bottom: 2%;
+                margin-bottom: 5%;
                 font-size: 1.5rem;
 
                 .label__input {
-                    margin-top: 1%;
+                    margin-top: 2%;
                     padding: 0.5%;
 
                     font-size: 1.5rem;
@@ -75,7 +75,7 @@
                 display: flex;
                 flex-direction: row;
 
-                margin-bottom: 2%;
+                margin-bottom: 3%;
                 font-size: 1.5rem;
 
                 .label__checkbox {
@@ -141,7 +141,7 @@
             .config-link__submit:hover {
                 background-color: var(--color-contrast-btn);
                 color: var(--color-palette-Black);
-                transform: scale(1.05);
+                transform: scale(1.01);
             }
         }
     }
