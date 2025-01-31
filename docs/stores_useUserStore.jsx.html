@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> stores/useUserStore.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,46 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>stores/useUserStore.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
+/**
+ * Store para manejar la sesión del usuario
+ * 
+ * Este store utiliza `zustand` para manejar el estado de la sesión del usuario.
+ * Se encarga de almacenar el token de autenticación del usuario y provee métodos
+ * para iniciar y cerrar sesión.
+ * 
+ */
+const useUserStore = create(
+  persist(
+    (set) => ({
+      user: { token: null }, // Estado inicial del usuario
 
-    <h3> </h3>
+      login: (userData) => set({ user: userData }), // Acción para iniciar sesión
+      logout: () => set({ user: { token: null } }) // Acción para cerrar sesión
+    }),
+    {
+      name: "user-session", // Nombre de la clave en localStorage
+      getStorage: () => localStorage, // Almacenamos en localStorage
+    }
+  )
+);
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default useUserStore;
+</code></pre>
+        </article>
+    </section>
 
 
 

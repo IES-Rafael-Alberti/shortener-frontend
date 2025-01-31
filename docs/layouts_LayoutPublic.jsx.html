@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> layouts/LayoutPublic.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,45 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>layouts/LayoutPublic.jsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Outlet } from "react-router";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
+/**
+ * Layout para las páginas públicas de la aplicación.
+ * 
+ * Este componente define una estructura común para las páginas públicas,
+ * incluyendo un encabezado (`Header`), un pie de página (`Footer`) y un espacio
+ * dinámico (`Outlet`) donde se renderizará el contenido de las rutas públicas.
+ * 
+ * @component
+ * @returns {JSX.Element} La estructura del layout público con header, footer y outlet.
+ * 
+ */
+const LayoutPublic = () => {
+  return (
+    &lt;>
+      &lt;Header />
+      &lt;Outlet />
+      &lt;Footer />
+    &lt;/>
+  );
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default LayoutPublic;
+</code></pre>
+        </article>
+    </section>
 
 
 

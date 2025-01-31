@@ -7,6 +7,14 @@ import { Navigate } from 'react-router';
 import ReCAPTCHA from 'react-google-recaptcha';
 import axios from 'axios';
 
+/**
+ * Componente para el registro de usuarios.
+ * 
+ * Este componente permite a los usuarios registrarse en la aplicación.
+ * 
+ * @component
+ * @returns {JSX.Element} Formulario de registro.
+ * */
 const Register = () => {
 
   const login = useUserStore((state) => state.login);
@@ -29,11 +37,23 @@ const Register = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
   const passwordRegex = /^[A-Za-z0-9]{6,}$/;
 
+  /**
+   * Maneja el cambio en los campos del formulario.
+   * 
+   * @param {Event} e - Evento de cambio en un campo del formulario.
+   * @memberof Register
+   * */
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setDatos({ ...datos, [name]: value });
   };
 
+  /**
+   *  Maneja el evento de blur en los campos del formulario.
+   * 
+   * @param {Event} e - Evento de blur en un campo del formulario.
+   * @memberof Register
+   * */
   const handlerBlur = (e) => {
     const { name, value } = e.target;
 
@@ -63,6 +83,14 @@ const Register = () => {
 
   const recaptchaRef = React.createRef();
 
+  /**
+   * Maneja el evento de envío del formulario.
+   * 
+   * @async
+   * @function
+   * @memberof Register
+   * @param {Event} e - Evento de envío del formulario.
+   * */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -88,7 +116,7 @@ const Register = () => {
       }
   
       // Realiza la solicitud con Axios
-      const response = await axios.post("http://localhost:3000/auth/register", urlencodedData, {
+      const response = await axios.post(`${import.meta.env.VITE_API}/auth/register`, urlencodedData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },

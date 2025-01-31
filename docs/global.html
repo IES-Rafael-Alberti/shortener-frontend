@@ -1,25 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Global</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Global</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
 </head>
 
-<body>
 
-<div id="main">
 
-    <h1 class="page-title">Global</h1>
-
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
     
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Documentación del Proyecto</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#ConfigurarLink">ConfigurarLink</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#LayoutPrivate">LayoutPrivate</a></li><li><a href="global.html#LayoutPublic">LayoutPublic</a></li><li><a href="global.html#LinkPage">LinkPage</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#Passthrough">Passthrough</a></li><li><a href="global.html#Portfolio">Portfolio</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#fetchMe">fetchMe</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#useUserStore">useUserStore</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Global</h1>
+                </header>
+                
 
 
 
@@ -66,7 +127,6 @@
     
 
     
-
     
 
     
@@ -80,7 +140,7 @@
         
     
     </div>
-
+    
     
 
     
@@ -94,26 +154,193 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
             
+                <div class="member">
 
+<h4 class="name" id="router">
+    <a class="href-link" href="#router">#</a>
     
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        router
+    </span>
+    
+</h4>
 
-    
-    <h4 class="name" id="Footer"><span class="type-signature"></span>Footer<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span></h4>
-    
-
-    
 
 
 
 <div class="description">
-    Footer que muestra un enlace al portfolio si el usuario ha iniciado sesión.
+    <p>Configuración de las rutas de la aplicación.</p>
+<p>Este archivo define las rutas de la aplicación y los componentes que se renderizarán en cada una de ellas.</p>
 </div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="router_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="router_index.jsx.html">router/index.jsx</a>, <a href="router_index.jsx.html#line22">line 22</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="useUserStore">
+    <a class="href-link" href="#useUserStore">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        useUserStore
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Store para manejar la sesión del usuario</p>
+<p>Este store utiliza <code>zustand</code> para manejar el estado de la sesión del usuario.
+Se encarga de almacenar el token de autenticación del usuario y provee métodos
+para iniciar y cerrar sesión.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="stores_useUserStore.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="stores_useUserStore.jsx.html">stores/useUserStore.jsx</a>, <a href="stores_useUserStore.jsx.html#line12">line 12</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="ConfigurarLink">
+        <a class="href-link" href="#ConfigurarLink">#</a>
+        
+        <span class="code-name">
+            
+                ConfigurarLink<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente para configurar un enlace existente.</p>
+<p>Este componente permite al usuario modificar la configuración de un enlace,
+incluyendo la protección con contraseña, la activación de reCAPTCHA, las fechas de activación y expiración,
+y la necesidad de iniciar sesión para acceder.</p>
+    </div>
+    
 
 
 
@@ -152,18 +379,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Footer.jsx.html">Footer.jsx</a>, <a href="Footer.jsx.html#line19">line 19</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="pages_ConfigurarLink.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_ConfigurarLink.jsx.html">pages/ConfigurarLink.jsx</a>, <a href="pages_ConfigurarLink.jsx.html#line17">line 17</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -181,34 +409,1699 @@
 
 
 
-<h5>Returns:</h5>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Formulario para configurar los parámetros de un enlace.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Footer">
+        <a class="href-link" href="#Footer">#</a>
+        
+        <span class="code-name">
+            
+                Footer<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente de pie de página que muestra un enlace al portfolio si el usuario está autenticado.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Footer.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Footer.jsx.html">components/Footer.jsx</a>, <a href="components_Footer.jsx.html#line13">line 13</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>El componente de footer con un enlace condicional para usuarios autenticados.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Header">
+        <a class="href-link" href="#Header">#</a>
+        
+        <span class="code-name">
+            
+                Header<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente Header que muestra el logo, botones de autenticación y cambio de tema.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Header.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Header.jsx.html">components/Header.jsx</a>, <a href="components_Header.jsx.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>El componente del encabezado de la aplicación con opciones de autenticación y cambio de tema.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Home">
+        <a class="href-link" href="#Home">#</a>
+        
+        <span class="code-name">
+            
+                Home<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente principal de la página de inicio.</p>
+<p>Este componente permite a los usuarios generar enlaces cortos para las URLs que proporcionan.
+Si el usuario está autenticado, se incluye un token de autenticación en la solicitud para la creación del enlace.
+También permite volver a la interfaz de generación de enlaces después de que se haya creado uno.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_Home.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_Home.jsx.html">pages/Home.jsx</a>, <a href="pages_Home.jsx.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La interfaz de usuario para generar enlaces cortos.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="LayoutPrivate">
+        <a class="href-link" href="#LayoutPrivate">#</a>
+        
+        <span class="code-name">
+            
+                LayoutPrivate<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente de diseño para rutas privadas.</p>
+<p>Este componente se asegura de que solo los usuarios autenticados puedan acceder a las rutas privadas.
+Si el usuario no está autenticado (sin token), lo redirige a la página de inicio de sesión.
+Si el usuario está autenticado, renderiza el <code>Header</code>, el contenido de la ruta (<code>Outlet</code>), y el <code>Footer</code>.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="layouts_LayoutPrivate.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="layouts_LayoutPrivate.jsx.html">layouts/LayoutPrivate.jsx</a>, <a href="layouts_LayoutPrivate.jsx.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>El diseño de las rutas privadas con un <code>Header</code>, el contenido de la ruta (<code>Outlet</code>) y un <code>Footer</code>.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="LayoutPublic">
+        <a class="href-link" href="#LayoutPublic">#</a>
+        
+        <span class="code-name">
+            
+                LayoutPublic<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Layout para las páginas públicas de la aplicación.</p>
+<p>Este componente define una estructura común para las páginas públicas,
+incluyendo un encabezado (<code>Header</code>), un pie de página (<code>Footer</code>) y un espacio
+dinámico (<code>Outlet</code>) donde se renderizará el contenido de las rutas públicas.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="layouts_LayoutPublic.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="layouts_LayoutPublic.jsx.html">layouts/LayoutPublic.jsx</a>, <a href="layouts_LayoutPublic.jsx.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La estructura del layout público con header, footer y outlet.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="LinkPage">
+        <a class="href-link" href="#LinkPage">#</a>
+        
+        <span class="code-name">
+            
+                LinkPage<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Página para visualizar las estadísticas de un enlace acortado.</p>
+<p>Este componente muestra las estadísticas de un enlace acortado, incluyendo el número de clics
+en el último mes y por semana, así como un gráfico de barras con los clics por semana.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_LinkPage.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_LinkPage.jsx.html">pages/LinkPage.jsx</a>, <a href="pages_LinkPage.jsx.html#line39">line 39</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La página de estadísticas de un enlace acortado.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Login">
+        <a class="href-link" href="#Login">#</a>
+        
+        <span class="code-name">
+            
+                Login<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente para iniciar sesión en la aplicación.</p>
+<p>Este componente permite a los usuarios autenticarse en la aplicación.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_Login.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_Login.jsx.html">pages/Login.jsx</a>, <a href="pages_Login.jsx.html#line18">line 18</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Formulario de inicio de sesión.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="NotFound">
+        <a class="href-link" href="#NotFound">#</a>
+        
+        <span class="code-name">
+            
+                NotFound<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Página de error 404.</p>
+<p>Este componente muestra un mensaje de error 404 cuando una página no se encuentra.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_NotFound.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_NotFound.jsx.html">pages/NotFound.jsx</a>, <a href="pages_NotFound.jsx.html#line14">line 14</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La página de error 404.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Passthrough">
+        <a class="href-link" href="#Passthrough">#</a>
+        
+        <span class="code-name">
+            
+                Passthrough<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente para redirigir a un enlace.</p>
+<p>Este componente permite redirigir a un enlace, si esta protegido solicita la contraseña o reCAPTCHA.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_Passthrough.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_Passthrough.jsx.html">pages/Passthrough.jsx</a>, <a href="pages_Passthrough.jsx.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Formulario para ingresar la contraseña o reCAPTCHA.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Portfolio">
+        <a class="href-link" href="#Portfolio">#</a>
+        
+        <span class="code-name">
+            
+                Portfolio<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Página para visualizar los enlaces de un portfolio.</p>
+<p>Este componente muestra los enlaces de un portfolio, permitiendo al usuario visitarlos.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_Portfolio.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_Portfolio.jsx.html">pages/Portfolio.jsx</a>, <a href="pages_Portfolio.jsx.html#line14">line 14</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La página de visualización de enlaces de un portfolio.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="Register">
+        <a class="href-link" href="#Register">#</a>
+        
+        <span class="code-name">
+            
+                Register<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Componente para el registro de usuarios.</p>
+<p>Este componente permite a los usuarios registrarse en la aplicación.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_Register.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_Register.jsx.html">pages/Register.jsx</a>, <a href="pages_Register.jsx.html#line18">line 18</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Formulario de registro.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="UserProfile">
+        <a class="href-link" href="#UserProfile">#</a>
+        
+        <span class="code-name">
+            
+                UserProfile<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Página de perfil de usuario.</p>
+<p>Este componente muestra el perfil del usuario autenticado, incluyendo su correo electrónico y los enlaces acortados.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="pages_UserProfile.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="pages_UserProfile.jsx.html">pages/UserProfile.jsx</a>, <a href="pages_UserProfile.jsx.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>La página de perfil de usuario.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="fetchMe">
+        <a class="href-link" href="#fetchMe">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                fetchMe<span class="signature">(token)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Obtiene los datos del usuario.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>token</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Token de autenticación.</p></td>
+</tr>
+
 
         
-<div class="param-desc">
-    Elemento JSX del footer.
+        </tbody>
+    </table>
 </div>
 
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">JSX.Element</span>
 
 
-    </dd>
-</dl>
+<dl class="details">
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="utils_fetchMe.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="utils_fetchMe.jsx.html">utils/fetchMe.jsx</a>, <a href="utils_fetchMe.jsx.html#line11">line 11</a>
+            </span>
+        </p>
+    
+</dl>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Datos del usuario.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
         
+<code class="param-type">Promise.&lt;Object></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
     
 
     
@@ -221,19 +2114,26 @@
 
 
 
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Footer">Footer</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 29 2025 09:48:16 GMT+0100 (hora estándar de Europa central)
-</footer>
-
-<script> prettyPrint(); </script>
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
 <script src="scripts/linenumber.js"> </script>
+
+
 </body>
 </html>

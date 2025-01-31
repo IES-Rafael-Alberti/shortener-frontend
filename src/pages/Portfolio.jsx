@@ -3,6 +3,14 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 //import useUserStore from "../stores/useUserStore"
 
+/**
+ * Página para visualizar los enlaces de un portfolio.
+ * 
+ * Este componente muestra los enlaces de un portfolio, permitiendo al usuario visitarlos.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de visualización de enlaces de un portfolio.
+ * */
 const Portfolio = () => {
 
   const { id } = useParams()
@@ -45,7 +53,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchPortfolio = async () => {
       console.log(id)
-      const response = await axios.get("http://localhost:3000/portfolio/"+id)
+      const response = await axios.get(`${import.meta.env.VITE_API}/portfolio/`+id)
       console.log(response.data)
       setEnlacesPortfolio(response.data)
     }
@@ -57,6 +65,11 @@ const Portfolio = () => {
 
   }, [id]);
 
+  /** 
+   * Función que maneja la visita a un enlace.
+   * 
+   * @param {string} code - Código del enlace.
+   * */
   const handlerVisit = (code) => {
 
     navigate("/"+code)

@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> pages/UserProfile.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Documentación del Proyecto</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#ConfigurarLink">ConfigurarLink</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#LayoutPrivate">LayoutPrivate</a></li><li><a href="global.html#LayoutPublic">LayoutPublic</a></li><li><a href="global.html#LinkPage">LinkPage</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#Passthrough">Passthrough</a></li><li><a href="global.html#Portfolio">Portfolio</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#fetchMe">fetchMe</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#useUserStore">useUserStore</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>pages/UserProfile.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from "react";
+import useUserStore from "../stores/useUserStore";
+import { useNavigate } from "react-router";
+import fetchMe from "../utils/fetchMe";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+/**
+ * Página de perfil de usuario.
+ * 
+ * Este componente muestra el perfil del usuario autenticado, incluyendo su correo electrónico y los enlaces acortados.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de perfil de usuario.
+ * */
+const UserProfile = () => {
+  const [userData, setUserData] = useState({email: ""}); // Inicializamos el estado con un objeto vacío 
+  const user = useUserStore((state) => state.user);
+  const navigate = useNavigate(); // Hook para navegación
+  const [enlaces, setEnlaces] = useState([]); // Inicializamos el estado como un array vacío
+
+  // Verificamos si el user está disponible antes de proceder
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    const fetchUserData = async () => {
+      const data = await fetchMe(user.token); // Llamamos a la función fetchMe con el token del user
+      setUserData(data); // Actualizamos el estado con los datos del user
+    }
+    const fetchLinks = async () => {
+      const response = await axios.get("http://localhost:3000/link", {
+        headers: {
+          "Authorization": `Bearer ${user.token}`
+        }
+      });
+      setEnlaces(response.data); // Actualizamos el estado con los enlaces del user
+    }
+
+    fetchLinks();
+    console.log(enlaces)
+
+    fetchUserData();
+}, [user]); // Recorremos los enlaces cuando el user cambia
+
+/**
+ * Redirige a la página del enlace.
+ * 
+ * @function
+ * @param {string} id - ID del enlace.
+ * */
+  const handleRedirect = (id) => {
+    navigate(`/userProfile/linkPage/${id}`); // Redirigir a la página del enlace con el ID
+  };
+
+  /**
+   * Redirige a la página de configuración del enlace.
+   *  
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
+  const handleConfig = (id) => {
+    navigate(`/userProfile/linkConfig/${id}`); // Redirigir a la página de configuración del enlace con el ID
+  };
+
+  /**
+   * Añade o elimina un enlace del portfolio.
+   * 
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
+  const handlePortfolio = (id) => {
+    const enlace = enlaces.filter((link) => link.code === id)[0];
+    if (enlace.portfolio) {
+      enlace.portfolio = false;
+    } else {
+      enlace.portfolio = true;
+    }
+    setEnlaces([...enlaces]);
+
+    axios.put(`http://localhost:3000/link/${id}`, {portfolio: enlace.portfolio}, {
+      headers: { "Authorization": `Bearer ${user.token}` }
+    });
+    console.log(enlaces);
+  };
+
+  /**
+   * Elimina un enlace.
+   * 
+   * @function
+   * @param {string} id - ID del enlace.
+   * */
+  const handlerEliminar = (id) => {
+    axios.delete(`http://localhost:3000/link/${id}`, {
+      headers: { "Authorization": `Bearer ${user.token}` }
+    });
+    setEnlaces(enlaces.filter((enlace) => enlace.code !== id));
+  };
+
+  console.log(userData);
+
+  if (!user) {
+    return &lt;div>Cargando perfil...&lt;/div>; // Agregamos un mensaje de carga si el user no está disponible
+  }
+
+  return (
+    &lt;main className="userProfile">
+      &lt;span className="container">
+        &lt;h1 className="userProfile__title">Perfil del usuario&lt;/h1>
+        &lt;section aria-labelledby="user-email" className="userProfile__user">
+          &lt;h2 className="user__user" id="user-email">{userData.email}&lt;/h2>
+        &lt;/section>
+      &lt;/span>
+
+      &lt;section aria-labelledby="user-links" className="userProfile__links">
+        &lt;h2 id="user-links" className="links__title">Mis enlaces&lt;/h2>
+        {enlaces.length > 0 ? (
+          &lt;ul className="links__list">
+            {enlaces.map((enlace) => (
+              &lt;li className="list__element" key={enlace.code}>
+                &lt;h3 className="element__name">{import.meta.env.VITE_DOMAIN+"/"+enlace.code}&lt;/h3>
+                
+                &lt;button onClick={() => handlerEliminar(enlace.code)} className="element__delete" aria-label="close">&lt;FontAwesomeIcon className="hover__icon" icon={faXmark} />&lt;/button>
+
+
+
+                &lt;span className="buttons">
+                  &lt;button 
+                    className="element__button"
+                    onClick={() => handleRedirect(enlace.code)} 
+                    aria-label={`Consultar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
+                  >
+                    Consultar
+                  &lt;/button>
+
+                  &lt;button 
+                    className="element__button"
+                    onClick={() => handleConfig(enlace.code)}
+                    aria-label={`Configurar el enlace ${import.meta.env.VITE_DOMAIN+"/"+enlace.code}`}
+                  >
+                    Configurar
+                  &lt;/button>
+
+                  {enlace.portfolio ? (
+                  &lt;button 
+                    className="element__buttonPort" 
+                    onClick={() => handlePortfolio(enlace.code)} 
+                    aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
+                  >
+                    Eliminar del portfolio
+                  &lt;/button>
+                ) : (
+                  &lt;button 
+                    className="element__buttonPort" 
+                    onClick={() => handlePortfolio(enlace.code)} 
+                    aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
+                  >
+                    Añadir al portfolio
+                  &lt;/button>
+                )}
+
+                &lt;/span>
+              &lt;/li>
+            ))}
+          &lt;/ul>
+        ) : (
+          &lt;p>No tienes enlaces.&lt;/p> // Mensaje si no hay enlaces disponibles
+        )}
+      &lt;/section>
+    &lt;/main>    
+  );
+};
+
+
+export default UserProfile;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

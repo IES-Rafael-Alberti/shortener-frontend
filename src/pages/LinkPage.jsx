@@ -26,6 +26,16 @@ ChartJS.register(
   Legend
 );
 
+/**
+ * Página para visualizar las estadísticas de un enlace acortado.
+ * 
+ * Este componente muestra las estadísticas de un enlace acortado, incluyendo el número de clics
+ * en el último mes y por semana, así como un gráfico de barras con los clics por semana.
+ * 
+ * @component
+ * @returns {JSX.Element} La página de estadísticas de un enlace acortado. 
+ * */
+
 const LinkPage = () => {
 
   const { id } = useParams();
@@ -45,8 +55,16 @@ const LinkPage = () => {
 
   useEffect(() => {
 
+    /*
+    * Obtiene los datos de las visitas del enlace desde la API y actualiza el estado.
+    *
+    * @async
+    * @memberof LinkPage
+    * @function fetchVisits
+    * @returns {Promise<void>} Actualiza el estado con la información de las visitas.
+    * */
     const fetchVisits = async () => {
-      const response = await axios.get(`http://localhost:3000/link/${id}/visit`,
+      const response = await axios.get(`${import.meta.env.VITE_API}/link/${id}/visit`,
       { headers: { 
         "Authorization": `Bearer ${user.token}`
     } }
@@ -54,8 +72,16 @@ const LinkPage = () => {
   setVisits(response.data);
   }
 
+    /*
+    * Obtiene los datos del enlace desde la API y actualiza el estado.
+    *
+    * @async
+    * @memberof LinkPage
+    * @function fetchEnlace
+    * @returns {Promise<void>} Actualiza el estado con la información del enlace.
+    * */
     const fetchEnlace = async () => {
-      const response = await axios.get(`http://localhost:3000/link/${id}`, 
+      const response = await axios.get(`${import.meta.env.VITE_API}/link/${id}`,
       { headers: { 
         "Authorization": `Bearer ${user.token}`
     } }
@@ -70,8 +96,6 @@ const LinkPage = () => {
     fetchEnlace();
     fetchVisits();
     
-    console.log(enlace)
-
     const today = new Date();
     const lastMonth = new Date(today);
     lastMonth.setMonth(lastMonth.getMonth() - 1);
@@ -111,11 +135,25 @@ const LinkPage = () => {
   }, [visits.length]); 
 
 
+  /** 
+   * Maneja el evento de generar un código QR para el enlace.
+   *  
+   * @function
+   * @memberof LinkPage
+   * @param {Event} e - Evento de click en el botón de generar QR.
+   * */
   const handlerGenerarEnlace = (e) => {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
     setQr(true); // Actualizar el estado para mostrar el código QR
   };
   
+  /**
+   * Maneja el evento de visitar el enlace acortado.
+   *  
+   * @function
+   * @memberof LinkPage
+   * @param {string} code - Código del enlace acortado.
+   * */
   const handlerVisit = (code) => {
 
     navigate("/"+code)
