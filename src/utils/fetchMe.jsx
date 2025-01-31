@@ -1,9 +1,8 @@
 import axios from "axios";
-import useUserStore from "../stores/useUserStore.jsx";
 
 /**
  * Obtiene los datos del usuario.
- * 
+ *
  * @async
  * @function
  * @param {string} token - Token de autenticación.
@@ -11,22 +10,18 @@ import useUserStore from "../stores/useUserStore.jsx";
  * */
 const fetchMe = async (token) => {
 
-    const logout = useUserStore((state) => state.logout);
-
-
     try {
         const response = await axios.get(`${import.meta.env.VITE_API}/me`, {
-        headers: {
-        Authorization: `Bearer ${token}`
-        }
-    })
-    return response.data;
-    }
-    catch (error) {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data;
+    } catch (error) {
         if (error.response.status === 401) {
-            logout();
+            return null;
         }
     }
-    };
-    
+};
+
 export default fetchMe;
