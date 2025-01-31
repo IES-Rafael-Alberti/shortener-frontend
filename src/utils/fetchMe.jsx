@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useUserStore } from "../store/user";
+import useUserStore from "../stores/useUserStore.jsx";
 
 /**
  * Obtiene los datos del usuario.
