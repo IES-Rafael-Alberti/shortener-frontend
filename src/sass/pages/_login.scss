@@ -20,7 +20,7 @@
     }
 
     .login__form {
-        padding: 1%;
+        padding: 1.3%;
         width: 35%;
         min-height: 33%;
 
@@ -50,12 +50,12 @@
                 display: flex;
                 flex-direction: column;
 
-                margin-bottom: 2%;
+                margin-bottom: 4%;
                 font-size: 1.5rem;
 
                 .label__input {
-                    margin-top: 1%;
-                    padding: 0.5%;
+                    margin-top: 2%;
+                    padding: 0.7% 0.9%;
 
                     font-size: 1.5rem;
                     border-radius: 8px;
@@ -70,6 +70,7 @@
             }
 
             .fieldset__signup {
+                margin-top: -2%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
