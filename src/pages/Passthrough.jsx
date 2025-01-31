@@ -55,6 +55,12 @@ const Passthrough = () => {
           title: "Hay alguna protección en el enlace",
           icon: "error",
           text: serverReasons.join(", "),
+          customClass: {
+            popup: "swal__popup",
+            title: "swal__title",
+            icon: "swal__icon",
+            confirmButton: "swal__confirm-button"
+          }
         }).then(() => {
           navigate("/");
         });
@@ -84,12 +90,26 @@ const Passthrough = () => {
           title: "Hay protecciones en el enlace",
           icon: "warning",
           text: serverReasons.join(", "),
+          customClass: {
+            popup: "swal__popup",
+            title: "swal__title",
+            icon: "swal__icon",
+            confirmButton: "swal__confirm-button",
+            text: "swal__text"
+          }
         });
       }
     } else if (response.status === 404) {
       Swal.fire({
         title: "Enlace no encontrado",
         icon: "error",
+        customClass: {
+          popup: "swal__popup",
+          title: "swal__title",
+          icon: "swal__icon",
+          confirmButton: "swal__confirm-button",
+          text: "swal__text"
+        }
       }).then(() => {
         navigate("/");
       });
@@ -134,6 +154,13 @@ const handleSubmit = async (e) => {
           Swal.fire({
             title: "Contraseña incorrecta",
             icon: "error",
+            customClass: {
+              popup: "swal__popup",
+              title: "swal__title",
+              icon: "swal__icon",
+              confirmButton: "swal__confirm-button",
+              text: "swal__text"
+            }
           });
         
     }
@@ -153,6 +180,13 @@ const handleSubmit = async (e) => {
         Swal.fire({
           title: "Recaptcha incorrecto",
           icon: "error",
+          customClass: {
+            popup: "swal__popup",
+            title: "swal__title",
+            icon: "swal__icon",
+            confirmButton: "swal__confirm-button",
+            text: "swal__text"
+          }
         });
       }
       
@@ -172,6 +206,13 @@ const handleSubmit = async (e) => {
       Swal.fire({
         title: "Recaptcha o contraseña incorrectos",
         icon: "error",
+        customClass: {
+          popup: "swal__popup",
+          title: "swal__title",
+          icon: "swal__icon",
+          confirmButton: "swal__confirm-button",
+          text: "swal__text"
+        }
       });
       recaptchaRef.current.reset();
     }
@@ -184,6 +225,7 @@ const handleSubmit = async (e) => {
 
  
   return (
+    /* 
     <div>
       <form>
         {reasons.password && (
@@ -209,12 +251,13 @@ const handleSubmit = async (e) => {
 
       </form>
     </div>
-    /*<main className='passth'>
-      <h2 className='passth__title'>Formulario</h2>
+    */
+    <main className='passth'>
+      <h2 className='passth__title'>Acceso a enlace</h2>
       
       <form className='passth__form' onSubmit={handleSubmit} aria-labelledby='passth-title'>
         <fieldset className='form__fieldset'>
-          <legend className='visually-hidden'>Formulario</legend>
+          <legend className='visually-hidden'>Acceso a enlace</legend>
           
           {reasons.password && (
             <label className='fieldset__label'>Contraseña
@@ -243,7 +286,6 @@ const handleSubmit = async (e) => {
         </fieldset>
       </form>
     </main>
-   */
   );
 };
 

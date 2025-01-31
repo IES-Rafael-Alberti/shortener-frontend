@@ -65,50 +65,18 @@
                 }
             }
 
-            .fieldset__signup {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-top: 2%;
+            .signup__submit {
+                margin-top: 2%;
+                padding: 2% 0 2% 0;
+                width: 100%;
+                font-size: 1.2rem;
 
-                .signup__signupLink {
-                    font-size: 1.3rem;
-                    font-weight: bold;
-                
-                    .link {
-                        color: var(--color-palette-Crimson);
-                        text-decoration: none;
+                background-color: var(--color-btn);
+                border: none;
+                border-radius: 8px;
 
-                        padding: 0 .35rem;
-                        box-shadow: inset 0 0 0 0 var(--color-palette-Crimson);
-                        transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
-                        color: var(--color-palette-Crimson);
-                        
-                        &:hover {
-                            color: var(--color-palette-White);
-                            box-shadow: inset 7rem 0 0 0 var(--color-palette-Crimson);
-                        }
-                    } 
-                }
-    
-                .signup__submit {
-                    padding: 2% 0 2% 0;
-                    width: 25%;
-                    font-size: 1.2rem;
-
-                    background-color: var(--color-btn);
-                    border: none;
-                    border-radius: 8px;
-
-                    color: var(--color-palette-White);
-                    transition: background-color 0.3s ease, transform 0.3s ease;
-                }
-
-                .signup__submit:hover {
-                    background-color: var(--color-contrast-btn);
-                    color: var(--color-palette-Black);
-                    transform: scale(1.05);
-                }
+                color: var(--color-palette-White);
+                transition: background-color 0.3s ease, transform 0.3s ease;
             }
         }
     }
