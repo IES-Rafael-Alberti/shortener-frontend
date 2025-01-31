@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useUserStore from "../stores/useUserStore";
+import Swal from 'sweetalert2';
 
 /**
  * Componente para configurar un enlace existente.
@@ -108,7 +109,16 @@ const ConfigurarLink = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      alert("Enlace actualizado correctamente.");
+      Swal.fire({
+              title: "Configuración guardada con éxito",
+              icon: "success",
+              customClass: {
+                popup: "swal__popup",       // Clase para el contenedor principal del modal
+                title: "swal__title",       // Clase para el título
+                icon: "swal__icon",         // Clase para el icono
+                confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+              }
+            });
     } catch (error) {
       console.error("Error al actualizar el enlace:", error);
     }
