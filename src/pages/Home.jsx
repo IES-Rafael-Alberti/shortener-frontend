@@ -1,6 +1,7 @@
 import axios from "axios";
 import useUserStore from "../stores/useUserStore";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 /**
  * Componente principal de la página de inicio.
@@ -57,38 +58,54 @@ const Home = () => {
    * @memberof Home
    */
   const handlerGenerarEnlace = async () => {
-    if (user.token) {
-      try {
-        const urlEncodedData = new URLSearchParams();
-        urlEncodedData.append("url", urlInput);
+    if (startsWithHTTPS(urlInput)) {
+      if (user.token) {
+        try {
+          const urlEncodedData = new URLSearchParams();
+          urlEncodedData.append("url", urlInput);
 
-        const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const urlEncodedData = new URLSearchParams();
-        urlEncodedData.append("url", urlInput);
+          const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        try {
+          const urlEncodedData = new URLSearchParams();
+          urlEncodedData.append("url", urlInput);
 
-        const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        });
-        setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
-        setEnlace(response.data.code);
-      } catch (error) {
-        console.error(error);
+          const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          });
+          setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
+          setEnlace(response.data.code);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
+    else {
+      Swal.fire({
+              title: "Enlace no válido",
+              icon: "error",
+              customClass: {
+                popup: "swal__popup",       // Clase para el contenedor principal del modal
+                title: "swal__title",       // Clase para el título
+                icon: "swal__icon",         // Clase para el icono
+                confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+              }
+            });
+    }
   };
+
+  const startsWithHTTPS = (url) => url.startsWith("https://");
 
   return (
     <main className="home">
