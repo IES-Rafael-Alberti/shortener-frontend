@@ -105,7 +105,7 @@ const Home = () => {
     }
   };
 
-  const startsWithHTTPS = (url) => url.startsWith("https://");
+  const startsWithHTTPS = (url) => /^https:\/\/[^/]+/i.test(url);
 
   return (
     <main className="home">
