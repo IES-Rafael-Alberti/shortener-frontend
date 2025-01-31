@@ -23,7 +23,6 @@ const Passthrough = () => {
     });
     const [password, setPassword] = useState("");
     const recaptchaRef = useRef();
-    //console.log(recaptchaRef.current.getValue());
 
     /**
      * Obtiene el enlace desde la API y redirige a la URL.

@@ -102,9 +102,6 @@ const LinkPage = () => {
 
     const monthVisits = visits.filter((visit) => new Date(visit.date) > lastMonth);
 
-    console.log(monthVisits)
-
-    
     const weekStarts = [
       new Date(today.setDate(today.getDate() - 21)),
       new Date(today.setDate(today.getDate() + 7)), 

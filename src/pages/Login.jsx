@@ -1,215 +1,214 @@
-import { useState } from 'react';
+import React, {useState} from 'react';
 import useUserStore from '../stores/useUserStore';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router';
-import React from 'react';
+import {Link, Navigate} from 'react-router';
 import ReCAPTCHA from "react-google-recaptcha";
-import { Navigate } from 'react-router';
 import axios from 'axios';
 
 /**
  * Componente para iniciar sesión en la aplicación.
- * 
+ *
  * Este componente permite a los usuarios autenticarse en la aplicación.
- * 
+ *
  * @component
  * @returns {JSX.Element} Formulario de inicio de sesión.
  * */
 const Login = () => {
 
-  const login = useUserStore((state) => state.login);
-  const user = useUserStore((state) => state.user);
-  const [datos, setDatos] = useState({
-    email: "",
-    password: ""
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: ""
-  });
-  const [isFormValid, setIsFormValid] = useState(false); 
+    const login = useUserStore((state) => state.login);
+    const user = useUserStore((state) => state.user);
+    const [datos, setDatos] = useState({
+        email: "",
+        password: ""
+    });
+    const [errors, setErrors] = useState({
+        email: "",
+        password: ""
+    });
+    const [isFormValid, setIsFormValid] = useState(false);
 
-  // Expresiones regulares
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-  const passwordRegex = /^[A-Za-z0-9]{6,}$/;
+    // Expresiones regulares
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^[A-Za-z0-9]{6,}$/;
 
-  /**
-   * Maneja el cambio en los campos del formulario.
-   * 
-   * @param {Event} e - Evento de cambio en un campo del formulario.
-   * @memberof Login
-   * */
-  const handlerChange = (e) => {
-    const { name, value } = e.target;
-    setDatos({ ...datos, [name]: value });
-  };
+    /**
+     * Maneja el cambio en los campos del formulario.
+     *
+     * @param {Event} e - Evento de cambio en un campo del formulario.
+     * @memberof Login
+     * */
+    const handlerChange = (e) => {
+        const {name, value} = e.target;
+        setDatos({...datos, [name]: value});
+    };
 
-  /**
-   * Maneja el evento de blur en los campos del formulario.
-   * 
-   * @param {Event} e - Evento de blur en un campo del formulario.
-   * @memberof Login
-   * */
-  const handlerBlur = (e) => {
-    const { name, value } = e.target;
+    /**
+     * Maneja el evento de blur en los campos del formulario.
+     *
+     * @param {Event} e - Evento de blur en un campo del formulario.
+     * @memberof Login
+     * */
+    const handlerBlur = (e) => {
+        const {name, value} = e.target;
 
-    if (name === "email" && !emailRegex.test(value)) {
-      setErrors({
-        ...errors,
-        email: "Formato de correo inválido"
-      });
-    } else if (name === "password" && !passwordRegex.test(value)) {
-      setErrors({
-        ...errors,
-        password: "Mínimo 6 caracteres alfanuméricos"
-      });
-    } else {
-      setErrors({
-        ...errors, 
-        [name]: ""
-      });
-    }
-
-    // Comprobar si el formulario es válido
-    if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  };
-
-  const recaptchaRef = React.createRef();
-
-  /**
-   * Maneja el evento de envío del formulario.
-   * 
-   * @async
-   * @param {Event} e - Evento de envío del formulario.
-   * @memberof Login
-   * */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Convierte los datos del formulario en formato `x-www-form-urlencoded`
-      const urlencodedData = new URLSearchParams();
-      Object.keys(datos).forEach((key) => {
-        urlencodedData.append(key, datos[key]);
-      });
-  
-      const recaptchaValue = recaptchaRef.current.getValue();
-      if (!recaptchaValue) {
-        Swal.fire({
-          title: "ReCaptcha no validado",
-          icon: "error",
-          customClass: {
-            popup: "swal__popup",       // Clase para el contenedor principal del modal
-            title: "swal__title",       // Clase para el título
-            icon: "swal__icon",         // Clase para el icono
-            confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
-          }
-        });
-        return;
-      }
-  
-      // Realiza la solicitud con Axios
-      const response = await axios.post(`${import.meta.env.VITE_API}/auth/login`, urlencodedData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      });
-      console.log(response.data.token);
-      login(response.data);
-      Swal.fire({
-        title: "Sesión iniciada con éxito",
-        icon: "success",
-        customClass: {
-          popup: "swal__popup",       // Clase para el contenedor principal del modal
-          title: "swal__title",       // Clase para el título
-          icon: "swal__icon",         // Clase para el icono
-          confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+        if (name === "email" && !emailRegex.test(value)) {
+            setErrors({
+                ...errors,
+                email: "Formato de correo inválido"
+            });
+        } else if (name === "password" && !passwordRegex.test(value)) {
+            setErrors({
+                ...errors,
+                password: "Mínimo 6 caracteres alfanuméricos"
+            });
+        } else {
+            setErrors({
+                ...errors,
+                [name]: ""
+            });
         }
-      });
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        title: "Error al iniciar sesión",
-        icon: "error",
-        customClass: {
-          popup: "swal__popup",
-          title: "swal__title",
-          icon: "swal__icon",
-          confirmButton: "swal__confirm-button"
+
+        // Comprobar si el formulario es válido
+        if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
+            setIsFormValid(true);
+        } else {
+            setIsFormValid(false);
         }
-      });
+    };
+
+    const recaptchaRef = React.createRef();
+
+    /**
+     * Maneja el evento de envío del formulario.
+     *
+     * @async
+     * @param {Event} e - Evento de envío del formulario.
+     * @memberof Login
+     * */
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Convierte los datos del formulario en formato `x-www-form-urlencoded`
+            const urlencodedData = new URLSearchParams();
+            Object.keys(datos).forEach((key) => {
+                urlencodedData.append(key, datos[key]);
+            });
+
+            const recaptchaValue = recaptchaRef.current.getValue();
+            if (!recaptchaValue) {
+                Swal.fire({
+                    title: "ReCaptcha no validado",
+                    icon: "error",
+                    customClass: {
+                        popup: "swal__popup",       // Clase para el contenedor principal del modal
+                        title: "swal__title",       // Clase para el título
+                        icon: "swal__icon",         // Clase para el icono
+                        confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+                    }
+                });
+                return;
+            }
+
+            // Realiza la solicitud con Axios
+            const response = await axios.post(`${import.meta.env.VITE_API}/auth/login`, urlencodedData, {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            });
+            login(response.data);
+            Swal.fire({
+                title: "Sesión iniciada con éxito",
+                icon: "success",
+                customClass: {
+                    popup: "swal__popup",       // Clase para el contenedor principal del modal
+                    title: "swal__title",       // Clase para el título
+                    icon: "swal__icon",         // Clase para el icono
+                    confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                title: "Error al iniciar sesión",
+                icon: "error",
+                customClass: {
+                    popup: "swal__popup",
+                    title: "swal__title",
+                    icon: "swal__icon",
+                    confirmButton: "swal__confirm-button"
+                }
+            });
+        }
+    };
+
+    if (user.token) {
+        return <Navigate to="/userProfile" replace/>;
     }
-  };
-
-  if (user.token) {
-    return <Navigate to="/userProfile" replace />;
-  }
 
 
-  return (
-    <main className='login'>
-      <h2 className='login__title'>Formulario de Inicio de Sesión</h2>
-      
-      <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
-        <fieldset className='form__fieldset'>
-          <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
-          
-          
-          <label className='fieldset__label'>Correo Electronico
-            
-            <input
-              type="email"
-              placeholder="Correo electrónico"
-              name="email"
-              value={datos.email}
-              onChange={handlerChange}
-              onBlur={handlerBlur}
-              className='label__input'
-              aria-invalid={errors.email ? "true" : "false"}
-              aria-describedby="email-error" 
-            />
-            {errors.email && <p id='email-error' className='label__error' role='alert'>{errors.email}</p>}
-          </label>
+    return (
+        <main className='login'>
+            <h2 className='login__title'>Formulario de Inicio de Sesión</h2>
 
-          <label className='fieldset__label'>Contraseña
-          
-            <input
-              type="password"
-              placeholder="Contraseña"
-              name="password"
-              value={datos.password}
-              onChange={handlerChange}
-              onBlur={handlerBlur}
-              className='label__input'
-              aria-invalid={errors.password ? "true" : "false"}
-              aria-describedby="password-error" 
-            />
-            {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
-          </label>
+            <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
+                <fieldset className='form__fieldset'>
+                    <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
 
-          {/* Mostrar el reCaptcha solo si el formulario es válido */}
-          {isFormValid && (
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA}
-            />
-          )}
 
-          <span className='fieldset__signup'>
-            <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register" className='link'>Entra aquí</Link></p> 
+                    <label className='fieldset__label'>Correo Electronico
+
+                        <input
+                            type="email"
+                            placeholder="Correo electrónico"
+                            name="email"
+                            value={datos.email}
+                            onChange={handlerChange}
+                            onBlur={handlerBlur}
+                            className='label__input'
+                            aria-invalid={errors.email ? "true" : "false"}
+                            aria-describedby="email-error"
+                        />
+                        {errors.email && <p id='email-error' className='label__error' role='alert'>{errors.email}</p>}
+                    </label>
+
+                    <label className='fieldset__label'>Contraseña
+
+                        <input
+                            type="password"
+                            placeholder="Contraseña"
+                            name="password"
+                            value={datos.password}
+                            onChange={handlerChange}
+                            onBlur={handlerBlur}
+                            className='label__input'
+                            aria-invalid={errors.password ? "true" : "false"}
+                            aria-describedby="password-error"
+                        />
+                        {errors.password &&
+                            <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
+                    </label>
+
+                    {/* Mostrar el reCaptcha solo si el formulario es válido */}
+                    {isFormValid && (
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={import.meta.env.VITE_SITE_KEY_REPACTCHA}
+                        />
+                    )}
+
+                    <span className='fieldset__signup'>
+            <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register"
+                                                                           className='link'>Entra aquí</Link></p>
             
             <button type="submit" className='signup__submit' disabled={!isFormValid}>
               Acceso
             </button>
           </span>
 
-        </fieldset>
-      </form>
-    </main>
-  );
+                </fieldset>
+            </form>
+        </main>
+    );
 };
 
 export default Login;
