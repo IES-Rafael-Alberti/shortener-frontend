@@ -120,7 +120,7 @@ const Home = () => {
             <button className="home__button"
                     onClick={async () => {
                         if (user.token) {
-                            navigate(`/link/${enlace}`);
+                            navigate(`/linkConfig/${enlace}`);
                         } else {
                             await Swal.fire({
                                 title: "Necesitas inciar sesión", icon: "error", customClass: {
