@@ -55,15 +55,10 @@ jobs:
         with:
           name: docs
 
-
-      - name: Verificar contenido después de descargar artifact
-        run:
-          ls -l
-
       - name: Prepare documentation
         run: |
           mkdir -p dir
-          mv docs/ dir/
+          mv * dir/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4.0.0
