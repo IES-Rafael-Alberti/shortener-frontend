@@ -55,13 +55,18 @@ jobs:
         with:
           name: docs
 
+      - name: Prepare documentation
+        run: |
+          mkdir -p dir
+          mv docs/ dir/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4.0.0
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: docs
+          path: dir
 
       - name: Deploy to GitHub Pages
         id: deployment
