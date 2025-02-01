@@ -176,7 +176,7 @@ const ConfigurarLink = () => {
     */
         <main className='config-link'>
             <h2 className='config-link__title'>Configurar Enlace</h2>
-            <p className='config-link__info'>Enlace: {import.meta.env.VITE_DOMAIN + "/" + enlace.code}</p>
+            <p className='config-link__info'>Enlace: {import.meta.env.VITE_DOMAIN + "/" + id}</p>
 
             <form className='config-link__form' onSubmit={handleSubmit}>
                 <fieldset className='form__fieldset'>
@@ -225,7 +225,7 @@ const ConfigurarLink = () => {
                             onChange={handleChange}
                             className='label__checkbox'
                         />
-                        <span>Recaptcha</span>
+                        <span>reCAPTCHA</span>
                     </label>
 
                     <label className='fieldset__labelR'>
@@ -237,7 +237,7 @@ const ConfigurarLink = () => {
                             onChange={handleChange}
                             className='label__checkbox'
                         />
-                        <span>Requiere Login</span>
+                        <span>Requerir sesión iniciada en Shortener</span>
                     </label>
 
                     <button type='submit' className='config-link__submit'>Guardar configuración</button>

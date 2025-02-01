@@ -3,6 +3,7 @@ import useUserStore from "../stores/useUserStore";
 import {useState} from "react";
 import Swal from "sweetalert2";
 import verifyLink from "../utils/verifyLink.jsx";
+import {useNavigate} from "react-router";
 
 /**
  * Componente principal de la página de inicio.
@@ -23,6 +24,7 @@ const Home = () => {
      */
     const user = useUserStore((state) => state.user);
 
+    const navigate = useNavigate();
     /**
      * Estado que almacena el código generado para el enlace.
      * @type {string|null}
@@ -60,35 +62,26 @@ const Home = () => {
      */
     const handlerGenerarEnlace = async () => {
         if (verifyLink(urlInput)) {
-            if (user.token) {
-                try {
-                    const urlEncodedData = new URLSearchParams();
-                    urlEncodedData.append("url", urlInput);
+            try {
+                const urlEncodedData = new URLSearchParams();
+                urlEncodedData.append("url", urlInput);
 
-                    const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded", Authorization: `Bearer ${user.token}`,
-                        },
-                    });
-                    setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
-                } catch (error) {
-                    console.error(error);
-                }
-            } else {
-                try {
-                    const urlEncodedData = new URLSearchParams();
-                    urlEncodedData.append("url", urlInput);
-
-                    const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                        },
-                    });
-                    setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
-                    setEnlace(response.data.code);
-                } catch (error) {
-                    console.error(error);
-                }
+                const response = await axios.post(`${import.meta.env.VITE_API}/link`, urlEncodedData, {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded", Authorization: `Bearer ${user.token}`,
+                    },
+                });
+                setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
+                setEnlace(response.data.code);
+            } catch (error) {
+                await Swal.fire({
+                    title: "No se ha podido generar el enlace", icon: "error", customClass: {
+                        popup: "swal__popup",       // Clase para el contenedor principal del modal
+                        title: "swal__title",       // Clase para el título
+                        icon: "swal__icon",         // Clase para el icono
+                        confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+                    }, text: `${error}`
+                });
             }
         } else {
             await Swal.fire({
@@ -119,9 +112,29 @@ const Home = () => {
             disabled={!urlInput.trim()} // Desactiva si el input está vacío
         >
             Generar enlace
-        </button>) : (<button className="home__button" onClick={() => handlerVolver()}>
-            Volver al generador
-        </button>)}
+        </button>) : (<div
+            style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <button className="home__button" onClick={() => handlerVolver()}>
+                Volver al generador
+            </button>
+            <button className="home__button"
+                    onClick={async () => {
+                        if (user.token) {
+                            navigate(`/link/${enlace}`);
+                        } else {
+                            await Swal.fire({
+                                title: "Necesitas inciar sesión", icon: "error", customClass: {
+                                    popup: "swal__popup",       // Clase para el contenedor principal del modal
+                                    title: "swal__title",       // Clase para el título
+                                    icon: "swal__icon",         // Clase para el icono
+                                    confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
+                                }, text: ""
+                            })
+                        }
+                    }}>Configurar
+                enlace
+            </button>
+        </div>)}
     </main>);
 };
 

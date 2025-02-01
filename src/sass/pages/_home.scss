@@ -1,60 +1,65 @@
 .home {
-    height: 78.3vh;
-    background-color: var(--color-bg);
+  height: 78.3vh;
+  background-color: var(--color-bg);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  .home__title {
+    padding-top: 10%;
+    color: var(--color-light-txt);
+    font-size: 4rem;
+    font-weight: 300;
+  }
+
+  .home__input {
+    width: 50%;
+    padding: 0.5% 1% 0.5% 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border: solid 0.15rem var(--color-input-border);
+    border-radius: 16px;
+    font-size: 2rem;
+  }
+
+  .home__button {
+    padding: 0.8% 0 0.8% 0;
+    width: 35%;
+    font-size: 2rem;
+
+    background-color: var(--color-btn);
+    border: none;
+    border-radius: 16px;
+
+    color: var(--color-palette-White);
+    transition: background-color 0.5s ease, transform 0.5s ease;
+  }
+
+  .home__button:hover {
+    background-color: var(--color-contrast-big-btn);
+    transform: scale(1.1);
+  }
+
+  .home__button:disabled {
+    background-color: #565656;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
     .home__title {
-        padding-top: 10%;
-        color: var(--color-light-txt);
-        font-size: 4rem;
-        font-weight: 300;
-    }
-
-    .home__input {
-        width: 50%;
-        padding: 0.5% 1% 0.5% 1%;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        border: solid 0.15rem var(--color-input-border);
-        border-radius: 16px;
-        font-size: 2rem;
+      font-size: 3rem;
     }
 
     .home__button {
-        padding: 0.8% 0 0.8% 0;
-        width: 22%;
-        font-size: 2rem;
-
-        background-color: var(--color-btn);
-        border: none;
-        border-radius: 16px;
-
-        color: var(--color-palette-White);
-        transition: background-color 0.5s ease , transform 0.5s ease ;
+      margin-top: 1%;
     }
-    
-    .home__button:hover {
-        background-color: var(--color-contrast-big-btn);
-        transform: scale(1.1);
-    }
+  }
 
-    @media (max-width: 768px) {
-        .home__title {
-            font-size: 3rem;
-        }
-
-        .home__button {
-            margin-top: 1%;
-        }
+  @media (max-width: 650px) {
+    .home__button {
+      font-size: 1.5rem;
+      border-radius: 8px;
     }
-
-    @media (max-width: 650px) {
-        .home__button {
-            font-size: 1.5rem;
-            border-radius: 8px;
-        }
-    }
+  }
 }
