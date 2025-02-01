@@ -11,9 +11,6 @@ permissions:
   contents: read
 
 env:
-  INSTANCE: "docs/i"
-  ARTIFACT: "webHelpI2-all.zip"
-  DOCKER_VERSION: "242.21870"
   NODE_VERSION: "20"
 
 jobs:
