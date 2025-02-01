@@ -55,6 +55,11 @@ jobs:
         with:
           name: docs
 
+
+      - name: Verificar contenido después de descargar artifact
+        run:
+          ls -l
+
       - name: Prepare documentation
         run: |
           mkdir -p dir
