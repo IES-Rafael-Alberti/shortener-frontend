@@ -1,0 +1,83 @@
+.passth {
+    height: 78.3vh;
+    background-color: var(--color-bg);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .passth__title {
+        color: var(--color-light-txt);
+        font-weight: 300;
+        font-size: 3rem;
+
+        padding-bottom: 2%;
+    }
+
+    .passth__form {
+        padding: 1%;
+        width: 35%;
+        min-height: 33%;
+
+        background-color: var(--color-palette-Black);
+        border-radius: 16px;
+
+        color: var(--color-palette-White);
+
+        .form__fieldset {
+            display: flex;
+            flex-direction: column;
+
+            border: none;
+
+            .visually-hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                overflow: hidden;
+            }
+
+            .fieldset__label {
+                display: flex;
+                flex-direction: column;
+
+                margin-bottom: 2%;
+                font-size: 1.5rem;
+
+                .label__input {
+                    margin-top: 1%;
+                    padding: 0.5%;
+
+                    font-size: 1.5rem;
+                    border-radius: 8px;
+                    border: none;
+                }
+
+                .label__error {
+                    font-size: 1.3rem;
+                    padding-top: 2%;
+                    color: var(--color-palette-Crimson);
+                }
+            }
+
+            .signup__submit {
+                margin-top: 2%;
+                padding: 2% 0 2% 0;
+                width: 100%;
+                font-size: 1.2rem;
+
+                background-color: var(--color-btn);
+                border: none;
+                border-radius: 8px;
+
+                color: var(--color-palette-White);
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+        }
+    }
+}

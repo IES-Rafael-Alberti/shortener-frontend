@@ -6,8 +6,8 @@
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "template": "node_modules/better-docs"
-  },
+    "template": "node_modules/jsdoc/templates/default"
+    },
   "tags": {
     "allowUnknownTags": true
   },

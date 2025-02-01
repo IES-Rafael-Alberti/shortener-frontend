@@ -7,6 +7,8 @@
 @use './pages/linkPage';
 @use './pages/portFolio';
 @use './pages/notFound';
+@use './pages/passthrough';
+@use './pages/configurarLink';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
@@ -91,7 +93,7 @@ body {
 }
 
 main {
-    padding-bottom: 6%;
+    padding-bottom: 2%;
 }
 
 //Estilos popUps
@@ -120,4 +122,8 @@ main {
 
 .swal__confirm-button:hover {
     background-color: var(--color-contrast-big-btn);
+}
+
+.swal__text {
+    color: var(--color-contrast);
 }
