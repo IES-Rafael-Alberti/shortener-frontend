@@ -8,7 +8,7 @@ import Portfolio from "../pages/Portfolio";
 import LayoutPrivate from "../layouts/LayoutPrivate";
 import UserProfile from "../pages/UserProfile";
 import LinkPage from "../pages/LinkPage";
-import ConfigurarLink from "../pages/ConfigurarLink";
+import ConfigureLink from "../pages/ConfigureLink";
 import Passthrough from "../pages/Passthrough";
 
 const Login = lazy(() => import("../pages/Login"));
@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "linkConfig/:id",  // Aquí se arregla el path
-                element: <Suspense fallback={<div>Loading...</div>}><ConfigurarLink /></Suspense>
+                element: <Suspense fallback={<div>Loading...</div>}><ConfigureLink /></Suspense>
             }
         ]
     }

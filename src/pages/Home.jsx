@@ -8,12 +8,12 @@ import {useNavigate} from "react-router";
 /**
  * Componente principal de la página de inicio.
  *
- * Este componente permite a los usuarios generar enlaces cortos para las URLs que proporcionan.
- * Si el usuario está autenticado, se incluye un token de autenticación en la solicitud para la creación del enlace.
- * También permite volver a la interfaz de generación de enlaces después de que se haya creado uno.
+ * Este componente permite a los usuarios generar link cortos para las URLs que proporcionan.
+ * Si el usuario está autenticado, se incluye un token de autenticación en la solicitud para la creación del link.
+ * También permite volver a la interfaz de generación de link después de que se haya creado uno.
  *
  * @component
- * @returns {JSX.Element} La interfaz de usuario para generar enlaces cortos.
+ * @returns {JSX.Element} La interfaz de usuario para generar link cortos.
  *
  */
 const Home = () => {
@@ -26,11 +26,11 @@ const Home = () => {
 
     const navigate = useNavigate();
     /**
-     * Estado que almacena el código generado para el enlace.
+     * Estado que almacena el código generado para el link.
      * @type {string|null}
      * @memberof Home
      */
-    const [enlace, setEnlace] = useState(null);
+    const [link, setlink] = useState(null);
 
     /**
      * Estado que almacena el valor del campo de entrada para la URL.
@@ -40,27 +40,27 @@ const Home = () => {
     const [urlInput, setUrlInput] = useState(""); // Estado para manejar el valor del input
 
     /**
-     * Función que se ejecuta cuando el usuario desea volver al generador de enlaces.
-     * Resetea el estado del enlace y la URL ingresada.
+     * Función que se ejecuta cuando el usuario desea volver al generador de link.
+     * Resetea el estado del link y la URL ingresada.
      *
      * @function
      * @memberof Home
      */
-    const handlerVolver = () => {
-        setEnlace(null);
+    const handlerComeBack = () => {
+        setlink(null);
         setUrlInput(""); // Restablece el valor del input
     };
 
     /**
-     * Función que maneja la generación del enlace corto.
-     * Realiza una solicitud a la API para crear un enlace corto para la URL proporcionada.
+     * Función que maneja la generación del link corto.
+     * Realiza una solicitud a la API para crear un link corto para la URL proporcionada.
      * Si el usuario está autenticado, se incluye el token en la solicitud.
      *
      * @async
      * @function
      * @memberof Home
      */
-    const handlerGenerarEnlace = async () => {
+    const handlerGeneratelink = async () => {
         if (verifyLink(urlInput)) {
             try {
                 const urlEncodedData = new URLSearchParams();
@@ -72,10 +72,10 @@ const Home = () => {
                     },
                 });
                 setUrlInput(import.meta.env.VITE_DOMAIN + "/" + response.data.code);
-                setEnlace(response.data.code);
+                setlink(response.data.code);
             } catch (error) {
                 await Swal.fire({
-                    title: "No se ha podido generar el enlace", icon: "error", customClass: {
+                    title: "No se ha podido generar el link", icon: "error", customClass: {
                         popup: "swal__popup",       // Clase para el contenedor principal del modal
                         title: "swal__title",       // Clase para el título
                         icon: "swal__icon",         // Clase para el icono
@@ -85,19 +85,19 @@ const Home = () => {
             }
         } else {
             await Swal.fire({
-                title: "Enlace no válido", icon: "error", customClass: {
+                title: "link no válido", icon: "error", customClass: {
                     popup: "swal__popup",       // Clase para el contenedor principal del modal
                     title: "swal__title",       // Clase para el título
                     icon: "swal__icon",         // Clase para el icono
                     confirmButton: "swal__confirm-button" // Clase para el botón de confirmación
-                }, text: "El enlace ha de empezar por http:// o https://"
+                }, text: "El link ha de empezar por http:// o https://"
             });
         }
     };
 
 
     return (<main className="home">
-        <h1 className="home__title">Introduzca su enlace</h1>
+        <h1 className="home__title">Introduzca su link</h1>
         <input
             type="url"
             name="url"
@@ -106,21 +106,21 @@ const Home = () => {
             value={urlInput} // Conecta el valor del input al estado
             onChange={(e) => setUrlInput(e.target.value)} // Actualiza el estado al escribir
         />
-        {!enlace ? (<button
+        {!link ? (<button
             className="home__button"
-            onClick={() => handlerGenerarEnlace()}
+            onClick={() => handlerGeneratelink()}
             disabled={!urlInput.trim()} // Desactiva si el input está vacío
         >
-            Generar enlace
+            Generar link
         </button>) : (<div
             style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-            <button className="home__button" onClick={() => handlerVolver()}>
+            <button className="home__button" onClick={() => handlerComeBack()}>
                 Volver al generador
             </button>
             <button className="home__button"
                     onClick={async () => {
                         if (user.token) {
-                            navigate(`/linkConfig/${enlace}`);
+                            navigate(`/linkConfig/${link}`);
                         } else {
                             await Swal.fire({
                                 title: "Necesitas inciar sesión", icon: "error", customClass: {
@@ -132,7 +132,7 @@ const Home = () => {
                             })
                         }
                     }}>Configurar
-                enlace
+                link
             </button>
         </div>)}
     </main>);

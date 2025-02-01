@@ -32,7 +32,7 @@ const Passthrough = () => {
      * @memberof Passthrough
      * @param {string} code - Código del enlace.
      * */
-    const obtenerEnlace = async (code) => {
+    const getLink = async (code) => {
         const response = await axios.get(`${import.meta.env.VITE_API}/passthrough/${code}`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
@@ -121,7 +121,7 @@ const Passthrough = () => {
 
 
     useEffect(() => {
-        obtenerEnlace(id);
+        getLink(id);
     }, [id]);
 
 

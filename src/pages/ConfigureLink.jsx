@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
  * @returns {JSX.Element} Formulario para configurar los parámetros de un enlace.
  *
  */
-const ConfigurarLink = () => {
+const ConfigureLink = () => {
     /**
      * ID del enlace obtenido desde la URL.
      * @type {string}
@@ -46,7 +46,7 @@ const ConfigurarLink = () => {
      * Obtiene los datos del enlace desde la API y actualiza el estado.
      *
      * @async
-     * @memberof ConfigurarLink
+     * @memberof ConfigureLink
      * @function fetchEnlace
      * @returns {Promise<void>} Actualiza el estado con la información del enlace.
      */
@@ -70,7 +70,7 @@ const ConfigurarLink = () => {
      * Maneja los cambios en los campos del formulario y actualiza el estado.
      *
      * @function handleChange
-     * @memberof ConfigurarLink
+     * @memberof ConfigureLink
      * @param {React.ChangeEvent<HTMLInputElement>} e - Evento de cambio en un input.
      */
     const handleChange = (e) => {
@@ -84,7 +84,7 @@ const ConfigurarLink = () => {
      * Envía los datos del formulario para actualizar la configuración del enlace.
      *
      * @async
-     * @memberof ConfigurarLink
+     * @memberof ConfigureLink
      * @function handleSubmit
      * @param {React.FormEvent<HTMLFormElement>} e - Evento de envío del formulario.
      */
@@ -248,4 +248,4 @@ const ConfigurarLink = () => {
     );
 };
 
-export default ConfigurarLink;
+export default ConfigureLink;

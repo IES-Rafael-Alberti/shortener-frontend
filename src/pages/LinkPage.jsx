@@ -27,8 +27,8 @@ const LinkPage = () => {
     const [qr, setQr] = useState(false);
     const navigate = useNavigate();
 
-    const [estadisticas, setEstadisticas] = useState({
-        ultimoMes: null, semana1: null, semana2: null, semana3: null, semana4: null
+    const [statistics , setStatistics] = useState({
+        lastMonth: null, week1: null, week2: null, week3: null, week4: null
     });
     const [enlace, setEnlace] = useState({});
     const [visits, setVisits] = useState([]);
@@ -72,12 +72,12 @@ const LinkPage = () => {
             }
         });
 
-        setEstadisticas({
-            ultimoMes: monthVisits.length,
-            semana1: weekVisits[0],
-            semana2: weekVisits[1],
-            semana3: weekVisits[2],
-            semana4: weekVisits[3],
+        setStatistics({
+            lastMonth: monthVisits.length,
+            week1: weekVisits[0],
+            week2: weekVisits[1],
+            week3: weekVisits[2],
+            week4: weekVisits[3],
         });
     }, [visits.length]);
 
@@ -89,7 +89,7 @@ const LinkPage = () => {
      * @memberof LinkPage
      * @param {Event} e - Evento de click en el botón de generar QR.
      * */
-    const handlerGenerarEnlace = (e) => {
+    const handlerGenerateLink = (e) => {
         e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
         setQr(true); // Actualizar el estado para mostrar el código QR
     };
@@ -110,7 +110,7 @@ const LinkPage = () => {
     const chartData = {
         labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"], datasets: [{
             label: "Clicks por semana",
-            data: [estadisticas.semana1, estadisticas.semana2, estadisticas.semana3, estadisticas.semana4],
+            data: [statistics.week1, statistics.week2, statistics.week3, statistics.week4],
             backgroundColor: "#DA0037",
             borderColor: "#620019",
             borderWidth: 1
@@ -153,7 +153,7 @@ const LinkPage = () => {
                                                                    target="_blank"
                                                                    rel="noopener noreferrer">{import.meta.env.VITE_DOMAIN + "/" + enlace.code}</a></p>
       
-      <p className="statistics__item">Último mes: <span>{estadisticas.ultimoMes}</span></p>
+      <p className="statistics__item">Último mes: <span>{statistics.lastMonth}</span></p>
 
       <section className="statistics__chart" aria-labelledby="chart-title">
           
@@ -167,7 +167,7 @@ const LinkPage = () => {
               <QRCodeSVG value={import.meta.env.VITE_DOMAIN + "/" + enlace.code} size={256}/>
           </div>) : (<button
               className="qr__generateButton"
-              onClick={handlerGenerarEnlace}
+              onClick={handlerGenerateLink}
               aria-describedby="qr-button"
           >
               Generar QR

@@ -21,7 +21,7 @@ const Register = () => {
 
   const user = useUserStore((state) => state.user);
 
-  const [datos, setDatos] = useState({
+  const [data, setData] = useState({
     email: "",
     password: ""
   });
@@ -45,7 +45,7 @@ const Register = () => {
    * */
   const handlerChange = (e) => {
     const { name, value } = e.target;
-    setDatos({ ...datos, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
   /**
@@ -74,7 +74,7 @@ const Register = () => {
       });
     }
 
-    if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
+    if (emailRegex.test(data.email) && passwordRegex.test(data.password)) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -96,8 +96,8 @@ const Register = () => {
     try {
       // Convierte los datos del formulario en formato `x-www-form-urlencoded`
       const urlencodedData = new URLSearchParams();
-      Object.keys(datos).forEach((key) => {
-        urlencodedData.append(key, datos[key]);
+      Object.keys(data).forEach((key) => {
+        urlencodedData.append(key, data[key]);
       });
   
       const recaptchaValue = recaptchaRef.current.getValue();
@@ -181,7 +181,7 @@ const Register = () => {
             type="email"
             placeholder="Correo electrónico"
             name="email"
-            value={datos.email}
+            value={data.email}
             onChange={handlerChange}
             onBlur={handlerBlur}
             className='label__input'
@@ -197,7 +197,7 @@ const Register = () => {
             type="password"
             placeholder="Contraseña"
             name="password"
-            value={datos.password}
+            value={data.password}
             onChange={handlerChange}
             onBlur={handlerBlur}
             className='label__input'

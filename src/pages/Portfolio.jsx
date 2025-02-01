@@ -17,7 +17,7 @@ const Portfolio = () => {
 
     const navigate = useNavigate()
 
-    const [enlacesPortfolio, setEnlacesPortfolio] = useState([])
+    const [linksPortfolio, setLinksPortfolio] = useState([])
 
     //const user = useUserStore((state) => state.user);
     /*
@@ -50,7 +50,7 @@ const Portfolio = () => {
   */
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API}/portfolio/` + id).then((response) => {
-            setEnlacesPortfolio(response.data)
+            setLinksPortfolio(response.data)
         });
     }, [id]);
 
@@ -72,7 +72,7 @@ const Portfolio = () => {
             <section className='portfolio__section' aria-labelledby="portfolio-title">
                 <h1 className='section__title' id="portfolio-title">Portfolio</h1>
                 <ul className='section__list'>
-                    {enlacesPortfolio && enlacesPortfolio.map((enlace) => (
+                    {linksPortfolio && linksPortfolio.map((enlace) => (
                         <li className='list__element' key={enlace.code}>
                             <a
                                 className='element__link'

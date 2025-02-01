@@ -17,7 +17,7 @@ const Login = () => {
 
     const login = useUserStore((state) => state.login);
     const user = useUserStore((state) => state.user);
-    const [datos, setDatos] = useState({
+    const [data, setData] = useState({
         email: "",
         password: ""
     });
@@ -39,7 +39,7 @@ const Login = () => {
      * */
     const handlerChange = (e) => {
         const {name, value} = e.target;
-        setDatos({...datos, [name]: value});
+        setData({...data, [name]: value});
     };
 
     /**
@@ -69,7 +69,7 @@ const Login = () => {
         }
 
         // Comprobar si el formulario es válido
-        if (emailRegex.test(datos.email) && passwordRegex.test(datos.password)) {
+        if (emailRegex.test(data.email) && passwordRegex.test(data.password)) {
             setIsFormValid(true);
         } else {
             setIsFormValid(false);
@@ -90,8 +90,8 @@ const Login = () => {
         try {
             // Convierte los datos del formulario en formato `x-www-form-urlencoded`
             const urlencodedData = new URLSearchParams();
-            Object.keys(datos).forEach((key) => {
-                urlencodedData.append(key, datos[key]);
+            Object.keys(data).forEach((key) => {
+                urlencodedData.append(key, data[key]);
             });
 
             const recaptchaValue = recaptchaRef.current.getValue();
@@ -161,7 +161,7 @@ const Login = () => {
                             type="email"
                             placeholder="Correo electrónico"
                             name="email"
-                            value={datos.email}
+                            value={data.email}
                             onChange={handlerChange}
                             onBlur={handlerBlur}
                             className='label__input'
@@ -177,7 +177,7 @@ const Login = () => {
                             type="password"
                             placeholder="Contraseña"
                             name="password"
-                            value={datos.password}
+                            value={data.password}
                             onChange={handlerChange}
                             onBlur={handlerBlur}
                             className='label__input'

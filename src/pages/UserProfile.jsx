@@ -18,7 +18,7 @@ const UserProfile = () => {
     const [userData, setUserData] = useState({email: ""}); // Inicializamos el estado con un objeto vacío
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate(); // Hook para navegación
-    const [enlaces, setEnlaces] = useState([]); // Inicializamos el estado como un array vacío
+    const [links, setLinks] = useState([]); // Inicializamos el estado como un array vacío
 
     // Verificamos si el user está disponible antes de proceder
     useEffect(() => {
@@ -32,7 +32,7 @@ const UserProfile = () => {
                 "Authorization": `Bearer ${user.token}`
             }
         }).then((response) => {
-            setEnlaces(response.data); // Actualizamos el estado con los enlaces del user
+            setLinks(response.data); // Actualizamos el estado con los enlaces del user
         })
 
     }, [user]); // Recorremos los enlaces cuando el user cambia
@@ -64,15 +64,15 @@ const UserProfile = () => {
      * @param {string} id - ID del enlace.
      * */
     const handlePortfolio = (id) => {
-        const enlace = enlaces.filter((link) => link.code === id)[0];
-        if (enlace.portfolio) {
-            enlace.portfolio = false;
+        const link = links.filter((link) => link.code === id)[0];
+        if (link.portfolio) {
+            link.portfolio = false;
         } else {
-            enlace.portfolio = true;
+            link.portfolio = true;
         }
-        setEnlaces([...enlaces]);
+        setLinks([...links]);
 
-        axios.put(`${import.meta.env.VITE_API}/link/${id}`, {portfolio: enlace.portfolio}, {
+        axios.put(`${import.meta.env.VITE_API}/link/${id}`, {portfolio: link.portfolio}, {
             headers: {"Authorization": `Bearer ${user.token}`}
         });
     };
@@ -83,11 +83,11 @@ const UserProfile = () => {
      * @function
      * @param {string} id - ID del enlace.
      * */
-    const handlerEliminar = (id) => {
+    const handlerDelete = (id) => {
         axios.delete(`${import.meta.env.VITE_API}/link/${id}`, {
             headers: {"Authorization": `Bearer ${user.token}`}
         });
-        setEnlaces(enlaces.filter((enlace) => enlace.code !== id));
+        setLinks(links.filter((link) => link.code !== id));
     };
 
     if (!user) {
@@ -104,11 +104,11 @@ const UserProfile = () => {
 
         <section aria-labelledby="user-links" className="userProfile__links">
             <h2 id="user-links" className="links__title">Mis enlaces</h2>
-            {enlaces.length > 0 ? (<ul className="links__list">
-                {enlaces.map((enlace) => (<li className="list__element" key={enlace.code}>
-                    <h3 className="element__name">{import.meta.env.VITE_DOMAIN + "/" + enlace.code}</h3>
+            {links.length > 0 ? (<ul className="links__list">
+                {links.map((link) => (<li className="list__element" key={link.code}>
+                    <h3 className="element__name">{import.meta.env.VITE_DOMAIN + "/" + link.code}</h3>
 
-                    <button onClick={() => handlerEliminar(enlace.code)} className="element__delete"
+                    <button onClick={() => handlerDelete(link.code)} className="element__delete"
                             aria-label="close"><FontAwesomeIcon className="hover__icon" icon={faXmark}/>
                     </button>
 
@@ -116,30 +116,30 @@ const UserProfile = () => {
                     <span className="buttons">
                   <button
                       className="element__button"
-                      onClick={() => handleRedirect(enlace.code)}
-                      aria-label={`Consultar el enlace ${import.meta.env.VITE_DOMAIN + "/" + enlace.code}`}
+                      onClick={() => handleRedirect(link.code)}
+                      aria-label={`Consultar el enlace ${import.meta.env.VITE_DOMAIN + "/" + link.code}`}
                   >
                     Consultar
                   </button>
 
                   <button
                       className="element__button"
-                      onClick={() => handleConfig(enlace.code)}
-                      aria-label={`Configurar el enlace ${import.meta.env.VITE_DOMAIN + "/" + enlace.code}`}
+                      onClick={() => handleConfig(link.code)}
+                      aria-label={`Configurar el enlace ${import.meta.env.VITE_DOMAIN + "/" + link.code}`}
                   >
                     Configurar
                   </button>
 
-                        {enlace.portfolio ? (<button
+                        {link.portfolio ? (<button
                             className="element__buttonPort"
-                            onClick={() => handlePortfolio(enlace.code)}
-                            aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
+                            onClick={() => handlePortfolio(link.code)}
+                            aria-label={`Añadir el enlace ${link.code} al portfolio`}
                         >
                             Eliminar del portfolio
                         </button>) : (<button
                             className="element__buttonPort"
-                            onClick={() => handlePortfolio(enlace.code)}
-                            aria-label={`Añadir el enlace ${enlace.code} al portfolio`}
+                            onClick={() => handlePortfolio(link.code)}
+                            aria-label={`Añadir el enlace ${link.code} al portfolio`}
                         >
                             Añadir al portfolio
                         </button>)}
