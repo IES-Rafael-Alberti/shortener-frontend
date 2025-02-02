@@ -36,6 +36,32 @@
     transition: background-color 0.5s ease, transform 0.5s ease;
   }
 
+  .home__container {
+    width: 50%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    .home__buttonG {
+      padding: 0.8% 0 0.8% 0;
+      width: 45%;
+      font-size: 2rem;
+  
+      background-color: var(--color-btn);
+      border: none;
+      border-radius: 16px;
+  
+      color: var(--color-palette-White);
+      transition: background-color 0.5s ease, transform 0.5s ease;
+    }
+
+    .home__buttonG:hover {
+      background-color: var(--color-contrast-big-btn);
+      transform: scale(1.1);
+    }
+  }
+
   .home__button:hover {
     background-color: var(--color-contrast-big-btn);
     transform: scale(1.1);

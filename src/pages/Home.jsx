@@ -112,12 +112,11 @@ const Home = () => {
             disabled={!urlInput.trim()} // Desactiva si el input está vacío
         >
             Generar link
-        </button>) : (<div
-            style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-            <button className="home__button" onClick={() => handlerComeBack()}>
+        </button>) : (<div className="home__container">
+            <button className="home__buttonG" onClick={() => handlerComeBack()}>
                 Volver al generador
             </button>
-            <button className="home__button"
+            <button className="home__buttonG"
                     onClick={async () => {
                         if (user.token) {
                             navigate(`/linkConfig/${link}`);
