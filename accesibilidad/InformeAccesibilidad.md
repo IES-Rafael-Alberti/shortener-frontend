@@ -12,6 +12,12 @@ Este informe contendrá diferentes apartados relacionados con la investigación 
     - [Objetivo](#objetivo)
     - [Análisis de Accesibilidad](#análisis-de-accesibilidad)
         - [Problemas detectados](#problemas-detectados)
+        - [Puntos a favor](#puntos-a-favor)
+    - [Deducción](#deducción)
+- [Análisis de Principios, Pautas y Niveles de Conformidad](#análisis-de-principios-pautas-y-niveles-de-conformidad)
+    - [Descripción de los principios fundamentales de la WCAG 2.1](#descripción-de-los-principios-fundamentales-de-la-wcag-21)
+    - [Nivel de conformidad objetivo](#nivel-de-conformidad-objetivo)
+    - [Ejemplos prácticos para la aplicación de las pautas](#ejemplos-prácticos-para-la-aplicación-de-las-pautas)
 # Accesibilidad Web: Importancia, Beneficios y Normativas
 
 ## Importancia del Dieseño Web Accesible
@@ -64,5 +70,33 @@ Herramientas utilizadas: WAVE, Lighthouse, Pruebas manuales.
     - **Impacto:** Los lectores de pantalla no darán la información necesaria a los usuarios con problemas de visión.
     - **Solución propuesta:** Enlazar correctamente los ARIA a los elementos del formulario.
 
-## Conclusión
+### Puntos a favor
+Respecto a las prubas manuales, todas han funcionado correctamente, la página seleccionada es completamente manejable sin usar el ratón, las imágenes tienen texto alternativo y a excepción de los botones mencionados anteriormente el contraste de la página está aprobado.
+
+## Deducción
 Este análisis ha indentificado varios errores que no se tuvieron en cuenta a la hora de la producción que afectan a la usabilidad del sitio. Implementar las soluciones permitira mejorar la experiencia de usuario y cumplir la normativa vigente.
+
+# Análisis de Principios, Pautas y Niveles de Conformidad
+## Descripción de los principios fundamentales de la WCAG 2.1
+- **Perceptible:** la información debe ser presentada de manera que los usuarios puedan percibirla, mediante texto alternativo en imágenes, subtitulos en vídeos y contenido adaptable.
+
+- **Operable:** la interfaz debe ser navegable mediante teclado, con tiempos de respuesta adecuados y sin elementos que pueden provocar crisis epilépticas.
+
+- **Comprensible:** la información y la operación de la interfaz deben ser entendibles, con navegación predecible y ayudas para evitar errores en formularios.
+
+- **Robusto:** el contenido debe ser compatible con tecnologías de asistencia y dispositivos diversos, garantizando su correcta interpretación.
+
+## Nivel de conformidad objetivo
+- **Nivel A:** requisitos mínimos para accesibilidad básica.
+- **Nivel AA:** nivel recomendado para la mayoría de los sitios web y exigido por normativas oficiales.
+- **Nivel AAA:** estándar más alto, recomendado para accesibilidad avanzada
+
+El punto a seguir es el nivel AA, ya que es el que rige la legalidad y es suficiente para cumplir los requisitos imprescidibles, mantenerse dentro de la normativa elimina riesgos a la hora de crear una web accesible.
+
+## Ejemplos prácticos para la aplicación de las pautas
+- **Uso de texto alternativo:** todas las imágenes significativas deben tener un atributo "alt" descriptivo.
+- **Navegación por teclado:** asegurar que los elementos interactivos sean accesibles mediante el tabulador y el enter sin disponer de un ratón.
+- **Contraste de color adecuado:** garantizar al menos un contraste de 4,5:1 entre el texto y el fondo.
+- **Etiquetas y descripciones en el formulario:** usar etiquetas "label" asociadas correctamente a los campos de entrada con "for" y "id".
+- **Evitar contenido que cause convulsiones:** no incluir elementos que parpadeen más de tres veces por segundo.
+- **Ofrecer alternativas a los CAPTCHA:** como preguntas de seguridad en lugar de imágenes complejas.
