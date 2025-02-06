@@ -98,14 +98,17 @@ const Home = () => {
 
     return (<main className="home">
         <h1 className="home__title">Introduzca su link</h1>
-        <input
-            type="url"
-            name="url"
-            id="url"
-            className="home__input"
-            value={urlInput} // Conecta el valor del input al estado
-            onChange={(e) => setUrlInput(e.target.value)} // Actualiza el estado al escribir
-        />
+        <label htmlFor="url" className="home__label">
+            acortador
+            <input
+                type="url"
+                name="url"
+                id="url"
+                className="home__input"
+                value={urlInput} // Conecta el valor del input al estado
+                onChange={(e) => setUrlInput(e.target.value)} // Actualiza el estado al escribir
+            />
+        </label>
         {!link ? (<button
             className="home__button"
             onClick={() => handlerGeneratelink()}

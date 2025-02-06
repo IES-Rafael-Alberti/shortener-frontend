@@ -148,7 +148,7 @@ const Login = () => {
 
     return (
         <main className='login'>
-            <h2 className='login__title'>Formulario de Inicio de Sesión</h2>
+            <h2 className='login__title' id='login-title'>Formulario de Inicio de Sesión</h2>
 
             <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
                 <fieldset className='form__fieldset'>
@@ -197,13 +197,12 @@ const Login = () => {
                     )}
 
                     <span className='fieldset__signup'>
-            <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register"
-                                                                           className='link'>Entra aquí</Link></p>
-            
-            <button type="submit" className='signup__submit' disabled={!isFormValid}>
-              Acceso
-            </button>
-          </span>
+                        <p className='signup__signupLink'>¿No tienes una cuenta? <Link to="/register" className='link'>Entra aquí</Link></p>
+                        
+                        <button type="submit" className='signup__submit' disabled={!isFormValid}>
+                            Acceso
+                        </button>
+                    </span>
 
                 </fieldset>
             </form>

@@ -168,7 +168,7 @@ const LinkPage = () => {
           </div>) : (<button
               className="qr__generateButton"
               onClick={handlerGenerateLink}
-              aria-describedby="qr-button"
+              aria-describedby="qr-description"
           >
               Generar QR
           </button>)}

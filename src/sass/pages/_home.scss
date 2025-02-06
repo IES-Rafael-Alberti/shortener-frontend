@@ -13,14 +13,18 @@
     font-weight: 300;
   }
 
-  .home__input {
+  .home__label {
+    margin-top: -1%;
+    color: var(--color-bg);
     width: 50%;
-    padding: 0.5% 1% 0.5% 1%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    border: solid 0.15rem var(--color-input-border);
-    border-radius: 16px;
-    font-size: 2rem;
+    .home__input {
+      width: 100%;
+      padding: 0.5% 1% 0.5% 1%;
+      margin-bottom: 2%;
+      border: solid 0.15rem var(--color-input-border);
+      border-radius: 16px;
+      font-size: 2rem;
+    }
   }
 
   .home__button {

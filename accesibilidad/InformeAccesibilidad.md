@@ -18,6 +18,16 @@ Este informe contendrá diferentes apartados relacionados con la investigación 
     - [Descripción de los principios fundamentales de la WCAG 2.1](#descripción-de-los-principios-fundamentales-de-la-wcag-21)
     - [Nivel de conformidad objetivo](#nivel-de-conformidad-objetivo)
     - [Ejemplos prácticos para la aplicación de las pautas](#ejemplos-prácticos-para-la-aplicación-de-las-pautas)
+- [Análisis y priorización de errores según puntos de verificación](#análisis-y-priorización-de-errores-según-puntos-de-verificación)
+    - [Errores detectados](#errores-detectados)
+    - [Mejores soluciones](#mejores-soluciones)
+- [Implementación para alcanzar el nivel deseado](#implementación-para-alcanzar-el-nivel-deseado)
+- [Verificación mediante test externos](#verificación-mediante-test-externos)
+    - [Pruebas automáticas](#pruebas-automáticas)
+    - [Pruebas manuales](#pruebas-manuales)
+###
+###
+###
 # Accesibilidad Web: Importancia, Beneficios y Normativas
 
 ## Importancia del Dieseño Web Accesible
@@ -100,3 +110,115 @@ El punto a seguir es el nivel AA, ya que es el que rige la legalidad y es sufici
 - **Etiquetas y descripciones en el formulario:** usar etiquetas "label" asociadas correctamente a los campos de entrada con "for" y "id".
 - **Evitar contenido que cause convulsiones:** no incluir elementos que parpadeen más de tres veces por segundo.
 - **Ofrecer alternativas a los CAPTCHA:** como preguntas de seguridad en lugar de imágenes complejas.
+
+# Análisis y priorización de errores según puntos de verificación
+## Errores detectados
+- Errores de contraste con botones.
+- Error de enlazado incorrecto de ARIAs en formularios.
+- Falta de creación de ARIAs necesarios.
+
+## Mejores soluciones
+Respecto al contraste, la mejor solución será comprobar combinaciones de colores similares que cumplan el criterio de accesibilidad AA de contraste para mejorar la visibilidad pero sin modificar la estética de la página.Además para solucionar los problemas de ARIA la forma correcta de solucionarlo es consultar individualmente los campos que requieran de este elemento y corregirlos o simplemente añadirlos. La solución mas sencilla es la relacionada a la falta de etiquetas descriptivas, simplemente añadirlas en lugares necesarios pero sin excederse.
+
+
+# Implementación para alcanzar el nivel deseado
+En este punto se implementarán los cambios necesarios para adecuar la web a los criterios AA de la WCAG 2.1, se plasmarán en este informe mediante capturas comparativas de ciertas partes del código, ya que mostrar todos y cada uno de los cambios sería realmente innecesario.
+
+Comenzaré con los errores mostrados anteriormente en el Header y la página del inicio de sesión.
+
+Problemas de contraste entre el texto y el color de fondo en los botones:
+
+**ANTES:**
+
+![Codigo botón header](./recursos/codigoBotonHeader.png)
+
+![Resultado botón header](./recursos/resultadoBotonHeader.png)
+
+**DESPUÉS:**
+
+![Codigo botón header Arreglado](./recursos/codigoBotonHeaderArreglado.png)
+
+![Resultado botón header](./recursos/resultadoBotonHeaderArreglado.png)
+
+En este caso el cambio es prácticamente imperceptible, ya que simplemente varía ligeramente la tonalidad del blanco del texto a una más brillante.
+
+
+A continuación se mostrará la resolución a problemas de conexión entre los ARIA
+
+**ANTES:**
+
+```HTML
+<h2 className='login__title'>Formulario de Inicio de Sesión</h2>
+
+            <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
+                <fieldset className='form__fieldset'>
+                    <legend className='visually-hidden'>Formulario de Inicio de Sesión<legend>
+```
+
+**DESPUÉS:** 
+
+```HTML
+ <h2 className='login__title' id='login-title'>Formulario de Inicio de Sesión</h2>
+
+            <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>
+                <fieldset className='form__fieldset'>
+                    <legend className='visually-hidden'>Formulario de Inicio de Sesión</legend>
+```
+
+Otro error de ARIA mal conectado:
+
+**ANTES:** 
+
+```HTML
+<section className="statistics__qr" aria-labelledby="qr-title">
+    <h2 id="qr-title" className="qr__title">Código QR</h2>
+    {qr ? (
+        <div className="qr__generated">
+            <QRCodeSVG value={import.meta.env.VITE_DOMAIN + "/" + enlace.code} size={256}/>
+        </div>) : 
+        (<button
+            className="qr__generateButton"
+            onClick={handlerGenerateLink}
+            aria-describedby="qr-description"
+        >
+            Generar QR
+        </button>)}
+    
+    {!qr && 
+    <p id="qr-description" className="qr__description">Presiona para generar un código QR para este
+        enlace</p>}
+</section>
+```
+
+**DESPUÉS:** 
+```HTML
+<section className="statistics__qr" aria-labelledby="qr-title">
+    <h2 id="qr-title" className="qr__title">Código QR</h2>
+    {qr ? (
+        <div className="qr__generated">
+            <QRCodeSVG value={import.meta.env.VITE_DOMAIN + "/" + enlace.code} size={256}/>
+        </div>) : 
+        
+        (<button
+            className="qr__generateButton"
+            onClick={handlerGenerateLink}
+            aria-describedby="qr-description"
+        >
+            Generar QR
+        </button>)}
+    
+    {!qr && 
+    <p id="qr-description" className="qr__description">Presiona para generar un código QR para este
+        enlace</p>}
+</section>
+```
+Ahora el título está vinculado al formulario que era uno de los errores mencionados anteriormente, ya que estaba incompleto.
+
+Estos son los cambios necesarios a lo largo del código, problemas sencillos de relación de campos y el contraste con los botones.
+
+# Verificación mediante test externos
+Volveré a realizar los test realizados anteriormente para comprobar que se cumplen los requisitos AA.
+
+## Pruebas automáticas
+
+## Pruebas manuales
