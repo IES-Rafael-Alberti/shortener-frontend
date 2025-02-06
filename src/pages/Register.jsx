@@ -186,7 +186,7 @@ const Register = () => {
             onBlur={handlerBlur}
             className='label__input'
             aria-invalid={errors.email ? "true" : "false"}
-            aria-describedby="email-error" 
+            //aria-describedby="email-error" 
           />
           {errors.email && <p id='email-error' className='label__error' role='alert'>{errors.email}</p>}
         </label>
@@ -202,7 +202,7 @@ const Register = () => {
             onBlur={handlerBlur}
             className='label__input'
             aria-invalid={errors.password ? "true" : "false"}
-            aria-describedby="password-error" 
+            //aria-describedby="password-error" 
           />
           {errors.password && <p id='password-error' className='label__error' role='alert'>{errors.password}</p>}
         </label>

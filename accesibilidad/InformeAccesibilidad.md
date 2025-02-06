@@ -25,8 +25,7 @@ Este informe contendrá diferentes apartados relacionados con la investigación 
 - [Verificación mediante test externos](#verificación-mediante-test-externos)
     - [Pruebas automáticas](#pruebas-automáticas)
     - [Pruebas manuales](#pruebas-manuales)
-###
-###
+- [Verificación multiplataforma](#verficación-multiplataforma)
 ###
 # Accesibilidad Web: Importancia, Beneficios y Normativas
 
@@ -220,5 +219,35 @@ Estos son los cambios necesarios a lo largo del código, problemas sencillos de 
 Volveré a realizar los test realizados anteriormente para comprobar que se cumplen los requisitos AA.
 
 ## Pruebas automáticas
+Respecto a las pruebas automáticas, esta todo en orden:
+
+Los errores en todas las capturas son siempre los 2 mismos, ya que son errores del header a la hora de interpretar el código de React.
+
+- **Home:**
+
+![Captura test](./recursos/pruebaHome.png)
+
+En este caso, el error de contraste realmente no tiene importancia, ya que es el borde de un input en el modo oscuro, que esta puesto a posta para mantener el tamaño del campo pero manteniendo la oscuridad del modo oscuro teniendolo del mismo color del fondo.
+
+-**Login:**
+
+![Captura test login](./recursos/pruebaLogin.png)
+
+-**Perfil:**
+
+![Captura test perfil](./recursos/pruebaPerfil.png)
+
+
+-**Estadísticas:**
+
+![Captura test estadisticas](./recursos/pruebaEstadisticas.png)
 
 ## Pruebas manuales
+Respecto a las pruebas manuales, el control por teclado es manejable desde el inicio del proyecto
+
+# Verficación multiplataforma
+La verificación multiplataforma se ha tenido en cuenta durante todo el proyecto al igual que el tener una aplicación responsive.
+
+La aplicación ha sido probada en Chrome, Safari, Firefox, Microsoft Edge y Opera. En todos los casos funciona de manera correcta a excepción de Safari, esta última tiene un par de problemas que tras investigar con los otros navegadores tienes que ser problema del navegador, ya que un modal en específico de nuestra página sale con un botón desproporcionado en tamaño respecto al que debería tener.
+
+A parte de esto no hay ningún problema con los navegadores ya que se han probado todos durante el desarrollo de la aplicación para evitar problemas de compatibilidad.
