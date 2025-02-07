@@ -148,6 +148,13 @@ const Login = () => {
 
     return (
         <main className='login'>
+            <Helmet>
+                <title>Inicio de Sesión | Shortener</title>
+                <meta name="description" content="Página de inicio de sesión de Shortener" />
+                <meta name="keywords" content="Acortador de enlaces, portfolio, accesibilidad web, inicioo de sesion, login" />
+                <meta property="og:title" content="Inicio de Sesión | Shortener" />
+                <meta property="og:description" content="Acortador de enlaces accesible" />
+            </Helmet>
             <h2 className='login__title' id='login-title'>Formulario de Inicio de Sesión</h2>
 
             <form className='login__form' onSubmit={handleSubmit} aria-labelledby='login-title'>

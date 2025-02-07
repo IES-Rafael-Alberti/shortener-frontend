@@ -168,6 +168,13 @@ const Register = () => {
 
   return (
     <main className='register'>
+    <Helmet>
+        <title>Registro | Shortener</title>
+        <meta name="description" content="Página de registro de Shortener" />
+        <meta name="keywords" content="Acortador de enlaces, portfolio, accesibilidad web, registro, register" />
+        <meta property="og:title" content="Registro | Shortener" />
+        <meta property="og:description" content="Acortador de enlaces accesible" />
+    </Helmet>
     <h2 className='register__title'>Formulario de Registro</h2>
     
     <form className='register__form' onSubmit={handleSubmit} aria-labelledby='register-title'>

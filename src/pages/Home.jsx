@@ -4,6 +4,7 @@ import {useState} from "react";
 import Swal from "sweetalert2";
 import verifyLink from "../utils/verifyLink.jsx";
 import {useNavigate} from "react-router";
+import { Helmet } from "react-helmet-async";
 
 /**
  * Componente principal de la página de inicio.
@@ -97,6 +98,13 @@ const Home = () => {
 
 
     return (<main className="home">
+        <Helmet>
+            <title>Inicio | Shortener</title>
+            <meta name="description" content="Descubre nuestro acortador de enlaces y disfrútalo" />
+            <meta name="keywords" content="Acortador de enlaces, portfolio, accesibilidad web" />
+            <meta property="og:title" content="Inicio | Shortener" />
+            <meta property="og:description" content="Acortador de enlaces accesible" />
+        </Helmet>
         <h1 className="home__title">Introduzca su link</h1>
         <label htmlFor="url" className="home__label">
             acortador

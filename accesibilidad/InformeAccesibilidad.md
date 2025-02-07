@@ -26,6 +26,7 @@ Este informe contendrá diferentes apartados relacionados con la investigación 
     - [Pruebas automáticas](#pruebas-automáticas)
     - [Pruebas manuales](#pruebas-manuales)
 - [Verificación multiplataforma](#verficación-multiplataforma)
+- [Análisis y estrategias para mejorar visibilidad en buscadores](#análisis-y-estrategias-para-mejorar-visibilidad-en-buscadores)
 ###
 # Accesibilidad Web: Importancia, Beneficios y Normativas
 
@@ -251,3 +252,14 @@ La verificación multiplataforma se ha tenido en cuenta durante todo el proyecto
 La aplicación ha sido probada en Chrome, Safari, Firefox, Microsoft Edge y Opera. En todos los casos funciona de manera correcta a excepción de Safari, esta última tiene un par de problemas que tras investigar con los otros navegadores tienes que ser problema del navegador, ya que un modal en específico de nuestra página sale con un botón desproporcionado en tamaño respecto al que debería tener.
 
 A parte de esto no hay ningún problema con los navegadores ya que se han probado todos durante el desarrollo de la aplicación para evitar problemas de compatibilidad.
+
+# Análisis y estrategias para mejorar visibilidad en buscadores
+- **SEO on page:** 
+    - Uso de React Helmet:
+    ![React Helmet en el Home](./recursos/ReactHelmetHome.jpg)
+
+    Este es el ejemplo del uso en el home, esta herramienta ayuda a la visibilidad en la web. Habrá más en las paginas importantes o en las que se puden acceder sin necesidad de registro como son el Inicio de Sesión y el Registro.
+
+    - React Router:
+    ![React Router](./recursos/ReactRouter.jpg)
+    Para tener rutas amigables
